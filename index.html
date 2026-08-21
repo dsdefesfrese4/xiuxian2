@@ -2342,6 +2342,137 @@ body,html{margin:0;padding:0}
   pointer-events: auto;
 }
 
+/* 效果词条：直显，不再二级折叠 */
+.xy-effect-head-flat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  margin-bottom: 2px;
+}
+
+.xy-effect-row-flat {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 2px 6px;
+  border-left: 2px solid var(--xy-jade);
+  background: var(--xy-tint-jade-faint);
+}
+
+.xy-effect-row-flat .xy-effect-row-name {
+  flex: 0 0 auto;
+  font-weight: 500;
+}
+
+.xy-effect-row-flat .xy-effect-row-desc {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* 关系大展开框：背景图默认在头部隐藏；点击头部时扩为 1:1 填满全图 */
+.xy-npc-bg-head {
+  display: none;
+}
+
+.xy-npc-head.xy-npc-bg-open {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.xy-npc-head.xy-npc-bg-open .xy-npc-bg-head {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+  z-index: 1;
+}
+
+.xy-npc-head.xy-npc-bg-open > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 大图模式：只保留左上角头像，其余 UI 全部隐藏 */
+.xy-npc-head.xy-npc-bg-open .xy-npc-info,
+.xy-npc-head.xy-npc-bg-open .xy-favor,
+.xy-npc-head.xy-npc-bg-open .xy-vis-eye,
+.xy-npc-head.xy-npc-bg-open .xy-character-refine,
+.xy-npc-head.xy-npc-bg-open .xy-npc-bg-btn,
+.xy-npc-head.xy-npc-bg-open .xy-trash,
+.xy-npc-head.xy-npc-bg-open .xy-npc-avatar-cam {
+  display: none;
+}
+
+.xy-npc-head.xy-npc-bg-open .xy-npc-avatar {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 3;
+}
+
+.xy-npc-bg-btn {
+  position: absolute;
+  top: 70px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--xy-line-gold);
+  border-radius: 50%;
+  background: var(--xy-paper);
+  color: var(--xy-gold-deep);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+  z-index: 3;
+}
+
+.xy-npc:hover .xy-npc-bg-btn,
+.xy-npc-bg-btn:focus-visible {
+  opacity: 1;
+}
+
+/* 竖屏：功法属性改为带颜色的小圆点；其余恢复原版属性图标并调整合适大小 */
+@media (max-width: 700px) {
+  .xy-art-flat-head .xy-element {
+    width: 8px;
+    height: 8px;
+    min-width: 8px;
+    max-width: 8px;
+    min-height: 8px;
+    max-height: 8px;
+    font-size: 0;
+    line-height: 1;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+
+  .xy-item-flat-toggle .xy-element,
+  .xy-unit-flat-head .xy-element,
+  .xy-npc-arts .xy-art-mini .xy-element {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    max-width: 16px;
+    min-height: 16px;
+    max-height: 16px;
+    font-size: 9px;
+    line-height: 1;
+    border-radius: 50%;
+    flex: 0 0 auto;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -7492,7 +7623,7 @@ This will fail in production.`);
       \u4F4D\u7F6E: "string" == typeof l2.\u4F4D\u7F6E && l2.\u4F4D\u7F6E && "\u50A8\u7269\u888B" !== l2.\u4F4D\u7F6E ? l2.\u4F4D\u7F6E : void 0
     };
   }
-  var t, l, a, o, r, c, s, u, f, k, V, N, E, g, x, h2, B, C, S, w, D, M, L, X, U, T, A, P, j, F, I, W, O, q, Q, R, Z, H, Y, G, K, J, ee, ne, te, le, ae, oe, re, ce, se, ie, me, de, ue, pe, fe, ye, ke, Ve, be, ve, Ne, Ee, ge, xe, he, Be, _e, Fe, Ie, We, Oe, qe, Qe, Re, Ze, He, Ye, Ge, Ke, Je, en, nn, tn, ln, an, on, rn, cn, sn, mn, dn, un, pn, fn, yn, kn, Vn, bn, vn, Nn, En, gn, xn, hn, Bn, _n, Cn, Sn, xyToggle, FavorLevels, favorLevelOf, wn, zn, Dn, Mn, Ln, $n, Xn, Un, Tn, An, Pn, jn, Fn, In, Wn, On, qn, Qn, Rn, Zn, Hn, Yn, Gn, Kn, Jn, et, nt, tt2, lt, at, ot, rt, ct, st, it, mt, dt, ut, ut2, EquipTagKeys, pt, ft, yt, kt, Vt, vt, Nt, Et, gt, xt, ht, Bt, _t, Ct, St, wt, zt, il, Dl, Ml, Ll, $l, Kl, Jl, ea, Za, Ka, Ja, eo, no, to, lo, ao, oo, ro, co, so, io, mo, uo, po, fo, yo, ko, Vo, bo, vo, No, Eo, go, xo, ho, Bo, _o, Co, So, wo, zo, Do, Mo, Lo, $o, Xo, Uo, To, Ao, Po, jo, Fo, Io, Wo, Oo, qo, Qo, Ro, Zo, Ho, Yo, Go, Ko, Jo, er, nr, tr, lr, ar, or, rr, cr, sr, ir, mr, dr, ur, pr, fr, yr, kr, Vr, br, vr, Nr, Er, gr, xr, hr, Br, _r, Cr, Sr, wr, zr, Dr, Mr, Lr, $r, Xr, Ur, Tr, Ar, Pr, jr, Fr, Ir, Wr, Or, qr, Qr, Rr, Zr, Hr, Yr, Gr, Kr, Jr, ec, nc, tc, lc, ac, oc, rc, cc, sc, ic, mc, dc, uc, pc, fc, yc, kc, Vc, bc, vc, Nc, Ec, gc, xc, hc, Bc, _c, Cc, Sc, wc, zc, Dc, Mc, Lc, $c, Xc, Uc, Tc, Ac, Pc, jc, Fc, Ic, Wc, Oc, qc, Qc, Rc, Zc, Hc, Yc, Gc, Kc, Jc, es, ns, ts, ls, as, os, rs, cs, ss, is, ms, ds, us, ps, fs, ys, ks, Vs, bs, vs, gs, xs, hs, Bs, _s, Cs, Ss, ws, zs, Ds, Ms, Ls, $s, Xs, Us, Ts, As, Ps, js, Fs, Is, Ws, Os, qs, Qs, Rs, Zs, Hs, Ys, Gs, Ks, Js, ei, ni, ti, li, ai, oi, ri, ci, ii, mi, di, ui, pi, fi, yi, ki, Vi, bi, vi, Ni, Ei, gi, xi, hi, Bi, _i, Ci, Si, wi, zi, Di, Mi, Li, $i, Xi, Ui, Ti, Ai, Pi, ji, Fi, Ii, Wi, Oi, qi, Qi, Ri, Zi, Hi, Yi, Gi, Ki, Ji, em, nm, tm, lm, am, om, rm, cm, sm, im, mm, dm, um, pm, fm, ym, km, Vm, bm, vm, Nm, Em, gm, xm, hm, Bm, _m, Cm, Sm, wm, zm, Dm, Mm, Lm, $m, Xm, Um, Tm, Am, Pm, jm, Fm, Im, Wm, Om, qm, Qm, Rm, Zm, Hm, Ym, Gm, Km, Jm, ed, nd, td, ld, ad, od, rd, cd, sd, id, md, dd, ud, pd, fd, yd, kd, Vd, bd, vd, Nd, Ed, gd, xd, hd, Bd, _d, Cd, Sd, wd, zd, Dd, Md, Ld, $d, Xd, Ud, Td, Ad, Pd, jd, Fd, Id, Wd, Od, qd, Qd, Rd, Zd, Hd, Yd, Gd, Kd, Jd, eu, nu, tu, lu, au, ou, ru, cu, su, iu, mu, du, uu, pu, fu, yu, ku, Vu, bu, vu, Nu, Eu, gu, xu, hu, Bu, _u, Cu, Su, wu, zu, Du, Mu, $u, Uu, Tu, Au, Pu, ju, Iu, Wu, Ou, qu, Qu, Ru;
+  var t, l, a, o, r, c, s, u, f, k, V, N, E, g, x, h2, B, C, S, w, D, M, L, X, U, T, A, P, j, F, I, W, O, q, Q, R, Z, H, Y, G, K, J, ee, ne, te, le, ae, oe, re, ce, se, ie, me, de, ue, pe, fe, ye, ke, Ve, be, ve, Ne, Ee, ge, xe, he, Be, _e, Fe, Ie, We, Oe, qe, Qe, Re, Ze, He, Ye, Ge, Ke, Je, en, nn, tn, ln, an, on, rn, cn, sn, mn, dn, un, pn, fn, yn, kn, Vn, bn, vn, Nn, En, gn, xn, hn, Bn, _n, Cn, Sn, xyToggle, FavorLevels, favorLevelOf, wn, zn, Dn, Mn, Ln, $n, Xn, Un, Tn, An, Pn, jn, Fn, In, Wn, On, qn, Qn, Rn, Zn, Hn, Yn, Gn, Kn, Jn, et, nt, tt2, lt, xyBgKey, xyBgDarkKey, xyBgMap, xyBgDark, xyBgGet, xyBgLuma, XYBgPick, XYBgClear, at, ot, rt, ct, st, it, mt, dt, ut, ut2, EquipTagKeys, pt, ft, yt, kt, Vt, vt, Nt, Et, gt, xt, ht, Bt, _t, Ct, St, wt, zt, il, Dl, Ml, Ll, $l, Kl, Jl, ea, Za, Ka, Ja, eo, no, to, lo, ao, oo, ro, co, so, io, mo, uo, po, fo, yo, ko, Vo, bo, vo, Eo, go, xo, ho, Bo, _o, Co, So, wo, zo, Do, Mo, Lo, $o, Xo, Uo, To, Ao, Po, jo, Fo, Io, Wo, Oo, qo, Qo, Ro, Zo, Ho, Yo, Go, Ko, Jo, er, nr, tr, lr, ar, or, rr, cr, sr, ir, mr, dr, ur, pr, fr, yr, kr, Vr, br, vr, Nr, Er, gr, xr, hr, Br, _r, Cr, Sr, wr, zr, Dr, Mr, Lr, $r, Xr, Ur, Tr, Ar, Pr, jr, Fr, Ir, Wr, Or, qr, Qr, Rr, Zr, Hr, Yr, Gr, Kr, Jr, ec, nc, tc, lc, ac, oc, rc, cc, sc, ic, mc, dc, uc, pc, fc, yc, kc, Vc, bc, vc, Nc, Ec, gc, xc, hc, Bc, _c, Cc, Sc, wc, zc, Dc, Mc, Lc, $c, Xc, Uc, Tc, Ac, Pc, jc, Fc, Ic, Wc, Oc, qc, Qc, Rc, Zc, Hc, Yc, Gc, Kc, Jc, es, ns, ts, ls, as, os, rs, cs, ss, is, ms, ds, us, ps, fs, ys, ks, Vs, bs, vs, gs, xs, hs, Bs, _s, Cs, Ss, ws, zs, Ds, Ms, Ls, $s, Xs, Us, Ts, As, Ps, js, Fs, Is, Ws, Os, qs, Qs, Rs, Zs, Hs, Ys, Gs, Ks, Js, ei, ni, ti, li, ai, oi, ri, ci, ii, mi, di, ui, pi, fi, yi, ki, Vi, bi, vi, Ni, Ei, gi, xi, hi, Bi, _i, Ci, Si, wi, zi, Di, Mi, Li, $i, Xi, Ui, Ti, Ai, Pi, ji, Fi, Ii, Wi, Oi, qi, Qi, Ri, Zi, Hi, Yi, Gi, Ki, Ji, em, nm, tm, lm, am, om, rm, cm, sm, im, mm, dm, um, pm, fm, ym, km, Vm, bm, vm, Nm, Em, gm, xm, hm, Bm, _m, Cm, Sm, wm, zm, Dm, Mm, Lm, $m, Xm, Um, Tm, Am, Pm, jm, Fm, Im, Wm, Om, qm, Qm, Rm, Zm, Hm, Ym, Gm, Km, Jm, ed, nd, td, ld, ad, od, rd, cd, sd, id, md, dd, ud, pd, fd, yd, kd, Vd, bd, vd, Nd, Ed, gd, xd, hd, Bd, _d, Cd, Sd, wd, zd, Dd, Md, Ld, $d, Xd, Ud, Td, Ad, Pd, jd, Fd, Id, Wd, Od, qd, Qd, Rd, Zd, Hd, Yd, Gd, Kd, Jd, eu, nu, tu, lu, au, ou, ru, cu, su, iu, mu, du, uu, pu, fu, yu, ku, Vu, bu, vu, Nu, Eu, gu, xu, hu, Bu, _u, Cu, Su, wu, zu, Du, Mu, $u, Uu, Tu, Au, Pu, ju, Iu, Wu, Ou, qu, Qu, Ru;
   var init_panel_module = __esm({
     "\u4FEE\u4ED9\u72B6\u6001\u680F/_panel-module.js"() {
       init_pinia();
@@ -9932,6 +10063,83 @@ This will fail in production.`);
         }
         We[e] = "";
       };
+      xyBgKey = (e) => "xy-npc-bg::" + e;
+      xyBgDarkKey = (e) => "xy-npc-bg-dark::" + e;
+      xyBgMap = (0, l.reactive)({});
+      xyBgDark = (0, l.reactive)({});
+      xyBgGet = (e) => {
+        if (!(e in xyBgMap)) {
+          try {
+            xyBgMap[e] = localStorage.getItem(xyBgKey(e)) || "";
+          } catch {
+            xyBgMap[e] = "";
+          }
+        }
+        return xyBgMap[e];
+      };
+      xyBgLuma = (dataUrl) => new Promise((res) => {
+        try {
+          const im2 = new Image();
+          im2.onload = () => {
+            try {
+              const c2 = document.createElement("canvas");
+              c2.width = 32;
+              c2.height = 32;
+              const ctx = c2.getContext("2d");
+              if (!ctx) return res(false);
+              ctx.drawImage(im2, 0, 0, 32, 32);
+              const d2 = ctx.getImageData(0, 0, 32, 32).data;
+              let sum = 0;
+              for (let k2 = 0; k2 < d2.length; k2 += 4) sum += 0.299 * d2[k2] + 0.587 * d2[k2 + 1] + 0.114 * d2[k2 + 2];
+              res(sum / (d2.length / 4) < 128);
+            } catch {
+              res(false);
+            }
+          };
+          im2.onerror = () => res(false);
+          im2.src = dataUrl;
+        } catch {
+          res(false);
+        }
+      });
+      XYBgPick = (e) => {
+        const i2 = document.createElement("input");
+        i2.type = "file";
+        i2.accept = "image/*";
+        i2.style.display = "none";
+        document.body.appendChild(i2);
+        i2.addEventListener("change", async () => {
+          var _a;
+          const f2 = (_a = i2.files) == null ? void 0 : _a[0];
+          i2.remove();
+          if (!f2 || !e) return;
+          try {
+            const d2 = await nt(f2, 1600, 0.9);
+            const dark = await xyBgLuma(d2);
+            try {
+              localStorage.setItem(xyBgKey(e), d2);
+            } catch (err) {
+              console.warn("[\u4FEE\u4ED9\u72B6\u6001\u680F] \u80CC\u666F\u56FE\u5B58\u50A8\u5931\u8D25\uFF08\u5BB9\u91CF\u4E0D\u8DB3\uFF09", err);
+            }
+            try {
+              localStorage.setItem(xyBgDarkKey(e), dark ? "1" : "0");
+            } catch {
+            }
+            xyBgMap[e] = d2;
+            xyBgDark[e] = dark;
+          } catch (e2) {
+            console.error("[\u4FEE\u4ED9\u72B6\u6001\u680F] \u80CC\u666F\u56FE\u4E0A\u4F20\u5931\u8D25", e2);
+          }
+        });
+        i2.click();
+      };
+      XYBgClear = (e) => {
+        try {
+          localStorage.removeItem(xyBgKey(e));
+        } catch {
+        }
+        xyBgMap[e] = "";
+      };
       at = (e, n, t2) => {
         Fe.confirmDelete = { kind: e, key: n, label: t2 || n };
       };
@@ -10723,11 +10931,13 @@ This will fail in production.`);
             const caret = (op) => h3("span", { class: "xy-collapse-caret" }, op ? "\u25BE" : "\u25B8");
             const nameSz = (s2) => {
               const n2 = String(s2 || "").length;
-              return n2 <= 5 ? "xy-name-row1" : n2 <= 10 ? "xy-name-row2" : "xy-name-row3";
+              const per = window.innerWidth <= 700 ? 4 : 5;
+              return n2 <= per ? "xy-name-row1" : n2 <= per * 2 ? "xy-name-row2" : "xy-name-row3";
             };
             const nameLines = (s2) => {
               const t3 = String(s2 || "");
-              const a3 = t3.match(/.{1,5}/g) || [];
+              const per = window.innerWidth <= 700 ? 4 : 5;
+              const a3 = t3.match(new RegExp(".{1," + per + "}", "g")) || [];
               return a3.join("\n");
             };
             const chipKeys = ["all"].concat(
@@ -10765,17 +10975,12 @@ This will fail in production.`);
                   h3(
                     "div",
                     { class: "xy-effect-rows" },
-                    edit ? [h3(_t, { modelValue: art.\u6548\u679C, "onUpdate:modelValue": (v2) => art.\u6548\u679C = v2 })] : Object.entries(art.\u6548\u679C || {}).map(([en2, ed2]) => {
-                      const rowOpen = !!(0, l.unref)(Fe).artOpen[name + "::\u6548\u679C::" + en2];
-                      return h3("div", { key: en2, class: ["xy-effect-row", { open: rowOpen }] }, [
-                        h3(
-                          "button",
-                          { type: "button", class: "xy-effect-row-head", onClick: (0, l.withModifiers)(() => (0, l.unref)(xyToggle)("artOpen", String(name) + "::\u6548\u679C::" + en2), ["stop"]) },
-                          [h3("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)), caret(rowOpen)]
-                        ),
-                        rowOpen ? h3("div", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2)) : null
-                      ]);
-                    })
+                    edit ? [h3(_t, { modelValue: art.\u6548\u679C, "onUpdate:modelValue": (v2) => art.\u6548\u679C = v2 })] : Object.entries(art.\u6548\u679C || {}).map(
+                      ([en2, ed2]) => h3("div", { key: en2, class: "xy-effect-row xy-effect-row-flat" }, [
+                        h3("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)),
+                        h3("span", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2))
+                      ])
+                    )
                   ),
                   [[l.vShow, effOpen]]
                 )
@@ -10813,6 +11018,7 @@ This will fail in production.`);
                           art.\u7C7B\u578B ? h3("span", { class: "xy-pill", title: art.\u7C7B\u578B }, (0, l.toDisplayString)(art.\u7C7B\u578B)) : null,
                           art.\u54C1\u8D28 ? h3("span", { class: ["xy-quality", "xy-q-" + art.\u54C1\u8D28], title: art.\u54C1\u8D28 + "\u54C1" }, (0, l.toDisplayString)(art.\u54C1\u8D28) + "\u54C1") : null,
                           art.\u5883\u754C ? h3("span", { class: "xy-pill xy-pill-soft", title: art.\u5883\u754C }, (0, l.toDisplayString)(art.\u5883\u754C)) : null,
+                          art.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(art.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === art.\u4E94\u884C ? "\u6DF7" : art.\u4E94\u884C)) : null,
                           h3(
                             "button",
                             {
@@ -10837,7 +11043,6 @@ This will fail in production.`);
                         ]),
                         showBody ? h3("div", { class: "xy-art-flat-body" }, [
                           art.\u6D88\u8017 || edit ? h3("div", { class: "xy-art-flat-meta" }, [
-                            art.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(art.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === art.\u4E94\u884C ? "\u6DF7" : art.\u4E94\u884C)) : null,
                             h3("span", { class: "xy-pill xy-pill-cost" }, ["\u8017 ", h3(xt, { modelValue: art.\u6D88\u8017, "onUpdate:modelValue": (v2) => art.\u6D88\u8017 = v2, label: "\u6D88\u8017" })])
                           ]) : null,
                           art.\u63CF\u8FF0 || edit ? h3("div", { class: "xy-art-desc" }, [h3(xt, { modelValue: art.\u63CF\u8FF0, "onUpdate:modelValue": (v2) => art.\u63CF\u8FF0 = v2, label: "\u63CF\u8FF0", multiline: "" })]) : null,
@@ -10924,17 +11129,12 @@ This will fail in production.`);
                   h3(
                     "div",
                     { class: "xy-effect-rows" },
-                    edit ? [h3(_t, { modelValue: effects, "onUpdate:modelValue": onUpdate })] : Object.entries(effects || {}).map(([en2, ed2]) => {
-                      const rowOpen = !!(0, l.unref)(Fe)[map2][name + "::\u6548\u679C::" + en2];
-                      return h3("div", { key: en2, class: ["xy-effect-row", { open: rowOpen }] }, [
-                        h3(
-                          "button",
-                          { type: "button", class: "xy-effect-row-head", onClick: (0, l.withModifiers)(() => (0, l.unref)(xyToggle)(map2, String(name) + "::\u6548\u679C::" + en2), ["stop"]) },
-                          [h3("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)), caret(rowOpen)]
-                        ),
-                        rowOpen ? h3("div", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2)) : null
-                      ]);
-                    })
+                    edit ? [h3(_t, { modelValue: effects, "onUpdate:modelValue": onUpdate })] : Object.entries(effects || {}).map(
+                      ([en2, ed2]) => h3("div", { key: en2, class: "xy-effect-row xy-effect-row-flat" }, [
+                        h3("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)),
+                        h3("span", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2))
+                      ])
+                    )
                   ),
                   [[l.vShow, effOpen]]
                 )
@@ -10961,6 +11161,7 @@ This will fail in production.`);
                         return n2 >= 1e8 ? String(Math.round(n2 / 1e8 * 100) / 100) + "\u4EBF" : n2 >= 1e4 ? String(Math.round(n2 / 1e4 * 100) / 100) + "\u4E07" : String(n2);
                       } })]),
                       it2.\u54C1\u8D28 ? h3("span", { class: ["xy-quality", "xy-q-" + it2.\u54C1\u8D28], title: it2.\u54C1\u8D28 + "\u54C1" }, (0, l.toDisplayString)(it2.\u54C1\u8D28) + "\u54C1") : null,
+                      it2.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(it2.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === it2.\u4E94\u884C ? "\u6DF7" : it2.\u4E94\u884C)) : null,
                       caret(showBody)
                     ]
                   )
@@ -10968,8 +11169,7 @@ This will fail in production.`);
                 showBody ? h3("div", { class: "xy-item-flat-body" }, [
                   h3("div", { class: "xy-item-meta" }, [
                     it2.\u7C7B\u578B ? h3("span", { class: "xy-pill", title: it2.\u7C7B\u578B }, (0, l.toDisplayString)(it2.\u7C7B\u578B)) : null,
-                    it2.\u5883\u754C ? h3("span", { class: "xy-pill xy-pill-soft", title: it2.\u5883\u754C }, (0, l.toDisplayString)(it2.\u5883\u754C)) : null,
-                    it2.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(it2.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === it2.\u4E94\u884C ? "\u6DF7" : it2.\u4E94\u884C)) : null
+                    it2.\u5883\u754C ? h3("span", { class: "xy-pill xy-pill-soft", title: it2.\u5883\u754C }, (0, l.toDisplayString)(it2.\u5883\u754C)) : null
                   ]),
                   (0, l.unref)(Bn)(it2.\u6807\u7B7E).length ? h3("div", { class: "xy-item-tags" }, (0, l.unref)(Bn)(it2.\u6807\u7B7E).map((tg, i2) => h3("span", { key: i2, class: ["xy-item-tag", "xy-item-tag-" + tg.label] }, [(0, l.toDisplayString)(tg.label) + " ", h3("b", null, (0, l.toDisplayString)(tg.value))]))) : null,
                   it2.\u63CF\u8FF0 || edit ? h3("div", { class: "xy-item-desc" }, [h3(xt, { modelValue: it2.\u63CF\u8FF0, "onUpdate:modelValue": (v2) => it2.\u63CF\u8FF0 = v2, label: "\u63CF\u8FF0", multiline: "" })]) : null,
@@ -10995,6 +11195,7 @@ This will fail in production.`);
                       h3("span", { class: ["xy-item-name", nameSz(name)] }, (0, l.toDisplayString)(nameLines(name))),
                       eq.\u4F4D\u7F6E ? h3("span", { class: "xy-item-pos" }, (0, l.toDisplayString)(eq.\u4F4D\u7F6E)) : null,
                       eq.\u54C1\u8D28 ? h3("span", { class: ["xy-quality", "xy-q-" + eq.\u54C1\u8D28], title: eq.\u54C1\u8D28 + "\u54C1" }, (0, l.toDisplayString)(eq.\u54C1\u8D28) + "\u54C1") : null,
+                      eq.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(eq.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === eq.\u4E94\u884C ? "\u6DF7" : eq.\u4E94\u884C)) : null,
                       caret(showBody)
                     ]
                   )
@@ -11003,7 +11204,6 @@ This will fail in production.`);
                   h3("div", { class: "xy-item-meta" }, [
                     eq.\u7C7B\u578B ? h3("span", { class: "xy-pill", title: eq.\u7C7B\u578B }, (0, l.toDisplayString)(eq.\u7C7B\u578B)) : null,
                     eq.\u5883\u754C ? h3("span", { class: "xy-pill xy-pill-soft", title: eq.\u5883\u754C }, (0, l.toDisplayString)(eq.\u5883\u754C)) : null,
-                    eq.\u4E94\u884C ? h3("span", { class: "xy-element xy-element-mini", style: { "--el": (0, l.unref)(sn)(eq.\u4E94\u884C) } }, (0, l.toDisplayString)("\u6DF7\u6C8C" === eq.\u4E94\u884C ? "\u6DF7" : eq.\u4E94\u884C)) : null,
                     null !== (0, l.unref)($n)(eq, "\u653B\u51FB\u529B") || edit && "\u6CD5\u5B9D" === eq.\u7C7B\u578B ? h3("span", { class: "xy-eq-stat xy-stat-atk" }, [" \u653B ", h3(xt, { "model-value": (0, l.unref)($n)(eq, "\u653B\u51FB\u529B") ?? 0, type: "number", label: "\u653B\u51FB\u529B", min: 0, "onUpdate:modelValue": (v2) => (0, l.unref)(Xn)(eq, "\u653B\u51FB\u529B", Number(v2)) })]) : null,
                     null !== (0, l.unref)($n)(eq, "\u9632\u5FA1\u529B") || edit && "\u62A4\u7532" === eq.\u7C7B\u578B ? h3("span", { class: "xy-eq-stat xy-stat-def" }, [" \u9632 ", h3(xt, { "model-value": (0, l.unref)($n)(eq, "\u9632\u5FA1\u529B") ?? 0, type: "number", label: "\u9632\u5FA1\u529B", min: 0, "onUpdate:modelValue": (v2) => (0, l.unref)(Xn)(eq, "\u9632\u5FA1\u529B", Number(v2)) })]) : null
                   ]),
@@ -11111,7 +11311,6 @@ This will fail in production.`);
       Vo = { key: 0, class: "xy-buff-stack" };
       bo = { class: "xy-buff-time" };
       vo = ["onClick"];
-      No = { class: "xy-npc-head" };
       Eo = ["onClick"];
       go = ["src", "alt"];
       xo = { key: 1, class: "xy-npc-avatar-char" };
@@ -11535,341 +11734,366 @@ This will fail in production.`);
                   onClick: (n3) => (0, l.unref)(xyNpcHead)(e3)
                 },
                 [
-                  (0, l.createElementVNode)("div", No, [
-                    (0, l.createElementVNode)(
-                      "div",
-                      {
-                        class: (0, l.normalizeClass)([
-                          "xy-npc-avatar",
-                          { active: n2.\u5728\u573A, "has-img": (0, l.unref)(Kn)(e3) }
-                        ]),
-                        onClick: (n3) => (0, l.unref)(Jn)(e3, n3)
-                      },
-                      [
-                        (0, l.unref)(Kn)(e3) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "img",
-                          { key: 0, src: (0, l.unref)(Kn)(e3), alt: String(e3), class: "xy-npc-avatar-img" },
-                          null,
-                          8,
-                          go
-                        )) : ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "span",
-                          xo,
-                          (0, l.toDisplayString)((0, l.unref)(mn)(e3)),
-                          1
-                        )),
-                        (0, l.createElementVNode)(
-                          "button",
-                          {
-                            type: "button",
-                            class: "xy-npc-avatar-cam",
-                            title: (0, l.unref)(Kn)(e3) ? "\u66F4\u6362\u5934\u50CF\uFF08\u53F3\u952E\u6E05\u9664\uFF09" : "\u4E0A\u4F20\u5934\u50CF",
-                            onClick: (0, l.withModifiers)((n3) => (0, l.unref)(et)(e3), ["stop"]),
-                            onContextmenu: (0, l.withModifiers)(
-                              (n3) => (0, l.unref)(Kn)(e3) && (0, l.unref)(lt)(e3),
-                              ["prevent", "stop"]
-                            )
-                          },
-                          [
-                            ...r2[6] || (r2[6] = [
-                              (0, l.createElementVNode)(
-                                "svg",
-                                {
-                                  viewBox: "0 0 24 24",
-                                  width: "11",
-                                  height: "11",
-                                  fill: "currentColor",
-                                  "aria-hidden": "true"
-                                },
-                                [
-                                  (0, l.createElementVNode)("path", {
-                                    d: "M9.5 4l-1.7 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3.8L14.5 4h-5zm2.5 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
-                                  })
-                                ],
-                                -1
-                              )
-                            ])
-                          ],
-                          40,
-                          ho
-                        )
-                      ],
-                      10,
-                      Eo
-                    ),
-                    (0, l.createElementVNode)("div", Bo, [
-                      (0, l.createElementVNode)("div", _o, [
-                        (0, l.createElementVNode)(
-                          "span",
-                          {
-                            class: (0, l.normalizeClass)([
-                              "xy-npc-name",
-                              `xy-npc-name--${(0, l.unref)(En)(n2)}`
-                            ])
-                          },
-                          (0, l.toDisplayString)(e3),
-                          3
-                        ),
-                        (0, l.createElementVNode)(
-                          "span",
-                          Co,
-                          (0, l.toDisplayString)(((_a = n2.\u4FEE\u70BC\u8FDB\u5EA6) == null ? void 0 : _a.\u5883\u754C) || "\u51E1\u4EBA"),
-                          1
-                        ),
-                        n2.\u5728\u573A || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "span",
-                          {
-                            key: 0,
-                            class: (0, l.normalizeClass)([
-                              "xy-npc-online",
-                              {
-                                "xy-bool-toggle": (0, l.unref)(Fe).editMode,
-                                "xy-bool-off": (0, l.unref)(Fe).editMode && !n2.\u5728\u573A
-                              }
-                            ]),
-                            title: (0, l.unref)(Fe).editMode ? "\u70B9\u51FB\u5207\u6362 \u5728\u573A" : "",
-                            onClick: (0, l.withModifiers)(
-                              (e4) => (0, l.unref)(Fe).editMode && (n2.\u5728\u573A = !n2.\u5728\u573A),
-                              ["stop"]
-                            )
-                          },
-                          "\u5728\u573A",
-                          10,
-                          So
-                        )) : (0, l.createCommentVNode)("v-if", true)
-                      ]),
-                      (0, l.createElementVNode)("div", wo, [
-                        (0, l.createElementVNode)("span", zo, (0, l.toDisplayString)(n2.\u79CD\u65CF), 1),
-                        n2.\u8EAB\u4EFD && n2.\u8EAB\u4EFD.length || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)("span", Do, "\xB7")) : (0, l.createCommentVNode)("v-if", true),
-                        (0, l.createVNode)(
-                          zt,
-                          { modelValue: n2.\u8EAB\u4EFD, "onUpdate:modelValue": (e4) => n2.\u8EAB\u4EFD = e4, label: "\u8EAB\u4EFD" },
-                          null,
-                          8,
-                          ["modelValue", "onUpdate:modelValue"]
-                        ),
-                        (0, l.createCommentVNode)(
-                          " \u5143\u9633(\u5E76\u5165\u4F53\u8D28): null\u2261\u4E0D\u5B58\u5728 \u2192 \u67E5\u770B\u6001\u4EC5\u5728\u6210\u7ACB(true/false)\u65F6\u663E\u793A;\u7F16\u8F91\u6001\u6052\u663E\u4EE5\u4FBF\u5DE6\u952E\u5FAA\u73AF "
-                        ),
-                        (0, l.unref)(Fe).editMode || null != ((_b = n2.\u4F53\u8D28) == null ? void 0 : _b.\u5143\u9633) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "span",
-                          {
-                            key: 1,
-                            class: (0, l.normalizeClass)([
-                              "xy-npc-yang",
-                              {
-                                "xy-bool-toggle": (0, l.unref)(Fe).editMode,
-                                "xy-bool-off": (0, l.unref)(Fe).editMode && false === ((_c2 = n2.\u4F53\u8D28) == null ? void 0 : _c2.\u5143\u9633),
-                                "xy-bool-null": (0, l.unref)(Fe).editMode && null == ((_d2 = n2.\u4F53\u8D28) == null ? void 0 : _d2.\u5143\u9633)
-                              }
-                            ]),
-                            title: (0, l.unref)(Fe).editMode ? `\u5143\u9633\uFF1A${(0, l.unref)(xn)((_e2 = n2.\u4F53\u8D28) == null ? void 0 : _e2.\u5143\u9633)}\uFF08\u5DE6\u952E\u5FAA\u73AF \u5C1A\u5B58\u2192\u5DF2\u635F\u2192\u65E0\uFF09` : "",
-                            onClick: (0, l.withModifiers)(
-                              (e4) => (0, l.unref)(Fe).editMode && (0, l.unref)(gn)(n2, "\u5143\u9633"),
-                              ["stop"]
-                            )
-                          },
-                          [
-                            r2[7] || (r2[7] = (0, l.createTextVNode)("\u5143\u9633", -1)),
-                            (0, l.createElementVNode)(
-                              "span",
-                              Lo,
-                              (0, l.toDisplayString)((0, l.unref)(hn)((_f = n2.\u4F53\u8D28) == null ? void 0 : _f.\u5143\u9633)),
-                              1
-                            )
-                          ],
-                          10,
-                          Mo
-                        )) : (0, l.createCommentVNode)("v-if", true),
-                        (0, l.createCommentVNode)(" \u5143\u9634: \u540C\u4E0A "),
-                        (0, l.unref)(Fe).editMode || null != ((_g = n2.\u4F53\u8D28) == null ? void 0 : _g.\u5143\u9634) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "span",
-                          {
-                            key: 2,
-                            class: (0, l.normalizeClass)([
-                              "xy-npc-yin",
-                              {
-                                "xy-bool-toggle": (0, l.unref)(Fe).editMode,
-                                "xy-bool-off": (0, l.unref)(Fe).editMode && false === ((_h = n2.\u4F53\u8D28) == null ? void 0 : _h.\u5143\u9634),
-                                "xy-bool-null": (0, l.unref)(Fe).editMode && null == ((_i2 = n2.\u4F53\u8D28) == null ? void 0 : _i2.\u5143\u9634)
-                              }
-                            ]),
-                            title: (0, l.unref)(Fe).editMode ? `\u5143\u9634\uFF1A${(0, l.unref)(xn)((_j = n2.\u4F53\u8D28) == null ? void 0 : _j.\u5143\u9634)}\uFF08\u5DE6\u952E\u5FAA\u73AF \u5C1A\u5B58\u2192\u5DF2\u635F\u2192\u65E0\uFF09` : "",
-                            onClick: (0, l.withModifiers)(
-                              (e4) => (0, l.unref)(Fe).editMode && (0, l.unref)(gn)(n2, "\u5143\u9634"),
-                              ["stop"]
-                            )
-                          },
-                          [
-                            r2[8] || (r2[8] = (0, l.createTextVNode)("\u5143\u9634", -1)),
-                            (0, l.createElementVNode)(
-                              "span",
-                              Xo,
-                              (0, l.toDisplayString)((0, l.unref)(hn)((_k = n2.\u4F53\u8D28) == null ? void 0 : _k.\u5143\u9634)),
-                              1
-                            )
-                          ],
-                          10,
-                          $o
-                        )) : (0, l.createCommentVNode)("v-if", true),
-                        n2.\u9053\u4FA3 || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)(
-                          "span",
-                          {
-                            key: 3,
-                            class: (0, l.normalizeClass)([
-                              "xy-npc-couple",
-                              {
-                                "xy-bool-toggle": (0, l.unref)(Fe).editMode,
-                                "xy-bool-off": (0, l.unref)(Fe).editMode && !n2.\u9053\u4FA3
-                              }
-                            ]),
-                            title: (0, l.unref)(Fe).editMode ? "\u70B9\u51FB\u5207\u6362 \u9053\u4FA3" : "",
-                            onClick: (0, l.withModifiers)(
-                              (e4) => (0, l.unref)(Fe).editMode && (n2.\u9053\u4FA3 = !n2.\u9053\u4FA3),
-                              ["stop"]
-                            )
-                          },
-                          "\u9053\u4FA3",
-                          10,
-                          Uo
-                        )) : (0, l.createCommentVNode)("v-if", true)
-                      ])
-                    ]),
-                    (0, l.createElementVNode)(
-                      "div",
-                      { class: (0, l.normalizeClass)(["xy-favor", (0, l.unref)(un)(n2.\u597D\u611F\u5EA6)]) },
-                      [
-                        (0, l.createElementVNode)("div", To, [
-                          (0, l.createVNode)(
-                            xt,
+                  (0, l.createElementVNode)(
+                    "div",
+                    {
+                      class: (0, l.normalizeClass)(["xy-npc-head", { "xy-npc-bg-open": !!(0, l.unref)(Fe).relationOpen[e3 + "::\u80CC\u666F\u56FE"] }]),
+                      onClick: (0, l.withModifiers)((ev) => (0, l.unref)(xyToggle)("relationOpen", String(e3) + "::\u80CC\u666F\u56FE"), ["stop"])
+                    },
+                    [
+                      (0, l.unref)(xyBgGet)(e3) ? (0, l.createElementVNode)("img", { src: (0, l.unref)(xyBgGet)(e3), alt: "\u80CC\u666F\u56FE", class: "xy-npc-bg-head" }, null, 8, ["src"]) : (0, l.createCommentVNode)("v-if", true),
+                      (0, l.createElementVNode)(
+                        "div",
+                        {
+                          class: (0, l.normalizeClass)([
+                            "xy-npc-avatar",
+                            { active: n2.\u5728\u573A, "has-img": (0, l.unref)(Kn)(e3) }
+                          ]),
+                          onClick: (n3) => (0, l.unref)(Jn)(e3, n3)
+                        },
+                        [
+                          (0, l.unref)(Kn)(e3) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "img",
+                            { key: 0, src: (0, l.unref)(Kn)(e3), alt: String(e3), class: "xy-npc-avatar-img" },
+                            null,
+                            8,
+                            go
+                          )) : ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "span",
+                            xo,
+                            (0, l.toDisplayString)((0, l.unref)(mn)(e3)),
+                            1
+                          )),
+                          (0, l.createElementVNode)(
+                            "button",
                             {
-                              modelValue: n2.\u597D\u611F\u5EA6,
-                              "onUpdate:modelValue": (e4) => n2.\u597D\u611F\u5EA6 = e4,
-                              modelModifiers: { number: true },
-                              type: "number",
-                              label: "\u597D\u611F\u5EA6",
-                              min: -100,
-                              max: 100
+                              type: "button",
+                              class: "xy-npc-avatar-cam",
+                              title: (0, l.unref)(Kn)(e3) ? "\u66F4\u6362\u5934\u50CF\uFF08\u53F3\u952E\u6E05\u9664\uFF09" : "\u4E0A\u4F20\u5934\u50CF",
+                              onClick: (0, l.withModifiers)((n3) => (0, l.unref)(et)(e3), ["stop"]),
+                              onContextmenu: (0, l.withModifiers)(
+                                (n3) => (0, l.unref)(Kn)(e3) && (0, l.unref)(lt)(e3),
+                                ["prevent", "stop"]
+                              )
                             },
+                            [
+                              ...r2[6] || (r2[6] = [
+                                (0, l.createElementVNode)(
+                                  "svg",
+                                  {
+                                    viewBox: "0 0 24 24",
+                                    width: "11",
+                                    height: "11",
+                                    fill: "currentColor",
+                                    "aria-hidden": "true"
+                                  },
+                                  [
+                                    (0, l.createElementVNode)("path", {
+                                      d: "M9.5 4l-1.7 2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3.8L14.5 4h-5zm2.5 4a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"
+                                    })
+                                  ],
+                                  -1
+                                )
+                              ])
+                            ],
+                            40,
+                            ho
+                          )
+                        ],
+                        10,
+                        Eo
+                      ),
+                      (0, l.createElementVNode)("div", Bo, [
+                        (0, l.createElementVNode)("div", _o, [
+                          (0, l.createElementVNode)(
+                            "span",
+                            {
+                              class: (0, l.normalizeClass)([
+                                "xy-npc-name",
+                                `xy-npc-name--${(0, l.unref)(En)(n2)}`
+                              ])
+                            },
+                            (0, l.toDisplayString)(e3),
+                            3
+                          ),
+                          (0, l.createElementVNode)(
+                            "span",
+                            Co,
+                            (0, l.toDisplayString)(((_a = n2.\u4FEE\u70BC\u8FDB\u5EA6) == null ? void 0 : _a.\u5883\u754C) || "\u51E1\u4EBA"),
+                            1
+                          ),
+                          n2.\u5728\u573A || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "span",
+                            {
+                              key: 0,
+                              class: (0, l.normalizeClass)([
+                                "xy-npc-online",
+                                {
+                                  "xy-bool-toggle": (0, l.unref)(Fe).editMode,
+                                  "xy-bool-off": (0, l.unref)(Fe).editMode && !n2.\u5728\u573A
+                                }
+                              ]),
+                              title: (0, l.unref)(Fe).editMode ? "\u70B9\u51FB\u5207\u6362 \u5728\u573A" : "",
+                              onClick: (0, l.withModifiers)(
+                                (e4) => (0, l.unref)(Fe).editMode && (n2.\u5728\u573A = !n2.\u5728\u573A),
+                                ["stop"]
+                              )
+                            },
+                            "\u5728\u573A",
+                            10,
+                            So
+                          )) : (0, l.createCommentVNode)("v-if", true)
+                        ]),
+                        (0, l.createElementVNode)("div", wo, [
+                          (0, l.createElementVNode)("span", zo, (0, l.toDisplayString)(n2.\u79CD\u65CF), 1),
+                          n2.\u8EAB\u4EFD && n2.\u8EAB\u4EFD.length || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)("span", Do, "\xB7")) : (0, l.createCommentVNode)("v-if", true),
+                          (0, l.createVNode)(
+                            zt,
+                            { modelValue: n2.\u8EAB\u4EFD, "onUpdate:modelValue": (e4) => n2.\u8EAB\u4EFD = e4, label: "\u8EAB\u4EFD" },
                             null,
                             8,
                             ["modelValue", "onUpdate:modelValue"]
-                          )
-                        ]),
-                        (0, l.createElementVNode)(
-                          "div",
-                          Ao,
-                          (0, l.toDisplayString)((0, l.unref)(dn)(n2.\u597D\u611F\u5EA6)),
-                          1
-                        )
-                      ],
-                      2
-                    ),
-                    (0, l.createElementVNode)(
-                      "button",
-                      {
-                        type: "button",
-                        class: "xy-trash xy-trash-npc",
-                        title: "\u5220\u9664\u6B64 NPC",
-                        onClick: (0, l.withModifiers)((n3) => (0, l.unref)(at)("npc", e3, e3), ["stop"])
-                      },
-                      [
-                        ...r2[9] || (r2[9] = [
-                          (0, l.createElementVNode)(
-                            "svg",
+                          ),
+                          (0, l.createCommentVNode)(
+                            " \u5143\u9633(\u5E76\u5165\u4F53\u8D28): null\u2261\u4E0D\u5B58\u5728 \u2192 \u67E5\u770B\u6001\u4EC5\u5728\u6210\u7ACB(true/false)\u65F6\u663E\u793A;\u7F16\u8F91\u6001\u6052\u663E\u4EE5\u4FBF\u5DE6\u952E\u5FAA\u73AF "
+                          ),
+                          (0, l.unref)(Fe).editMode || null != ((_b = n2.\u4F53\u8D28) == null ? void 0 : _b.\u5143\u9633) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "span",
                             {
-                              viewBox: "0 0 24 24",
-                              width: "11",
-                              height: "11",
-                              fill: "currentColor",
-                              "aria-hidden": "true"
+                              key: 1,
+                              class: (0, l.normalizeClass)([
+                                "xy-npc-yang",
+                                {
+                                  "xy-bool-toggle": (0, l.unref)(Fe).editMode,
+                                  "xy-bool-off": (0, l.unref)(Fe).editMode && false === ((_c2 = n2.\u4F53\u8D28) == null ? void 0 : _c2.\u5143\u9633),
+                                  "xy-bool-null": (0, l.unref)(Fe).editMode && null == ((_d2 = n2.\u4F53\u8D28) == null ? void 0 : _d2.\u5143\u9633)
+                                }
+                              ]),
+                              title: (0, l.unref)(Fe).editMode ? `\u5143\u9633\uFF1A${(0, l.unref)(xn)((_e2 = n2.\u4F53\u8D28) == null ? void 0 : _e2.\u5143\u9633)}\uFF08\u5DE6\u952E\u5FAA\u73AF \u5C1A\u5B58\u2192\u5DF2\u635F\u2192\u65E0\uFF09` : "",
+                              onClick: (0, l.withModifiers)(
+                                (e4) => (0, l.unref)(Fe).editMode && (0, l.unref)(gn)(n2, "\u5143\u9633"),
+                                ["stop"]
+                              )
                             },
                             [
-                              (0, l.createElementVNode)("path", {
-                                d: "M9 3v1H4v2h16V4h-5V3H9zM6 8l1 13h10l1-13H6zm3 2h2v9H9v-9zm4 0h2v9h-2v-9z"
-                              })
+                              r2[7] || (r2[7] = (0, l.createTextVNode)("\u5143\u9633", -1)),
+                              (0, l.createElementVNode)(
+                                "span",
+                                Lo,
+                                (0, l.toDisplayString)((0, l.unref)(hn)((_f = n2.\u4F53\u8D28) == null ? void 0 : _f.\u5143\u9633)),
+                                1
+                              )
                             ],
-                            -1
-                          )
+                            10,
+                            Mo
+                          )) : (0, l.createCommentVNode)("v-if", true),
+                          (0, l.createCommentVNode)(" \u5143\u9634: \u540C\u4E0A "),
+                          (0, l.unref)(Fe).editMode || null != ((_g = n2.\u4F53\u8D28) == null ? void 0 : _g.\u5143\u9634) ? ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "span",
+                            {
+                              key: 2,
+                              class: (0, l.normalizeClass)([
+                                "xy-npc-yin",
+                                {
+                                  "xy-bool-toggle": (0, l.unref)(Fe).editMode,
+                                  "xy-bool-off": (0, l.unref)(Fe).editMode && false === ((_h = n2.\u4F53\u8D28) == null ? void 0 : _h.\u5143\u9634),
+                                  "xy-bool-null": (0, l.unref)(Fe).editMode && null == ((_i2 = n2.\u4F53\u8D28) == null ? void 0 : _i2.\u5143\u9634)
+                                }
+                              ]),
+                              title: (0, l.unref)(Fe).editMode ? `\u5143\u9634\uFF1A${(0, l.unref)(xn)((_j = n2.\u4F53\u8D28) == null ? void 0 : _j.\u5143\u9634)}\uFF08\u5DE6\u952E\u5FAA\u73AF \u5C1A\u5B58\u2192\u5DF2\u635F\u2192\u65E0\uFF09` : "",
+                              onClick: (0, l.withModifiers)(
+                                (e4) => (0, l.unref)(Fe).editMode && (0, l.unref)(gn)(n2, "\u5143\u9634"),
+                                ["stop"]
+                              )
+                            },
+                            [
+                              r2[8] || (r2[8] = (0, l.createTextVNode)("\u5143\u9634", -1)),
+                              (0, l.createElementVNode)(
+                                "span",
+                                Xo,
+                                (0, l.toDisplayString)((0, l.unref)(hn)((_k = n2.\u4F53\u8D28) == null ? void 0 : _k.\u5143\u9634)),
+                                1
+                              )
+                            ],
+                            10,
+                            $o
+                          )) : (0, l.createCommentVNode)("v-if", true),
+                          n2.\u9053\u4FA3 || (0, l.unref)(Fe).editMode ? ((0, l.openBlock)(), (0, l.createElementBlock)(
+                            "span",
+                            {
+                              key: 3,
+                              class: (0, l.normalizeClass)([
+                                "xy-npc-couple",
+                                {
+                                  "xy-bool-toggle": (0, l.unref)(Fe).editMode,
+                                  "xy-bool-off": (0, l.unref)(Fe).editMode && !n2.\u9053\u4FA3
+                                }
+                              ]),
+                              title: (0, l.unref)(Fe).editMode ? "\u70B9\u51FB\u5207\u6362 \u9053\u4FA3" : "",
+                              onClick: (0, l.withModifiers)(
+                                (e4) => (0, l.unref)(Fe).editMode && (n2.\u9053\u4FA3 = !n2.\u9053\u4FA3),
+                                ["stop"]
+                              )
+                            },
+                            "\u9053\u4FA3",
+                            10,
+                            Uo
+                          )) : (0, l.createCommentVNode)("v-if", true)
                         ])
-                      ],
-                      8,
-                      Po
-                    ),
-                    (0, l.createCommentVNode)(" \u7EC6\u8282\u53EF\u89C1\u5F00\u5173\uFF1A\u53F3\u4FA7\u3001\u5783\u573E\u6876\u6B63\u4E0B\u65B9\u7684\u5C0F\u5706\uFF1B\u60AC\u505C\u5373\u663E\u529F\u80FD\u8BF4\u660E "),
-                    (0, l.createElementVNode)(
-                      "button",
-                      {
-                        type: "button",
-                        class: (0, l.normalizeClass)(["xy-vis-eye", { "xy-vis-off": false === n2.\u7EC6\u8282\u53EF\u89C1 }]),
-                        title: false === n2.\u7EC6\u8282\u53EF\u89C1 ? "\u7EC6\u8282\u5DF2\u9690\u85CF\uFF1A\u8BE5\u4EBA\u7269\u7684\u7269\u54C1/\u529F\u6CD5/\u88C5\u5907/\u5080\u5121/\u7075\u517D\u4E0D\u53D1\u9001\u7ED9 AI\uFF08\u524D\u7AEF\u6B64\u5904\u4ECD\u53EF\u67E5\u770B\uFF09\xB7 \u70B9\u51FB\u6062\u590D" : "\u7EC6\u8282\u53EF\u89C1\uFF1A\u8BE5\u4EBA\u7269\u7684\u7269\u54C1/\u529F\u6CD5/\u88C5\u5907/\u5080\u5121/\u7075\u517D\u4F1A\u53D1\u9001\u7ED9 AI \xB7 \u70B9\u51FB\u9690\u85CF\uFF08\u5173\u95ED\u540E AI \u6536\u4E0D\u5230\u8FD9\u4E9B\u7EC6\u8282\uFF0C\u53EF\u7701\u7BC7\u5E45/\u907F\u514D\u8FC7\u65E9\u66B4\u9732\uFF09",
-                        onClick: (0, l.withModifiers)(
-                          (e4) => function(e5) {
-                            e5.\u7EC6\u8282\u53EF\u89C1 = false === e5.\u7EC6\u8282\u53EF\u89C1;
-                          }(n2),
-                          ["stop"]
-                        )
-                      },
-                      [
-                        false !== n2.\u7EC6\u8282\u53EF\u89C1 ? ((0, l.openBlock)(), (0, l.createElementBlock)("svg", Fo, [
-                          ...r2[10] || (r2[10] = [
-                            (0, l.createElementVNode)(
-                              "path",
+                      ]),
+                      (0, l.createElementVNode)(
+                        "div",
+                        { class: (0, l.normalizeClass)(["xy-favor", (0, l.unref)(un)(n2.\u597D\u611F\u5EA6)]) },
+                        [
+                          (0, l.createElementVNode)("div", To, [
+                            (0, l.createVNode)(
+                              xt,
                               {
-                                d: "M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                                modelValue: n2.\u597D\u611F\u5EA6,
+                                "onUpdate:modelValue": (e4) => n2.\u597D\u611F\u5EA6 = e4,
+                                modelModifiers: { number: true },
+                                type: "number",
+                                label: "\u597D\u611F\u5EA6",
+                                min: -100,
+                                max: 100
                               },
                               null,
+                              8,
+                              ["modelValue", "onUpdate:modelValue"]
+                            )
+                          ]),
+                          (0, l.createElementVNode)(
+                            "div",
+                            Ao,
+                            (0, l.toDisplayString)((0, l.unref)(dn)(n2.\u597D\u611F\u5EA6)),
+                            1
+                          )
+                        ],
+                        2
+                      ),
+                      (0, l.createElementVNode)(
+                        "button",
+                        {
+                          type: "button",
+                          class: "xy-trash xy-trash-npc",
+                          title: "\u5220\u9664\u6B64 NPC",
+                          onClick: (0, l.withModifiers)((n3) => (0, l.unref)(at)("npc", e3, e3), ["stop"])
+                        },
+                        [
+                          ...r2[9] || (r2[9] = [
+                            (0, l.createElementVNode)(
+                              "svg",
+                              {
+                                viewBox: "0 0 24 24",
+                                width: "11",
+                                height: "11",
+                                fill: "currentColor",
+                                "aria-hidden": "true"
+                              },
+                              [
+                                (0, l.createElementVNode)("path", {
+                                  d: "M9 3v1H4v2h16V4h-5V3H9zM6 8l1 13h10l1-13H6zm3 2h2v9H9v-9zm4 0h2v9h-2v-9z"
+                                })
+                              ],
                               -1
                             )
                           ])
-                        ])) : ((0, l.openBlock)(), (0, l.createElementBlock)("svg", Io, [
-                          ...r2[11] || (r2[11] = [
+                        ],
+                        8,
+                        Po
+                      ),
+                      (0, l.createCommentVNode)(" \u7EC6\u8282\u53EF\u89C1\u5F00\u5173\uFF1A\u53F3\u4FA7\u3001\u5783\u573E\u6876\u6B63\u4E0B\u65B9\u7684\u5C0F\u5706\uFF1B\u60AC\u505C\u5373\u663E\u529F\u80FD\u8BF4\u660E "),
+                      (0, l.createElementVNode)(
+                        "button",
+                        {
+                          type: "button",
+                          class: (0, l.normalizeClass)(["xy-vis-eye", { "xy-vis-off": false === n2.\u7EC6\u8282\u53EF\u89C1 }]),
+                          title: false === n2.\u7EC6\u8282\u53EF\u89C1 ? "\u7EC6\u8282\u5DF2\u9690\u85CF\uFF1A\u8BE5\u4EBA\u7269\u7684\u7269\u54C1/\u529F\u6CD5/\u88C5\u5907/\u5080\u5121/\u7075\u517D\u4E0D\u53D1\u9001\u7ED9 AI\uFF08\u524D\u7AEF\u6B64\u5904\u4ECD\u53EF\u67E5\u770B\uFF09\xB7 \u70B9\u51FB\u6062\u590D" : "\u7EC6\u8282\u53EF\u89C1\uFF1A\u8BE5\u4EBA\u7269\u7684\u7269\u54C1/\u529F\u6CD5/\u88C5\u5907/\u5080\u5121/\u7075\u517D\u4F1A\u53D1\u9001\u7ED9 AI \xB7 \u70B9\u51FB\u9690\u85CF\uFF08\u5173\u95ED\u540E AI \u6536\u4E0D\u5230\u8FD9\u4E9B\u7EC6\u8282\uFF0C\u53EF\u7701\u7BC7\u5E45/\u907F\u514D\u8FC7\u65E9\u66B4\u9732\uFF09",
+                          onClick: (0, l.withModifiers)(
+                            (e4) => function(e5) {
+                              e5.\u7EC6\u8282\u53EF\u89C1 = false === e5.\u7EC6\u8282\u53EF\u89C1;
+                            }(n2),
+                            ["stop"]
+                          )
+                        },
+                        [
+                          false !== n2.\u7EC6\u8282\u53EF\u89C1 ? ((0, l.openBlock)(), (0, l.createElementBlock)("svg", Fo, [
+                            ...r2[10] || (r2[10] = [
+                              (0, l.createElementVNode)(
+                                "path",
+                                {
+                                  d: "M12 5c-5 0-9 4.5-10 7 1 2.5 5 7 10 7s9-4.5 10-7c-1-2.5-5-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                                },
+                                null,
+                                -1
+                              )
+                            ])
+                          ])) : ((0, l.openBlock)(), (0, l.createElementBlock)("svg", Io, [
+                            ...r2[11] || (r2[11] = [
+                              (0, l.createElementVNode)(
+                                "path",
+                                {
+                                  d: "M2 4.27L3.28 3l17.72 17.72-1.27 1.28-3.11-3.11A11.9 11.9 0 0 1 12 19c-5 0-9-4.5-10-7a13.2 13.2 0 0 1 3.62-4.35L2 4.27zM12 8a4 4 0 0 1 4 4c0 .5-.1.97-.27 1.4l-5.13-5.13A3.9 3.9 0 0 1 12 8zm0-3c5 0 9 4.5 10 7a13.3 13.3 0 0 1-2.16 2.98l-2.9-2.9A4 4 0 0 0 12 8c-.4 0-.79.06-1.15.17L8.6 5.92C9.66 5.32 10.8 5 12 5z"
+                                },
+                                null,
+                                -1
+                              )
+                            ])
+                          ]))
+                        ],
+                        10,
+                        jo
+                      ),
+                      (0, l.createElementVNode)(
+                        "button",
+                        {
+                          type: "button",
+                          class: "xy-character-refine",
+                          title: "\u4EBA\u7269\u7EC6\u5316\uFF1A\u7528\u5F53\u524D\u4E16\u754C\u4E66\u548C\u4EBA\u7269\u53D8\u91CF\u751F\u6210\u7EC6\u5316\u4FE1\u606F\u6216\u72EC\u7ACB\u4E16\u754C\u4E66\u6761\u76EE",
+                          onClick: (0, l.withModifiers)((n3) => (0, l.unref)(jn)(String(e3)), ["stop"])
+                        },
+                        [
+                          ...r2[12] || (r2[12] = [
                             (0, l.createElementVNode)(
-                              "path",
+                              "svg",
                               {
-                                d: "M2 4.27L3.28 3l17.72 17.72-1.27 1.28-3.11-3.11A11.9 11.9 0 0 1 12 19c-5 0-9-4.5-10-7a13.2 13.2 0 0 1 3.62-4.35L2 4.27zM12 8a4 4 0 0 1 4 4c0 .5-.1.97-.27 1.4l-5.13-5.13A3.9 3.9 0 0 1 12 8zm0-3c5 0 9 4.5 10 7a13.3 13.3 0 0 1-2.16 2.98l-2.9-2.9A4 4 0 0 0 12 8c-.4 0-.79.06-1.15.17L8.6 5.92C9.66 5.32 10.8 5 12 5z"
+                                viewBox: "0 0 24 24",
+                                width: "12",
+                                height: "12",
+                                fill: "currentColor",
+                                "aria-hidden": "true"
                               },
-                              null,
+                              [
+                                (0, l.createElementVNode)("path", {
+                                  d: "m15.5 2 .95 2.55L19 5.5l-2.55.95L15.5 9l-.95-2.55L12 5.5l2.55-.95L15.5 2ZM6.9 7.1l1.45 3.9 3.9 1.45-3.9 1.45-1.45 3.9L5.45 13.9l-3.9-1.45 3.9-1.45L6.9 7.1Zm10.47 5.4 1.02 2.73 2.73 1.02-2.73 1.02-1.02 2.73-1.02-2.73-2.73-1.02 2.73-1.02 1.02-2.73Z"
+                                })
+                              ],
                               -1
                             )
                           ])
-                        ]))
-                      ],
-                      10,
-                      jo
-                    ),
-                    (0, l.createElementVNode)(
-                      "button",
-                      {
-                        type: "button",
-                        class: "xy-character-refine",
-                        title: "\u4EBA\u7269\u7EC6\u5316\uFF1A\u7528\u5F53\u524D\u4E16\u754C\u4E66\u548C\u4EBA\u7269\u53D8\u91CF\u751F\u6210\u7EC6\u5316\u4FE1\u606F\u6216\u72EC\u7ACB\u4E16\u754C\u4E66\u6761\u76EE",
-                        onClick: (0, l.withModifiers)((n3) => (0, l.unref)(jn)(String(e3)), ["stop"])
-                      },
-                      [
-                        ...r2[12] || (r2[12] = [
-                          (0, l.createElementVNode)(
-                            "svg",
-                            {
-                              viewBox: "0 0 24 24",
-                              width: "12",
-                              height: "12",
-                              fill: "currentColor",
-                              "aria-hidden": "true"
-                            },
-                            [
-                              (0, l.createElementVNode)("path", {
-                                d: "m15.5 2 .95 2.55L19 5.5l-2.55.95L15.5 9l-.95-2.55L12 5.5l2.55-.95L15.5 2ZM6.9 7.1l1.45 3.9 3.9 1.45-3.9 1.45-1.45 3.9L5.45 13.9l-3.9-1.45 3.9-1.45L6.9 7.1Zm10.47 5.4 1.02 2.73 2.73 1.02-2.73 1.02-1.02 2.73-1.02-2.73-2.73-1.02 2.73-1.02 1.02-2.73Z"
-                              })
-                            ],
-                            -1
-                          )
-                        ])
-                      ],
-                      8,
-                      Wo
-                    )
-                  ]),
+                        ],
+                        8,
+                        Wo
+                      ),
+                      (0, l.createElementVNode)(
+                        "button",
+                        {
+                          type: "button",
+                          class: "xy-npc-bg-btn",
+                          title: (0, l.unref)(xyBgGet)(e3) ? "\u66F4\u6362\u80CC\u666F\u56FE\uFF08\u53F3\u952E\u6E05\u9664\uFF09" : "\u4E0A\u4F20\u80CC\u666F\u56FE",
+                          onClick: (0, l.withModifiers)((ev) => (0, l.unref)(XYBgPick)(e3), ["stop"]),
+                          onContextmenu: (0, l.withModifiers)((ev) => (0, l.unref)(XYBgClear)(e3), ["prevent", "stop"])
+                        },
+                        [
+                          (0, l.createElementVNode)("svg", { viewBox: "0 0 24 24", width: "12", height: "12", fill: "currentColor", "aria-hidden": "true" }, [
+                            (0, l.createElementVNode)("path", { d: "M8.5 13.5l2.5 3 3.5-4.5 4 5H5.5l3-3.5zm-3-7A2.5 2.5 0 1 1 5 6.5 2.5 2.5 0 0 1 5.5 6.5zM4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm0 2v12h16V6H4z" })
+                          ])
+                        ]
+                      )
+                    ],
+                    8,
+                    ["class", "onClick"]
+                  ),
                   (0, l.unref)(Fe).openedNPC === e3 && (0, l.unref)(Fe).npcStage[e3] === 2 ? ((0, l.openBlock)(), (0, l.createElementBlock)(
                     "div",
                     {
@@ -18311,16 +18535,12 @@ ${G2()}`,
                                                                       l.h("span", { class: "xy-collapse-caret" }, (0, l.unref)(Fe).recipeOpen[e4.name + "::\u6548\u679C"] ? "\u25BE" : "\u25B8")
                                                                     ]),
                                                                     (0, l.withDirectives)(
-                                                                      l.h("div", { class: "xy-effect-rows" }, Object.entries(e4.it.\u6548\u679C || {}).map(([en2, ed2]) => {
-                                                                        const rowOpen = !!(0, l.unref)(Fe).recipeOpen[e4.name + "::\u6548\u679C::" + en2];
-                                                                        return l.h("div", { key: en2, class: ["xy-effect-row", { open: rowOpen }] }, [
-                                                                          l.h("button", { type: "button", class: "xy-effect-row-head", onClick: (0, l.withModifiers)(() => (0, l.unref)(xyToggle)("recipeOpen", String(e4.name) + "::\u6548\u679C::" + en2), ["stop"]) }, [
-                                                                            l.h("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)),
-                                                                            l.h("span", { class: "xy-collapse-caret" }, rowOpen ? "\u25BE" : "\u25B8")
-                                                                          ]),
-                                                                          rowOpen ? l.h("div", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2)) : null
-                                                                        ]);
-                                                                      })),
+                                                                      l.h("div", { class: "xy-effect-rows" }, Object.entries(e4.it.\u6548\u679C || {}).map(
+                                                                        ([en2, ed2]) => l.h("div", { key: en2, class: "xy-effect-row xy-effect-row-flat" }, [
+                                                                          l.h("span", { class: "xy-effect-row-name" }, (0, l.toDisplayString)(en2)),
+                                                                          l.h("span", { class: "xy-effect-row-desc" }, (0, l.toDisplayString)(ed2))
+                                                                        ])
+                                                                      )),
                                                                       [[l.vShow, !!(0, l.unref)(Fe).recipeOpen[e4.name + "::\u6548\u679C"]]]
                                                                     )
                                                                   ])

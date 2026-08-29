@@ -186,6 +186,27 @@ body,html{margin:0;padding:0}
   gap: 6px;
 }
 
+/* 分类条横滑：储物分类与表头分类任何宽度都不换行，滚轮可横向滚动（隐藏滚动条） */
+.xy-storage-tabs,
+.xy-rumor-filter,
+.xy-rel-chips,
+.xy-asset-chips,
+.xy-filter-drill,
+.xy-tabs {
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.xy-storage-tabs::-webkit-scrollbar,
+.xy-rumor-filter::-webkit-scrollbar,
+.xy-rel-chips::-webkit-scrollbar,
+.xy-asset-chips::-webkit-scrollbar,
+.xy-filter-drill::-webkit-scrollbar,
+.xy-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 /* 宽屏：头部单行横向排列，名字文字超出时在框内换行 */
 @media (min-width: 701px) {
   .xy-art-flat-head,
@@ -10658,6 +10679,7 @@ This will fail in production.`);
             };
             const peopleFold = (name, asst) => {
               const pOpen = !!(0, a.unref)(We).assetOpen[name + "::\u4EBA\u7269"];
+              const people = (asst == null ? void 0 : asst.\u5206\u914D\u4EBA\u7269) ?? (asst == null ? void 0 : asst.\u6240\u5C5E\u4EBA\u7269) ?? [];
               return h3("div", { class: "xy-people-fold" }, [
                 h3(
                   "button",
@@ -10666,11 +10688,11 @@ This will fail in production.`);
                     class: ["xy-collapse-head xy-collapse-sub", { open: pOpen }],
                     onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("assetOpen", String(name) + "::\u4EBA\u7269"), ["stop"])
                   },
-                  [h3("span", { class: "xy-collapse-title" }, "\u6240\u5C5E\u4EBA\u7269"), h3("span", { class: "xy-collapse-count" }, (0, a.toDisplayString)(((asst == null ? void 0 : asst.\u6240\u5C5E\u4EBA\u7269) || []).length)), caret(pOpen)]
+                  [h3("span", { class: "xy-collapse-title" }, "\u5206\u914D\u4EBA\u7269"), h3("span", { class: "xy-collapse-count" }, (0, a.toDisplayString)(people.length)), caret(pOpen)]
                 ),
                 (0, a.withDirectives)(
                   h3("div", { class: "xy-people-body" }, [
-                    edit ? h3(Ut, { modelValue: (asst == null ? void 0 : asst.\u6240\u5C5E\u4EBA\u7269) || [], "onUpdate:modelValue": (v2) => asst.\u6240\u5C5E\u4EBA\u7269 = v2, label: "\u6240\u5C5E\u4EBA\u7269" }) : ((asst == null ? void 0 : asst.\u6240\u5C5E\u4EBA\u7269) || []).length ? h3("span", { class: "xy-idtags" }, (asst.\u6240\u5C5E\u4EBA\u7269 || []).map((nm2) => h3("span", { key: nm2, class: "xy-idtag" }, (0, a.toDisplayString)(nm2)))) : h3("span", { class: "xy-asset-empty" }, "\u6682\u65E0")
+                    edit ? h3(Ut, { modelValue: people, "onUpdate:modelValue": (v2) => asst.\u5206\u914D\u4EBA\u7269 = v2, label: "\u5206\u914D\u4EBA\u7269" }) : people.length ? h3("span", { class: "xy-idtags" }, people.map((nm2) => h3("span", { key: nm2, class: "xy-idtag" }, (0, a.toDisplayString)(nm2)))) : h3("span", { class: "xy-asset-empty" }, "\u6682\u65E0")
                   ]),
                   [[a.vShow, pOpen]]
                 )
@@ -17750,6 +17772,20 @@ ${G2()}`,
         window.addEventListener("orientationchange", xyMapApply);
         window.addEventListener("resize", xyMapApply);
         setInterval(xyMapApply, 400);
+      })();
+      (function() {
+        if ("undefined" == typeof document || !document.addEventListener) return;
+        var SEL = ".xy-tabs, .xy-storage-tabs, .xy-rumor-filter, .xy-rel-chips, .xy-asset-chips, .xy-filter-drill";
+        document.addEventListener("wheel", function(ev) {
+          var t2 = ev.target;
+          if (!t2 || !t2.closest) return;
+          var el = t2.closest(SEL);
+          if (!el || el.scrollWidth <= el.clientWidth) return;
+          var dy = ev.deltaY;
+          if (!isFinite(dy) || Math.abs(dy) < 1) return;
+          ev.preventDefault();
+          el.scrollLeft += dy;
+        }, { passive: false });
       })();
     }
   });

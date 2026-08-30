@@ -11763,7 +11763,11 @@ This will fail in production.`);
             const bgTick = (0, a.unref)(We).bgTick;
             const allRel = (0, a.unref)(n).data.\u5173\u7CFB\u5217\u8868 || {};
             const filter = (0, a.unref)(We).relationFilter;
+            const xyNpcCloseOthers = (nm2) => {
+              for (const it2 of Nt.value) if (it2.name !== nm2) (0, a.unref)(We).npcStage[it2.name] = 0;
+            };
             const xyNpcBox = (nm2) => {
+              (0, a.unref)(xyNpcCloseOthers)(nm2);
               (0, a.unref)(We).npcStage[nm2] = 2;
               (0, a.unref)(We).openedNPC = nm2;
             };
@@ -11773,6 +11777,7 @@ This will fail in production.`);
                 (0, a.unref)(We).npcStage[nm2] = 0;
                 (0, a.unref)(We).openedNPC = null;
               } else {
+                (0, a.unref)(xyNpcCloseOthers)(nm2);
                 (0, a.unref)(We).npcStage[nm2] = 2;
                 (0, a.unref)(We).openedNPC = nm2;
               }

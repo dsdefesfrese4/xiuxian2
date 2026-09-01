@@ -17352,7 +17352,7 @@ ${G2()}`,
                                                     class: (0, a.normalizeClass)([
                                                       "xy-skill",
                                                       {
-                                                        open: (0, a.unref)(We).skillRecipeOpen[String(o3)] && (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length,
+                                                        open: (0, a.unref)(We).skillRecipeOpen[String(o3)],
                                                         "has-recipes": (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length
                                                       }
                                                     ])
@@ -17363,10 +17363,9 @@ ${G2()}`,
                                                       {
                                                         type: "button",
                                                         class: "xy-skill-toggle",
-                                                        title: (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length ? "\u70B9\u51FB\u5C55\u5F00 " + o3 + " \u914D\u65B9" : o3 + " \u6682\u65E0\u914D\u65B9",
-                                                        "aria-expanded": (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length ? Boolean((0, a.unref)(We).skillRecipeOpen[String(o3)]) : void 0,
-                                                        "aria-disabled": !(0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length,
-                                                        onClick: (e4) => (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(o3)).length && (0, a.unref)(Ln)(String(o3))
+                                                        title: (0, a.unref)(We).skillRecipeOpen[String(o3)] ? "\u70B9\u51FB\u6536\u8D77 " + o3 : "\u70B9\u51FB\u5C55\u5F00 " + o3,
+                                                        "aria-expanded": Boolean((0, a.unref)(We).skillRecipeOpen[String(o3)]),
+                                                        onClick: (e4) => (0, a.unref)(Ln)(String(o3))
                                                       },
                                                       [
                                                         (0, a.createElementVNode)(

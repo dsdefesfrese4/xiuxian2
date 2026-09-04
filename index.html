@@ -23,158 +23,7 @@ body,html{margin:0;padding:0}
 
 /*# sourceMappingURL=main.css.map*/
 /*xy-mobile-extra*/
-/* ===== 平面化简约折叠（储物/关系/资产/功法/装备/配方） ===== */
-.xy-art-flat,
-.xy-item-flat,
-.xy-unit-flat,
-.xy-asset-flat {
-  padding: 6px 10px;
-}
 
-/* 装备卡片点开时宽度保持不变：占满所在格、内容可换行，避免被详情撑宽 */
-.xy-item-flat.xy-equipment,
-.xy-item-grid-mini .xy-item.xy-equipment {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.xy-item-flat.xy-equipment .xy-item-desc,
-.xy-item-flat.xy-equipment .xy-effect-row-desc,
-.xy-item-flat.xy-equipment .xy-item-tags,
-.xy-item-grid-mini .xy-item.xy-equipment .xy-item-desc,
-.xy-item-grid-mini .xy-item.xy-equipment .xy-effect-row-desc,
-.xy-item-grid-mini .xy-item.xy-equipment .xy-item-tags {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  min-width: 0;
-}
-
-/* 傀儡/灵兽（原组件带 data-v 作用域样式）内边距与储物其他框同步 */
-.xy-unit-flat.xy-unit-flat {
-  padding: 6px 10px;
-}
-
-.xy-art-flat-head,
-.xy-item-flat-head,
-.xy-unit-flat-head,
-.xy-asset-flat-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* 功法/灵兽/傀儡头部（竖屏）：类型/品阶/境界/运转 单行横向排列，空间不足时运转/出战简化为单字圆钮 */
-@media (max-width: 700px) {
-  .xy-art-flat-head,
-  .xy-unit-flat-head {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 2px 4px;
-    container-type: inline-size;
-  }
-
-  .xy-art-flat-toggle,
-  .xy-unit-flat-toggle {
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0;
-  }
-
-  .xy-art-flat-head > .xy-pill,
-  .xy-art-flat-head > .xy-quality,
-  .xy-unit-flat-head > .xy-pill,
-  .xy-unit-flat-head > .xy-quality,
-  .xy-unit-flat-head > .xy-element,
-  .xy-art-flat-head > .xy-toggle-mini,
-  .xy-unit-flat-head > .xy-toggle-mini {
-    flex: 0 0 auto;
-    min-width: 0;
-    white-space: nowrap;
-  }
-
-  .xy-art-flat-head > .xy-collapse-caret,
-  .xy-unit-flat-head > .xy-collapse-caret,
-  .xy-item-flat-toggle > .xy-collapse-caret {
-    margin-left: auto;
-    flex: 0 0 auto;
-    cursor: pointer;
-  }
-
-  /* 仅功法：品阶去文字，改为小的颜色方块（缓解标签拥挤）；物品/装备/灵兽/傀儡保留文字 */
-  .xy-art-flat-head > .xy-quality.xy-quality {
-    width: 12px;
-    height: 12px;
-    padding: 0;
-    font-size: 0;
-    line-height: 1;
-    border-radius: 2px;
-    overflow: hidden;
-  }
-
-  /* 物品/装备：数量/位置等标签整体贴向右端箭头（名字列保持固定） */
-  .xy-item-flat-toggle > .xy-item-qty,
-  .xy-item-flat-toggle > .xy-item-pos {
-    margin-left: auto;
-  }
-
-  /* 空间不足时：运转中/凝息（出战/待命）简化为单字圆钮 */
-  @container (max-width: 340px) {
-    .xy-art-flat-head > .xy-toggle-mini.xy-toggle-mini,
-    .xy-unit-flat-head > .xy-toggle-mini.xy-toggle-mini {
-      width: 20px;
-      height: 20px;
-      min-width: 0;
-      padding: 0;
-      border-radius: 50%;
-      font-size: 0;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: 0;
-    }
-
-    .xy-art-flat-head > .xy-toggle-mini::after,
-    .xy-unit-flat-head > .xy-toggle-mini::after {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      font-size: 10px;
-      line-height: 1;
-      letter-spacing: 0;
-    }
-
-    .xy-art-flat-head > .xy-toggle-mini.on::after {
-      content: '运';
-    }
-
-    .xy-art-flat-head > .xy-toggle-mini:not(.on)::after {
-      content: '息';
-    }
-
-    .xy-unit-flat-head > .xy-toggle-mini.on::after {
-      content: '战';
-    }
-
-    .xy-unit-flat-head > .xy-toggle-mini:not(.on)::after {
-      content: '待';
-    }
-  }
-}
-
-/* 去掉上游 v1.0.55 在功法卡片上额外添加的“运”角标（与我们的运转/凝息圆钮重复） */
-.xy-page-arts .xy-art-active::after,
-.xy-art-active::after {
-  content: none !important;
-}
 
 /* 关系页：无主傀儡/灵兽直接平铺显示详情（去掉内嵌二级卡片） */
 .xy-wild-body .xy-wild-inline {
@@ -184,6 +33,35 @@ body,html{margin:0;padding:0}
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* 关系面板功法小卡：名称/词条与方框居中对齐（贴合原版观感） */
+.xy-npc .xy-art-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.xy-npc .xy-art-mini .xy-art-head {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
+.xy-npc .xy-art-mini .xy-art-title {
+  justify-content: center;
+  flex: 0 1 auto;
+}
+.xy-npc .xy-art-mini .xy-art-meta {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.xy-npc .xy-art-mini .xy-art-meta > span,
+.xy-npc .xy-art-mini .xy-art-meta > b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /* 分类条横滑：储物分类与表头分类任何宽度都不换行，滚轮可横向滚动（隐藏滚动条） */
@@ -205,459 +83,6 @@ body,html{margin:0;padding:0}
 .xy-filter-drill::-webkit-scrollbar,
 .xy-tabs::-webkit-scrollbar {
   display: none;
-}
-
-/* 宽屏：头部单行横向排列，名字文字超出时在框内换行 */
-@media (min-width: 701px) {
-  .xy-art-flat-head,
-  .xy-unit-flat-head {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 6px 8px;
-  }
-
-  .xy-art-flat-toggle,
-  .xy-unit-flat-toggle {
-    flex: 0 1 auto;
-    min-width: 0;
-    padding: 4px 2px;
-  }
-
-  .xy-art-flat-head > .xy-collapse-caret,
-  .xy-unit-flat-head > .xy-collapse-caret {
-    margin-left: auto;
-    cursor: pointer;
-    flex: 0 0 auto;
-  }
-}
-
-/* 折叠态：两行标签按内容自适应高度，保持与展开同一网格 */
-.xy-art-flat:not(.open),
-.xy-unit-flat:not(.open) {
-  height: auto;
-}
-
-/* 激活态去掉外圈光晕，凝息/运转中、待命/出战保持同尺寸 */
-.xy-art-flat .xy-toggle-mini.on,
-.xy-unit-flat .xy-toggle-mini.on {
-  box-shadow: none;
-}
-
-/* 功法头部右侧预留空间，避免运转/删除按钮重叠出框 */
-.xy-art-flat-head {
-  padding-right: 0;
-}
-
-.xy-unit-flat-head {
-  padding-right: 0;
-}
-
-/* 灵兽/傀儡五行属性标签缩小 */
-.xy-unit-flat-head .xy-element {
-  width: 16px;
-  height: 16px;
-  font-size: 8px;
-}
-
-/* 储物头部的类型/品阶/境界标签：文字始终在标签框内居中，且禁止被压缩成竖排 */
-.xy-art-flat-head .xy-pill,
-.xy-art-flat-head .xy-quality,
-.xy-item-flat-head .xy-pill,
-.xy-item-flat-head .xy-quality,
-.xy-unit-flat-head .xy-pill,
-.xy-unit-flat-head .xy-quality,
-.xy-item-meta .xy-pill,
-.xy-item-meta .xy-quality,
-.xy-art-flat-meta .xy-pill,
-.xy-facility-date > span:first-child {
-  flex: 0 0 auto;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1.3;
-}
-
-.xy-art-flat-toggle,
-.xy-item-flat-toggle,
-.xy-unit-flat-toggle,
-.xy-asset-flat-toggle,
-.xy-facility-bldg-toggle,
-.xy-recipe-head {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  padding: 4px 2px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-}
-
-/* 功法名完整显示（可换行） */
-.xy-art-flat-name {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  white-space: normal;
-  word-break: break-word;
-  font-family: var(--xy-font-display);
-  font-size: 15px;
-  letter-spacing: 1px;
-  line-height: 1.25;
-}
-
-.xy-item-flat .xy-item-name,
-.xy-unit-flat .xy-item-name,
-.xy-asset-name,
-.xy-recipe-head > span:first-child {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  white-space: normal;
-  word-break: break-word;
-  font-family: var(--xy-font-display);
-  font-size: 14px;
-  letter-spacing: 1px;
-  line-height: 1.25;
-}
-
-/* 名字统一按 5 字一排网格（JS 每 5 字断行）：列宽固定，标签对齐，框高定死（仅窄屏竖屏生效） */
-@media (max-width: 700px) {
-  .xy-item-flat .xy-item-name,
-  .xy-unit-flat .xy-item-name,
-  .xy-art-flat-name {
-    flex: 0 0 65px;
-    width: 65px;
-    max-width: 65px;
-    font-size: 13px;
-    line-height: 1.3;
-    letter-spacing: 0;
-    white-space: pre-line;
-    overflow-wrap: anywhere;
-  }
-
-  /* 框高定死，网排时按排数缩小字号 */
-  .xy-item-flat .xy-item-name.xy-name-row2,
-  .xy-unit-flat .xy-item-name.xy-name-row2,
-  .xy-art-flat-name.xy-name-row2 {
-    font-size: 10.5px;
-  }
-
-  .xy-item-flat .xy-item-name.xy-name-row3,
-  .xy-unit-flat .xy-item-name.xy-name-row3,
-  .xy-art-flat-name.xy-name-row3 {
-    font-size: 8.5px;
-  }
-}
-
-/* 宽屏：名字不固定列宽、不缩字，按原始样式自然换行 */
-@media (min-width: 701px) {
-  .xy-item-flat .xy-item-name,
-  .xy-unit-flat .xy-item-name,
-  .xy-art-flat-name {
-    flex: 1 1 auto;
-    min-width: 0;
-    width: auto;
-    max-width: none;
-    white-space: normal;
-  }
-}
-
-/* 功法头部药丸更紧凑，避免与运转/删除按钮重叠出框 */
-.xy-art-flat-head .xy-pill,
-.xy-art-flat-head .xy-quality {
-  font-size: 10px;
-  padding: 1px 5px;
-}
-
-/* 储物方框统一最小高度 */
-.xy-item-flat,
-.xy-art-flat,
-.xy-unit-flat {
-  min-height: 46px;
-}
-
-/* 折叠态：头部行垂直居中，文字不再贴顶 */
-.xy-item-flat:not(.open),
-.xy-art-flat:not(.open),
-.xy-unit-flat:not(.open) {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 46px;
-  overflow: hidden;
-}
-
-/* ===== 分类行：与首个条目之间留空隙，药丸自动换行（同功法分类样式） ===== */
-.xy-rumor-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-/* ===== 技艺：折叠方框文字垂直居中 ===== */
-.xy-skill-panel .xy-skill:not(.open) .xy-skill-toggle {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.xy-skill-panel .xy-skill:not(.open) .xy-skill-seal {
-  flex: 0 0 auto;
-}
-
-.xy-skill-panel .xy-skill:not(.open) .xy-skill-name {
-  flex: 1 1 auto;
-  align-self: center;
-  text-align: left;
-}
-
-.xy-skill-panel .xy-skill:not(.open) .xy-skill-num {
-  display: none;
-}
-
-/* ===== 设施：效果/收取为纯文本对齐，不再单独突出一块 ===== */
-.xy-facility-effect {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.xy-facility-effect .xy-effect-line {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2px 6px;
-  width: 100%;
-  min-height: 20px;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  border-left: 0;
-}
-
-.xy-facility-effect .xy-effect-name-edit {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-  color: var(--xy-ink);
-  font-weight: 600;
-}
-
-.xy-facility-effect .xy-effect-line > .xy-editable,
-.xy-facility-effect .xy-effect-line .xy-edit-input {
-  flex: 1 1 auto;
-  min-width: 60px;
-  display: inline-block;
-  width: auto;
-}
-
-.xy-facility-date {
-  display: block;
-  margin-top: 6px;
-  padding-top: 4px;
-  color: var(--xy-ink-soft);
-}
-
-.xy-facility-date-label {
-  display: block;
-  font-size: 10px;
-  color: var(--xy-ink-mute);
-}
-
-.xy-facility-date-value {
-  display: block;
-  line-height: 1.5;
-}
-
-.xy-facility-name,
-.xy-facility-name .xy-editable {
-  display: inline-flex;
-  align-items: center;
-}
-
-/* ===== 装备二级分类：钻取式（返回一级） ===== */
-.xy-filter-drill {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-}
-
-.xy-chip-back {
-  background: var(--xy-paper-warm);
-  border-color: var(--xy-line-gold);
-  color: var(--xy-ink);
-}
-
-.xy-chip-back:hover {
-  border-color: var(--xy-cinnabar);
-  color: var(--xy-cinnabar-deep);
-}
-
-.xy-item-flat .xy-item-qty {
-  flex: 0 0 46px;
-  width: 46px;
-  text-align: center;
-  font-variant-numeric: tabular-nums;
-  font-size: 11px;
-  color: var(--xy-ink-mute);
-}
-
-.xy-item-flat .xy-item-pos {
-  flex: 0 0 52px;
-  width: 52px;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 10px;
-  padding: 1px 6px;
-  border: 1px solid var(--xy-line);
-  border-radius: 8px;
-  color: var(--xy-ink-soft);
-}
-
-.xy-art-flat-body,
-.xy-item-flat-body,
-.xy-unit-flat-body,
-.xy-asset-flat-body,
-.xy-recipe-body {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px dashed var(--xy-line);
-}
-
-.xy-art-flat .xy-art-flat-meta,
-.xy-item-flat .xy-item-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 5px;
-}
-
-.xy-collapse-caret {
-  flex: 0 0 auto;
-  font-size: 10px;
-  line-height: 1;
-  color: var(--xy-ink-mute);
-}
-
-.xy-collapse-count {
-  font-size: 11px;
-  color: var(--xy-ink-mute);
-}
-
-/* 圆形标识已移除，恢复原方形 pill/quality 样式 */
-
-/* ===== 效果三级折叠 ===== */
-.xy-effect-fold {
-  margin-top: 6px;
-}
-
-.xy-effect-rows {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 4px;
-}
-
-.xy-effect-row {
-  border: 1px dashed var(--xy-line);
-  border-left: 2px solid var(--xy-jade);
-  border-radius: 4px;
-  background: var(--xy-tint-jade-faint);
-}
-
-.xy-effect-row-head {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 3px 8px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-}
-
-.xy-effect-row-name {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--xy-font-display);
-  font-size: 12px;
-  letter-spacing: 1px;
-  color: var(--xy-ink);
-}
-
-.xy-effect-row-desc {
-  padding: 2px 8px 5px 18px;
-  font-size: 11.5px;
-  line-height: 1.55;
-  color: var(--xy-ink-soft);
-  overflow-wrap: anywhere;
-}
-
-/* ===== 标签：横向排列（竖屏/宽屏统一为可换行胶囊，避免纵向罗列） ===== */
-.xy-tags-col {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 6px;
-}
-
-.xy-tag-row {
-  display: inline-flex;
-  align-items: center;
-  padding: 1px 8px;
-  border: 1px dashed var(--xy-line);
-  border-radius: 8px;
-  font-size: 11px;
-  color: var(--xy-ink-soft);
-  overflow-wrap: anywhere;
-}
-
-/* ===== 描述与效果：允许折行，防止外溢 ===== */
-.xy-item-flat .xy-item-desc,
-.xy-art-flat .xy-art-desc,
-.xy-item-flat .xy-effect-row-desc,
-.xy-art-flat .xy-effect-row-desc {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.xy-item-flat .xy-item-meta,
-.xy-art-flat .xy-art-flat-meta {
-  flex-wrap: wrap;
-  overflow-wrap: anywhere;
-}
-
-/* 紧凑布局：折叠行更矮，列表不拖太长 */
-.xy-item-grid,
-.xy-art-grid {
-  gap: 6px;
-}
-
-@media (min-width: 600px) {
-  .xy-item-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.xy-item-flat:not(.open) .xy-item-flat-toggle,
-.xy-art-flat:not(.open) .xy-art-flat-toggle,
-.xy-unit-flat:not(.open) .xy-unit-flat-toggle {
-  padding: 3px 2px;
 }
 
 /* ===== 关系：标头小分类 + 人物方块三态 ===== */
@@ -780,259 +205,10 @@ body,html{margin:0;padding:0}
   font-size: 15px;
 }
 
-/* ===== 资产：设施行折叠 + 所属人物折叠 ===== */
-.xy-asset-page {
-  padding-top: 4px;
-}
-
-.xy-asset-group {
-  margin-bottom: 10px;
-}
-
-.xy-asset-group-head {
-  font-size: 13px;
-  letter-spacing: 2px;
-}
-
 .xy-rel-group-count {
   margin-left: auto;
   font-size: 11px;
   color: var(--xy-ink-mute);
-}
-
-.xy-asset-group-body {
-  padding: 8px 0 2px;
-}
-
-.xy-facility-list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-top: 6px;
-}
-
-.xy-facility-row {
-  border: 1px dashed var(--xy-line);
-  border-left: 2px solid var(--xy-jade);
-  border-radius: 4px;
-  background: var(--xy-tint-jade-faint);
-  overflow: hidden;
-}
-
-.xy-facility-row-toggle {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 30px;
-  padding: 4px 8px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-}
-
-.xy-facility-row-toggle .xy-facility-name {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: inline-flex;
-  align-items: center;
-  line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--xy-font-display);
-  font-size: 12.5px;
-  letter-spacing: 1px;
-  color: var(--xy-ink);
-}
-
-.xy-facility-row.open {
-  border-color: var(--xy-line-gold);
-  border-left-color: var(--xy-jade);
-  background: var(--xy-tint-jade-faint);
-}
-
-.xy-facility-yield {
-  flex: 0 0 auto;
-  width: auto;
-  margin-left: auto;
-  white-space: nowrap;
-  line-height: 1.4;
-  color: var(--xy-cinnabar);
-  font-size: 11px;
-}
-
-.xy-facility-row-body {
-  margin-top: 5px;
-  padding: 5px 8px 6px;
-  border-top: 1px dashed var(--xy-line);
-  font-size: 11px;
-  line-height: 1.55;
-  color: var(--xy-ink-soft);
-  overflow-wrap: anywhere;
-}
-
-/* ===== 资产：方块罗列（按 宗门/店铺/洞府 类型样式） ===== */
-.xy-asset-block-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 7px;
-}
-
-.xy-asset-block {
-  position: relative;
-  min-width: 0;
-  min-height: 96px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 6px;
-  border: 1px solid var(--xy-line);
-  border-radius: 8px;
-  background: var(--xy-glass);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
-}
-
-.xy-asset-block:hover,
-.xy-asset-block.open {
-  border-color: var(--xy-gold);
-  box-shadow: 0 4px 12px -6px rgba(89, 64, 28, 0.3);
-}
-
-.xy-asset-block-toggle {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-width: 0;
-  width: 100%;
-  padding: 2px;
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  color: inherit;
-  font: inherit;
-  text-align: center;
-}
-
-.xy-asset-block .xy-trash {
-  position: absolute;
-  top: 3px;
-  right: 3px;
-  z-index: 2;
-}
-
-.xy-asset-seal {
-  width: 40px;
-  height: 40px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  font-family: var(--xy-font-display);
-  font-size: 16px;
-  color: var(--xy-paper);
-  border: 1px solid;
-  flex: 0 0 auto;
-}
-
-.xy-asset-宗门 .xy-asset-seal {
-  background: linear-gradient(135deg, var(--xy-cinnabar), var(--xy-cinnabar-deep));
-  border-color: var(--xy-cinnabar-deep);
-}
-
-.xy-asset-店铺 .xy-asset-seal {
-  background: linear-gradient(135deg, var(--xy-gold), var(--xy-gold-deep));
-  border-color: var(--xy-gold-deep);
-}
-
-.xy-asset-洞府 .xy-asset-seal {
-  background: linear-gradient(135deg, var(--xy-jade), var(--xy-jade-deep));
-  border-color: var(--xy-jade-deep);
-}
-
-.xy-asset-block-name {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--xy-font-display);
-  font-size: 12.5px;
-  letter-spacing: 1px;
-  color: var(--xy-ink);
-}
-
-.xy-asset-block .xy-asset-loc {
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 10px;
-}
-
-/* 展开：整行完整方框 */
-.xy-asset-block.open {
-  grid-column: 1 / -1;
-  align-items: stretch;
-  justify-content: flex-start;
-}
-
-.xy-asset-block.open .xy-asset-block-toggle {
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-  gap: 8px;
-  padding: 2px 4px;
-}
-
-.xy-asset-block.open .xy-asset-block-name {
-  flex: 1 1 auto;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
-.xy-asset-block.open .xy-asset-flat-body {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px dashed var(--xy-line);
-}
-
-/* 展开资产的种类大印（原版 style：右上角金色书法水印，仅展开时显示） */
-.xy-asset-block::after {
-  content: none;
-}
-
-.xy-asset-block.open::after {
-  content: attr(data-seal);
-  position: absolute;
-  top: -7px;
-  right: 8px;
-  color: var(--xy-tint-gold-glyph);
-  font: 52px/1 var(--xy-font-title);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.xy-asset-block.open .xy-asset-block-toggle {
-  position: relative;
-  z-index: 1;
-}
-
-.xy-asset-block.open .xy-asset-block-name {
-  padding-right: 58px; /* 给右上角种类大印预留，仅名字行 */
-}
-
-@media (max-width: 560px) {
-  .xy-asset-block-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 /* ===== 关系：灵兽/傀儡类型与名字同行（小徽章，避免撑高方块） ===== */
@@ -1080,102 +256,6 @@ body,html{margin:0;padding:0}
   white-space: nowrap;
 }
 
-/* ===== 储物：功法/灵兽/傀儡标签与物品标签同规格（自动宽度小方块，纵向罗列） ===== */
-.xy-tags-col {
-  width: 100%;
-  min-width: 0;
-}
-
-.xy-tag-row {
-  display: inline-flex;
-  align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  padding: 1px 7px;
-  border: 1px solid var(--xy-line);
-  border-radius: 2px;
-  background: var(--xy-tint-ink-soft);
-  color: var(--xy-ink);
-  font-family: var(--xy-font-display);
-  font-size: 11px;
-  line-height: 1.5;
-  letter-spacing: 1px;
-  overflow-wrap: anywhere;
-}
-
-/* ===== 储物：功法/灵兽/傀儡头部标签与物品/装备同规格（品阶/境界/属性） ===== */
-.xy-art-flat-head .xy-pill,
-.xy-art-flat-head .xy-quality,
-.xy-unit-flat-head .xy-pill,
-.xy-unit-flat-head .xy-quality {
-  font-size: 11px;
-  padding: 1px 6px;
-}
-
-.xy-art-flat-head .xy-element,
-.xy-unit-flat-head .xy-element {
-  width: 18px;
-  height: 18px;
-  font-size: 9px;
-}
-
-/* ===== 资产：展开头部允许换行；标签文字禁止竖排/截断 ===== */
-.xy-asset-block.open .xy-asset-block-toggle {
-  flex-wrap: wrap;
-}
-
-.xy-asset-block .xy-asset-block-toggle {
-  gap: 3px 8px;
-}
-
-.xy-asset-block.open .xy-asset-block-toggle {
-  gap: 3px 8px;
-}
-
-.xy-asset-block-tags {
-  order: 3;
-  flex: none;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 4px 6px;
-  min-width: 0;
-}
-
-.xy-asset-block:not(.open) .xy-asset-block-tags {
-  flex: none;
-  width: auto;
-  max-width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2px;
-}
-
-.xy-asset-block:not(.open) .xy-collapse-caret {
-  display: none;
-}
-
-.xy-asset-block-tags .xy-pill {
-  flex: 0 0 auto;
-}
-
-.xy-asset-block.open .xy-asset-block-toggle .xy-collapse-caret {
-  order: 2;
-  margin-left: auto;
-}
-
-.xy-asset-block .xy-asset-loc {
-  max-width: 100%;
-  overflow: visible;
-  text-overflow: clip;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  writing-mode: horizontal-tb;
-  text-orientation: mixed;
-}
-
 .xy-asset-block .xy-pill,
 .xy-asset-block .xy-idtag {
   writing-mode: horizontal-tb;
@@ -1184,1224 +264,12 @@ body,html{margin:0;padding:0}
   overflow-wrap: anywhere;
 }
 
-/* ===== 设施：名称与提取时间纵向居中 ===== */
-.xy-facility-row-toggle {
-  align-items: center;
-}
-
-.xy-facility-name {
-  align-self: center;
-}
-
-.xy-facility-date {
-  align-items: center;
-  flex-wrap: nowrap;
-}
-
-.xy-facility-date-label {
-  flex: 0 0 auto;
-}
-
-.xy-facility-date-value {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-/* ===== 285px 酒馆内嵌：按 285/390 ≈ 0.73 等比缩小边框与文字 ===== */
-@media (max-width: 320px) {
-  .xy-app {
-    padding: 0 10px;
-  }
-
-  .xy-scroll {
-    padding: 16px 13px 13px;
-    border-radius: 10px;
-  }
-
-  /* 首页 / 总览 */
-  .xy-name {
-    font-size: 24px;
-    letter-spacing: 3px;
-  }
-
-  .xy-user-avatar {
-    flex: 0 0 46px;
-    width: 46px;
-    height: 46px;
-    font-size: 20px;
-    border-width: 1.5px;
-  }
-
-  .xy-user-avatar-cam {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-  }
-
-  .xy-realm-label {
-    font-size: 9px;
-    letter-spacing: 3px;
-  }
-
-  .xy-realm-value {
-    font-size: 13px;
-    letter-spacing: 1.5px;
-  }
-
-  .xy-meta-line {
-    font-size: 10px;
-    gap: 6px 10px;
-  }
-
-  .xy-meta-item i {
-    width: 13px;
-    height: 13px;
-    line-height: 13px;
-    font-size: 8px;
-  }
-
-  .xy-card {
-    padding: 9px;
-  }
-
-  .xy-resources {
-    padding: 6px 7px 5px;
-  }
-
-  .xy-bar {
-    grid-template-columns: 26px minmax(0, 1fr) auto;
-    gap: 4px;
-    min-height: 16px;
-  }
-
-  .xy-bar-label {
-    font-size: 8px;
-    letter-spacing: 2px;
-  }
-
-  .xy-bar-num {
-    font-size: 7.5px;
-  }
-
-  .xy-traits-panel {
-    padding: 5px;
-  }
-
-  .xy-overview-trait {
-    min-height: 42px;
-    padding: 5px;
-    gap: 3px 4px;
-  }
-
-  .xy-overview-trait > strong {
-    font-size: 10px;
-  }
-
-  .xy-trait-attrs > span {
-    font-size: 6px;
-  }
-
-  .xy-trait-attrs b {
-    font-size: 8px;
-  }
-
-  .xy-status-icon {
-    width: 26px;
-    height: 26px;
-    font-size: 8.5px;
-  }
-
-  .xy-trait-detail,
-  .xy-overview-buff-detail {
-    padding: 5px 22px 5px 6px;
-  }
-
-  /* 通用小标签 / 折叠条 */
-  .xy-pill,
-  .xy-idtag {
-    font-size: 8.5px;
-    padding: 0 5px;
-  }
-
-  .xy-quality {
-    font-size: 8.5px;
-    padding: 0 4px;
-  }
-
-  .xy-chip {
-    font-size: 9px;
-    padding: 3px 9px;
-    letter-spacing: 1px;
-  }
-
-  .xy-collapse-head {
-    padding: 4px 6px;
-  }
-
-  .xy-collapse-title {
-    font-size: 9px;
-    letter-spacing: 2px;
-  }
-
-  .xy-collapse-count {
-    font-size: 8px;
-    padding: 0 4px;
-  }
-
-  .xy-collapse-caret {
-    font-size: 9px;
-  }
-
-  .xy-effect-add {
-    font-size: 8.5px;
-    padding: 1px 6px;
-  }
-
-  .xy-trash {
-    width: 14px;
-    height: 14px;
-    font-size: 11px;
-  }
-
-  /* 技艺 */
-  .xy-skill-panel {
-    padding: 6px;
-  }
-
-  .xy-skill-panel .xy-skill-grid {
-    gap: 4px;
-  }
-
-  .xy-skill-panel .xy-skill {
-    min-height: 48px;
-    grid-template-columns: 25px minmax(0, 1fr);
-    gap: 1px 4px;
-    padding: 4px 3px;
-  }
-
-  .xy-skill-panel .xy-skill-toggle {
-    grid-template-columns: 25px minmax(0, 1fr);
-    gap: 1px 4px;
-  }
-
-  .xy-skill-panel .xy-skill-seal {
-    width: 25px;
-    height: 25px;
-  }
-
-  .xy-skill-panel .xy-skill-seal > span {
-    width: 19px;
-    height: 19px;
-    font-size: 8.5px;
-  }
-
-  .xy-skill-panel .xy-skill-name {
-    font-size: 8px;
-  }
-
-  .xy-skill-panel .xy-skill-num {
-    font-size: 9px;
-  }
-
-  .xy-skill-panel .xy-skill-recipe-count {
-    top: auto;
-    right: 2px;
-    bottom: 2px;
-    padding: 0 3px;
-    font-size: 5.5px;
-  }
-
-  .xy-skill-panel .xy-skill:has(.xy-skill-recipe-count) .xy-skill-name {
-    padding-right: 2px;
-  }
-
-  .xy-skill-panel .xy-skill.open .xy-skill-recipe-count {
-    top: 2px;
-    right: 2px;
-    bottom: auto;
-  }
-
-  .xy-skill-panel .xy-skill.open .xy-skill-name {
-    padding-right: 20px;
-  }
-
-  .xy-skill-panel .xy-recipe-card {
-    padding: 5px 6px;
-  }
-
-  .xy-skill-panel .xy-craft-btn {
-    min-width: 30px;
-    padding: 2px 5px;
-    font-size: 6.5px;
-    line-height: 1.2;
-  }
-
-  /* 储物 / 装备 / 傀儡 / 灵兽 */
-  .xy-storage-tabs {
-    gap: 3px;
-  }
-
-  .xy-storage-tabs .xy-stab {
-    flex: 0 0 52px;
-    padding-inline: 4px;
-    font-size: 11px;
-  }
-
-  .xy-item-flat,
-  .xy-art-flat,
-  .xy-unit-flat {
-    min-height: 34px;
-  }
-
-  .xy-item-flat:not(.open),
-  .xy-art-flat:not(.open),
-  .xy-unit-flat:not(.open) {
-    height: 34px;
-  }
-
-  .xy-item-flat .xy-item-name,
-  .xy-unit-flat .xy-item-name,
-  .xy-art-flat-name {
-    flex: 0 0 48px;
-    width: 48px;
-    max-width: 48px;
-    font-size: 9.5px;
-  }
-
-  .xy-item-flat .xy-item-name.xy-name-row2,
-  .xy-unit-flat .xy-item-name.xy-name-row2,
-  .xy-art-flat-name.xy-name-row2 {
-    font-size: 7.5px;
-  }
-
-  .xy-item-flat .xy-item-name.xy-name-row3,
-  .xy-unit-flat .xy-item-name.xy-name-row3,
-  .xy-art-flat-name.xy-name-row3 {
-    font-size: 6px;
-  }
-
-  .xy-item-flat .xy-item-qty {
-    flex: 0 0 34px;
-    width: 34px;
-  }
-
-  .xy-item-flat .xy-item-pos {
-    flex: 0 0 38px;
-    width: 38px;
-    font-size: 8px;
-    padding: 0 4px;
-    border-radius: 6px;
-  }
-
-  .xy-item-flat .xy-item-desc,
-  .xy-art-flat .xy-art-desc,
-  .xy-item-flat .xy-effect-row-desc,
-  .xy-art-flat .xy-effect-row-desc {
-    font-size: 9px;
-    line-height: 1.5;
-  }
-
-  .xy-item-flat .xy-item-meta,
-  .xy-art-flat .xy-art-flat-meta {
-    font-size: 9px;
-  }
-
-  /* 关系 */
-  .xy-rel-chips {
-    gap: 4px;
-    margin-bottom: 7px;
-  }
-
-  .xy-npc-stage-grid {
-    grid-template-columns: repeat(auto-fill, minmax(56px, 1fr));
-    gap: 6px;
-    padding: 4px 1px;
-  }
-
-  .xy-npc-box {
-    gap: 4px;
-    padding: 7px 3px 5px;
-  }
-
-  .xy-npc-box .xy-npc-avatar {
-    flex: 0 0 26px;
-    width: 26px;
-    height: 26px;
-    font-size: 11px;
-  }
-
-  .xy-npc-box-name {
-    font-size: 9px;
-    letter-spacing: 0.5px;
-  }
-
-  .xy-npc .xy-npc-avatar {
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
-    font-size: 17px;
-  }
-
-  .xy-npc:not(.xy-npc-open) .xy-npc-head {
-    padding: 4px 7px;
-    gap: 6px;
-  }
-
-  .xy-npc:not(.xy-npc-open) .xy-npc-avatar {
-    width: 26px;
-    height: 26px;
-    font-size: 11px;
-  }
-
-  .xy-npc:not(.xy-npc-open) .xy-npc-name {
-    font-size: 10.5px;
-  }
-
-  .xy-npc:not(.xy-npc-open) .xy-favor {
-    padding: 1px 6px;
-  }
-
-  .xy-npc:not(.xy-npc-open) .xy-favor-num {
-    font-size: 10px;
-  }
-
-  .xy-wild-unit:not(.xy-npc-open) .xy-wild-icon {
-    width: 25px;
-    height: 25px;
-    font-size: 11px;
-  }
-
-  /* 资产 */
-  .xy-asset-chips {
-    gap: 4px;
-  }
-
-  .xy-asset-block-grid {
-    gap: 5px;
-  }
-
-  .xy-asset-block {
-    min-height: 70px;
-    gap: 4px;
-    padding: 6px 4px;
-  }
-
-  .xy-asset-seal {
-    width: 29px;
-    height: 29px;
-    font-size: 12px;
-  }
-
-  .xy-asset-block-name {
-    font-size: 9.5px;
-    letter-spacing: 0.5px;
-  }
-
-  .xy-asset-block .xy-asset-loc {
-    font-size: 7.5px;
-  }
-
-  .xy-asset-group-head {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-  }
-
-  .xy-rel-group-count {
-    font-size: 8px;
-  }
-
-  .xy-facility-list {
-    gap: 4px;
-    margin-top: 4px;
-  }
-
-  .xy-facility-row,
-  .xy-asset-people {
-    font-size: 9.5px;
-  }
-
-  .xy-facility-yield {
-    font-size: 9px;
-  }
-
-  .xy-facility-date {
-    font-size: 9px;
-    align-items: center;
-    line-height: 1.4;
-  }
-}
-
-/* ===== 竖向滚动条：储物/关系/资产（头部固定，内容区滚动，仅滚动时显示） ===== */
-.xy-page-storage,
-.xy-page-relations,
-.xy-page-assets {
-  max-height: 64vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.xy-page-storage > .xy-stone,
-.xy-page-storage > .xy-storage-tabs,
-.xy-rel-chips,
-.xy-asset-chips {
-  flex: 0 0 auto;
-}
-
 .xy-rel-page,
 .xy-asset-page {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
   flex-direction: column;
-}
-
-.xy-page-storage > :not(.xy-stone):not(.xy-storage-tabs),
-.xy-rel-scroll,
-.xy-asset-scroll {
-  flex: 1 1 auto;
-  min-height: 0;
-  height: 460px; /* 10 条未展开储物行 × 46px（固定最大高度） */
-  overflow-y: auto;
-  overscroll-behavior: auto;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-/* 技艺页同样限制高度：面板总高有限，滑到边界后继续滑动会把面板直接滑走 */
-.xy-page-skills,
-.xy-page-arts {
-  max-height: 64vh;
-  overflow-y: auto;
-  overscroll-behavior: auto;
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-}
-
-.xy-scroll-area.xy-scrolling {
-  scrollbar-color: var(--xy-tint-cinnabar-strong) transparent;
-}
-
-.xy-scroll-area::-webkit-scrollbar {
-  width: 6px;
-}
-
-.xy-scroll-area::-webkit-scrollbar-thumb {
-  background: transparent;
-  border-radius: 3px;
-}
-
-.xy-scroll-area.xy-scrolling::-webkit-scrollbar-thumb {
-  background: var(--xy-tint-cinnabar-strong);
-}
-
-/* ===== 默认折叠：只显示人物数据面板，页签与内容收起 ===== */
-.xy-scroll-collapsed .xy-tabs,
-.xy-scroll-collapsed .xy-content {
-  display: none !important;
-}
-
-/* ===== 传闻印章：竖排文字居中 ===== */
-.xy-rumor-seal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.xy-rumor-seal span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-}
-
-.xy-people-fold {
-  margin-top: 8px;
-}
-
-.xy-people-body {
-  margin-top: 5px;
-}
-
-.xy-asset-status,
-.xy-asset-people {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-/* ===== 装备二级位置筛选 ===== */
-.xy-filter-sub {
-  margin-top: 4px;
-}
-
-.xy-chip-sub {
-  font-size: 11px;
-  padding: 3px 10px;
-}
-
-/* ===== 技艺：原版紧凑方框（点击展开为长条） ===== */
-.xy-skill-panel .xy-skill-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px 8px;
-}
-
-.xy-skill-panel .xy-skill {
-  position: relative;
-  min-width: 0;
-  min-height: 66px;
-  aspect-ratio: auto;
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
-  gap: 2px 5px;
-  align-items: center;
-  padding: 6px 7px;
-  overflow: hidden;
-  border: 1px solid var(--xy-line);
-  border-radius: 7px;
-  background: var(--xy-glass);
-  font-size: 12px;
-}
-
-.xy-skill-panel .xy-skill:hover,
-.xy-skill-panel .xy-skill.open {
-  border-color: var(--xy-gold);
-  box-shadow: 0 4px 12px -6px rgba(89, 64, 28, 0.3);
-}
-
-.xy-skill-panel .xy-skill-toggle {
-  grid-column: 1 / -1;
-  grid-row: 1 / -1;
-  align-self: stretch;
-  display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
-  gap: 2px 5px;
-  align-items: center;
-  padding: 0;
-}
-
-.xy-skill-panel .xy-skill-seal {
-  grid-row: 1 / 3;
-  grid-column: 1;
-  width: 34px;
-  height: 34px;
-}
-
-.xy-skill-panel .xy-skill-seal > span {
-  width: 27px;
-  height: 27px;
-  font-size: 12px;
-}
-
-.xy-skill-panel .xy-skill-name {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  min-width: 0;
-  padding-right: 2px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  text-align: left;
-  color: var(--xy-ink);
-  font-family: var(--xy-font-display);
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-
-.xy-skill-panel .xy-skill:not(.open) .xy-skill-name {
-  align-self: center;
-}
-
-.xy-skill-panel .xy-skill:has(.xy-skill-recipe-count) .xy-skill-name {
-  padding-right: 34px;
-}
-
-.xy-skill-panel .xy-skill-recipe-count {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  z-index: 2;
-  padding: 1px 5px;
-  border: 1px solid var(--xy-line-gold);
-  border-radius: 7px;
-  background: var(--xy-paper-warm);
-  color: var(--xy-gold-deep);
-  font-size: 8px;
-  line-height: 1.25;
-}
-
-.xy-skill-panel .xy-skill-num {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: start;
-  min-width: 0;
-  max-width: 100%;
-  text-align: left;
-  color: var(--xy-gold-deep);
-  font-family: var(--xy-font-display);
-  font-size: 14px;
-  line-height: 16px;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-all;
-  position: relative;
-  z-index: 2;
-  margin-top: 2px;
-}
-
-.xy-skill-panel .xy-skill-num .xy-editable {
-  max-width: 100%;
-}
-
-/* 展开：整行长方条 */
-.xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill {
-  min-height: 66px;
-  grid-template-columns: 34px minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
-  justify-items: stretch;
-  align-items: start;
-  padding: 6px 8px;
-}
-
-.xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill-toggle {
-  grid-template-rows: 20px 1fr;
-  align-items: start;
-}
-
-.xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill-name {
-  align-self: start;
-  line-height: 20px;
-}
-
-.xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill-num {
-  align-self: start;
-  margin-top: 3px;
-}
-
-/* ===== 配方折叠卡 ===== */
-.xy-recipe-card {
-  padding: 4px 8px;
-}
-
-.xy-recipe-head {
-  font-size: 12px;
-}
-
-.xy-recipe-head .xy-collapse-caret {
-  margin-left: auto;
-}
-
-/* ===== 手机端微调 ===== */
-@media (max-width: 560px) {
-  .xy-content {
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-
-  .xy-item-grid,
-  .xy-art-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .xy-skill-panel .xy-skill-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px 5px;
-  }
-
-  .xy-npc-head {
-    gap: 8px;
-  }
-
-  .xy-tab {
-    min-width: 48px;
-    padding: 7px 4px;
-    font-size: 12px;
-  }
-
-  .xy-stone {
-    padding: 5px 10px;
-  }
-}
-
-/* ===== 285px 修正（置于末尾，确保覆盖后置基础规则） ===== */
-@media (max-width: 320px) {
-  .xy-art-flat-head,
-  .xy-unit-flat-head {
-    grid-template-columns: 48px 48px 40px minmax(0, 1fr);
-  }
-
-  .xy-art-flat-toggle,
-  .xy-unit-flat-toggle {
-    width: 48px;
-  }
-
-  .xy-art-flat:not(.open),
-  .xy-unit-flat:not(.open) {
-    height: auto;
-    min-height: 34px;
-  }
-
-  .xy-art-flat .xy-toggle-mini,
-  .xy-unit-flat .xy-toggle-mini {
-    font-size: 8px;
-    padding: 1px 6px;
-    border-radius: 8px;
-    line-height: 1.4;
-    min-width: 42px;
-    background: transparent;
-  }
-
-  .xy-art-flat .xy-toggle-mini.on,
-  .xy-unit-flat .xy-toggle-mini.on {
-    background: transparent;
-    border-color: var(--xy-cinnabar);
-    color: var(--xy-cinnabar);
-  }
-
-  .xy-art-flat-head .xy-pill,
-  .xy-unit-flat-head .xy-pill {
-    font-size: 8.5px;
-    padding: 0 5px;
-  }
-
-  .xy-art-flat-head .xy-quality,
-  .xy-unit-flat-head .xy-quality {
-    font-size: 8.5px;
-    padding: 0 4px;
-  }
-
-  .xy-art-flat-head .xy-element,
-  .xy-unit-flat-head .xy-element {
-    width: 14px;
-    height: 14px;
-    font-size: 7px;
-  }
-
-  .xy-page-storage > :not(.xy-stone):not(.xy-storage-tabs),
-  .xy-rel-scroll,
-  .xy-asset-scroll {
-    height: 340px; /* 10 条未展开储物行 × 34px（285 缩放档） */
-  }
-
-  .xy-item-tag,
-  .xy-tag-row {
-    font-size: 8.5px;
-    padding: 1px 5px;
-    letter-spacing: 0.5px;
-  }
-
-  .xy-content {
-    padding-left: 6px;
-    padding-right: 6px;
-  }
-
-  .xy-tab {
-    min-width: 38px;
-    padding: 5px 3px;
-    font-size: 9px;
-  }
-
-  .xy-stone {
-    padding: 4px 7px;
-  }
-
-  .xy-npc-head {
-    gap: 6px;
-  }
-
-  .xy-chip-sub {
-    font-size: 9px;
-    padding: 3px 9px;
-    letter-spacing: 1px;
-  }
-
-  .xy-chip-back {
-    font-size: 9px;
-    padding: 3px 9px;
-    letter-spacing: 1px;
-  }
-
-  .xy-rumor-filter,
-  .xy-rel-chips,
-  .xy-asset-chips,
-  .xy-filter-drill {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 4px;
-    margin-bottom: 6px;
-  }
-
-  .xy-rumor-filter .xy-chip,
-  .xy-rel-chips .xy-chip,
-  .xy-asset-chips .xy-chip,
-  .xy-filter-drill .xy-chip,
-  .xy-filter-drill .xy-chip-back,
-  .xy-filter-drill .xy-chip-sub {
-    flex: 0 0 auto;
-    text-align: center;
-    white-space: nowrap;
-  }
-
-  .xy-skill-panel .xy-skill-grid {
-    gap: 4px;
-  }
-
-  .xy-skill-panel .xy-skill {
-    min-height: 48px;
-    grid-template-columns: 25px minmax(0, 1fr);
-    gap: 1px 4px;
-    padding: 4px 3px;
-  }
-
-  .xy-skill-panel .xy-skill-toggle {
-    grid-template-columns: 25px minmax(0, 1fr);
-    gap: 1px 4px;
-  }
-
-  .xy-skill-panel .xy-skill-seal {
-    width: 25px;
-    height: 25px;
-  }
-
-  .xy-skill-panel .xy-skill-seal > span {
-    width: 19px;
-    height: 19px;
-    font-size: 8.5px;
-  }
-
-  .xy-skill-panel .xy-skill-name {
-    font-size: 8px;
-  }
-
-  .xy-skill-panel .xy-skill-num {
-    font-size: 9px;
-  }
-
-  .xy-skill-panel .xy-skill-recipe-count {
-    top: auto;
-    right: 2px;
-    bottom: 2px;
-    padding: 0 3px;
-    font-size: 5.5px;
-  }
-
-  .xy-skill-panel .xy-skill:has(.xy-skill-recipe-count) .xy-skill-name {
-    padding-right: 2px;
-  }
-
-  .xy-skill-panel .xy-skill.open .xy-skill-recipe-count {
-    top: 2px;
-    right: 2px;
-    bottom: auto;
-  }
-
-  .xy-skill-panel .xy-skill.open .xy-skill-name {
-    padding-right: 20px;
-  }
-
-  .xy-skill-panel .xy-recipe-card {
-    padding: 5px 6px;
-  }
-
-  .xy-skill-panel .xy-craft-btn {
-    min-width: 30px;
-    padding: 2px 5px;
-    font-size: 6.5px;
-    line-height: 1.2;
-  }
-
-  /* 装备攻/防并入元信息行后的尺寸 */
-  .xy-eq-stats {
-    align-self: center;
-    display: inline-flex;
-    align-items: center;
-    height: 13px;
-    line-height: 13px;
-    gap: 4px;
-    margin-top: 0;
-  }
-
-  .xy-eq-stat {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    height: 13px;
-    line-height: 13px;
-    box-sizing: border-box;
-    font-size: 8px;
-    padding: 0 5px;
-  }
-
-  .xy-eq-stat .xy-editable {
-    display: inline-flex;
-    align-items: center;
-    line-height: 13px;
-  }
-
-  .xy-eq-stat input {
-    font-size: 8px;
-    width: 44px;
-    padding: 0 2px;
-  }
-
-  /* 傀儡/灵兽数值大字缩小 */
-  .xy-unit-flat .xy-unit-bar {
-    gap: 4px;
-  }
-
-  .xy-unit-flat .xy-unit-bar-label {
-    font-size: 8.5px;
-  }
-
-  .xy-unit-flat .xy-unit-bar-num {
-    font-size: 8.5px;
-  }
-
-  .xy-unit-flat .xy-unit-bar-num input {
-    font-size: 8.5px;
-    width: 44px;
-    padding: 0 2px;
-  }
-
-  /* 傀儡/灵兽技能平铺（原始链接样式）缩小适配 */
-  .xy-unit-flat .xy-skill-line {
-    font-size: 9px;
-    padding: 3px 6px;
-    gap: 4px;
-  }
-
-  .xy-unit-flat .xy-skill-line-name {
-    font-size: 9px;
-    letter-spacing: 0.5px;
-  }
-
-  .xy-unit-flat .xy-skill-line-atk {
-    font-size: 8px;
-  }
-
-  .xy-unit-flat .xy-skill-line .xy-pill-cost {
-    font-size: 8px;
-    padding: 0 5px;
-  }
-
-  .xy-unit-flat .xy-skill-line-effects {
-    gap: 2px;
-    margin-top: 2px;
-  }
-
-  .xy-unit-flat .xy-effect-line {
-    font-size: 8.5px;
-    padding: 1px 4px;
-  }
-
-  /* 灵兽/傀儡展开后的防御绿字缩小（作用域样式需更高优先级） */
-  .xy-unit-flat .xy-unit-stats .xy-eq-stat {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    height: 13px;
-    line-height: 13px;
-    box-sizing: border-box;
-    font-size: 8px;
-    padding: 0 5px;
-  }
-
-  .xy-unit-flat .xy-unit-stats .xy-eq-stat .xy-editable {
-    display: inline-flex;
-    align-items: center;
-    line-height: 13px;
-  }
-
-  .xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill {
-    min-height: 50px;
-    grid-template-columns: 25px minmax(0, 1fr);
-    padding: 4px 6px;
-  }
-
-  .xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill-toggle {
-    grid-template-rows: 14px 1fr;
-  }
-
-  .xy-skill-panel .xy-skill-wrap:has(.xy-skill.open) .xy-skill-name {
-    line-height: 14px;
-  }
-
-  .xy-recipe-head {
-    font-size: 9px;
-  }
-}
-
-/* ===== 传闻：窄屏竖屏布局（难度置顶、印章+时间横排、压缩尺寸）；宽屏难度不溢出 ===== */
-.xy-rumor-head {
-  flex-wrap: wrap;
-}
-
-.xy-rumor-difficulty {
-  flex: 0 1 auto;
-  min-width: 0;
-}
-
-@media (max-width: 900px) {
-  .xy-rumor {
-    padding: 10px 10px 10px 62px;
-    min-height: 74px;
-  }
-
-  .xy-rumor-seal {
-    left: 8px;
-    top: 10px;
-    width: 44px;
-    height: 44px;
-    font-size: 11px;
-  }
-
-  .xy-rumor-body {
-    font-size: 11px;
-    line-height: 1.6;
-  }
-
-  .xy-rumor-time {
-    font-size: 9px;
-    letter-spacing: 0;
-  }
-
-  /* 竖屏：难度（境界）置顶一行，秘境印章与时间横排在其下方 */
-  .xy-rumor-difficulty {
-    order: 0;
-    flex-basis: 100%;
-    margin-left: auto;
-    margin-bottom: 4px;
-  }
-
-  .xy-rumor-meta {
-    order: 1;
-    flex: 1 1 auto;
-    min-width: 0;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
-  }
-
-  .xy-rumor-seal {
-    top: 36px;
-  }
-}
-
-/* 关系大面板功法小框（仅竖屏）：名字不截断、品阶与装备栏一致、运转/凝息为圆圈单字 */
-@media (max-width: 700px) {
-  .xy-npc-arts .xy-art-mini .xy-art-head,
-  .xy-npc-arts .xy-art-mini .xy-art-title {
-    min-width: 0;
-  }
-
-  .xy-npc-arts .xy-art-mini .xy-art-title {
-    flex: 1 1 auto;
-  }
-
-  .xy-npc-arts .xy-art-mini .xy-art-name {
-    min-width: 0;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    white-space: normal;
-  }
-
-  .xy-npc-arts .xy-art-mini .xy-quality {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: center;
-    min-height: 20px;
-    line-height: 1;
-    flex: 0 0 auto;
-  }
-
-}
-
-/* 竖屏：表头分类改为横向滑动式排列 */
-@media (max-width: 700px) {
-  .xy-rumor-filter,
-  .xy-rel-chips,
-  .xy-asset-chips,
-  .xy-filter-drill,
-  .xy-storage-tabs {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .xy-rumor-filter::-webkit-scrollbar,
-  .xy-rel-chips::-webkit-scrollbar,
-  .xy-asset-chips::-webkit-scrollbar,
-  .xy-filter-drill::-webkit-scrollbar,
-  .xy-storage-tabs::-webkit-scrollbar {
-    display: none;
-  }
-
-  .xy-rumor-filter .xy-chip,
-  .xy-rel-chips .xy-chip,
-  .xy-asset-chips .xy-chip,
-  .xy-filter-drill .xy-chip {
-    flex: 0 0 auto;
-  }
-}
-
-/* 删除按钮：仅板块展开时显示 */
-.xy-art-flat .xy-trash.xy-trash.xy-trash,
-.xy-item-flat .xy-trash.xy-trash.xy-trash,
-.xy-unit-flat .xy-trash.xy-trash.xy-trash,
-.xy-asset-block .xy-trash.xy-trash.xy-trash,
-.xy-npc .xy-npc-head > .xy-trash.xy-trash.xy-trash {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.xy-art-flat.open .xy-trash.xy-trash.xy-trash,
-.xy-item-flat.open .xy-trash.xy-trash.xy-trash,
-.xy-unit-flat.open .xy-trash.xy-trash.xy-trash,
-.xy-asset-block.open .xy-trash.xy-trash.xy-trash,
-.xy-npc.xy-npc-open .xy-npc-head > .xy-trash.xy-trash.xy-trash {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* 效果词条：直显，不再二级折叠 */
-.xy-effect-head-flat {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 8px;
-  margin-bottom: 2px;
-}
-
-.xy-effect-row-flat {
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
-  padding: 2px 6px;
-  border-left: 2px solid var(--xy-jade);
-  background: var(--xy-tint-jade-faint);
-}
-
-.xy-effect-row-flat .xy-effect-row-name {
-  flex: 0 0 auto;
-  font-weight: 500;
-}
-
-.xy-effect-row-flat .xy-effect-row-desc {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow-wrap: anywhere;
 }
 
 /* 关系大展开框：背景图默认在头部隐藏；点击头部时扩为 1:1 填满全图 */
@@ -2507,34 +375,187 @@ body,html{margin:0;padding:0}
   opacity: 1;
 }
 
-/* 竖屏：功法属性改为带颜色的小圆点；其余恢复原版属性图标并调整合适大小 */
-@media (max-width: 700px) {
-  .xy-art-flat-head .xy-element {
-    width: 8px;
-    height: 8px;
-    min-width: 8px;
-    max-width: 8px;
-    min-height: 8px;
-    max-height: 8px;
-    font-size: 0;
-    line-height: 1;
-    border-radius: 50%;
-    flex: 0 0 auto;
-  }
+/* 全部滚动条隐藏（仍可滚动） */
+* {
+  scrollbar-width: none !important;
+}
+*::-webkit-scrollbar {
+  display: none !important;
+}
 
-  .xy-item-flat-toggle .xy-element,
-  .xy-unit-flat-head .xy-element,
-  .xy-npc-arts .xy-art-mini .xy-element {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    max-width: 16px;
-    min-height: 16px;
-    max-height: 16px;
-    font-size: 9px;
-    line-height: 1;
-    border-radius: 50%;
+/* 储物/技艺按 v1.0.56 新版：词条字号/间距不再压缩 */
+.xy-page-storage .xy-pill,
+.xy-page-storage .xy-quality,
+.xy-page-arts .xy-pill,
+.xy-page-arts .xy-quality,
+.xy-page-skills .xy-pill,
+.xy-page-skills .xy-quality {
+  font-size: 11px;
+  padding: 1px 6px;
+}
+.xy-page-storage .xy-chip,
+.xy-page-arts .xy-chip,
+.xy-page-skills .xy-chip {
+  font-size: 12px;
+  padding: 4px 12px;
+  letter-spacing: 1.5px;
+}
+
+/* 新版资产：设施可折叠（点头部收起/展开 效果+收取） */
+.xy-facility-head {
+  cursor: pointer;
+  user-select: none;
+}
+.xy-facility-head::after {
+  content: '▾';
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--xy-ink-mute);
+  transition: transform 0.18s ease;
+}
+.xy-facility-folded .xy-facility-effect,
+.xy-facility-folded .xy-facility-date {
+  display: none !important;
+}
+.xy-facility-folded .xy-facility-head::after {
+  transform: rotate(-90deg);
+}
+
+/* 技艺：强制恢复 v1.0.56 上游技能网格（移除旧 3 列方块） */
+.xy-skill-panel .xy-skill-grid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+  gap: 8px !important;
+}
+
+/* 分类条横滑：滑轮可滚动但滚动条隐藏 */
+.xy-storage-tabs,
+.xy-rumor-filter,
+.xy-rel-chips,
+.xy-asset-chips,
+.xy-filter-drill,
+.xy-tabs {
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.xy-storage-tabs::-webkit-scrollbar,
+.xy-rumor-filter::-webkit-scrollbar,
+.xy-rel-chips::-webkit-scrollbar,
+.xy-asset-chips::-webkit-scrollbar,
+.xy-filter-drill::-webkit-scrollbar,
+.xy-tabs::-webkit-scrollbar {
+  display: none;
+}
+.xy-storage-tabs .xy-stab,
+.xy-rumor-filter .xy-chip,
+.xy-rel-chips .xy-chip,
+.xy-asset-chips .xy-chip,
+.xy-filter-drill .xy-chip,
+.xy-tabs .xy-tab {
+  flex: 0 0 auto;
+}
+
+/* 资产分类条：位于新版资产网格内并整行贯通 */
+.xy-assets-grid .xy-asset-chips {
+  grid-column: 1 / -1;
+  align-self: start;
+  margin-bottom: 2px;
+}
+
+/* 所有分页统一竖向尺寸：像储物那样固定内容视口、内部竖向滚动 */
+.xy-page-storage > :not(.xy-stone):not(.xy-storage-tabs),
+.xy-page-skills,
+.xy-page-tasks,
+.xy-page-rumors,
+.xy-page-map,
+.xy-page-assets,
+.xy-rel-scroll {
+  max-height: 460px;
+  overflow-y: auto;
+  overflow-x: auto;
+  overscroll-behavior: contain;
+}
+
+/* 地图/头像大图打开时，不受状态栏整体 70% 缩放影响，始终按 100% 尺寸显示 */
+body:has(.xy-lightbox) .xy-app {
+  zoom: 1 !important;
+}
+
+/* 技艺丹方折叠卡：保留折叠交互，文字/排版回归 v1.0.56 新卡片观感 */
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 8px;
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold .xy-recipe-head {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold .xy-recipe-head .xy-item-name {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.35;
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold .xy-recipe-head .xy-collapse-caret {
+  margin-left: auto;
+  flex: 0 0 auto;
+  transform: rotate(-90deg);
+  transition: transform 0.18s ease;
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold.open .xy-recipe-head .xy-collapse-caret {
+  transform: rotate(0deg);
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold .xy-craft-btn {
+  flex: 0 0 auto;
+}
+.xy-skill-panel .xy-recipe-card.xy-recipe-fold .xy-recipe-body {
+  flex: 1 1 100%;
+  margin-top: 2px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--xy-line);
+}
+
+/* 地图大图：完整显示整张地图；打开大图时不受 70% 整体缩放影响 */
+.xy-lightbox:has(.xy-lightbox-map) {
+  padding: 0;
+  overflow: hidden;
+}
+.xy-lightbox-map {
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+}
+@media (max-width: 700px) {
+  .xy-lightbox-map.xy-map-phone {
     flex: 0 0 auto;
+    transform: rotate(90deg);
+    width: 100dvh;
+    height: 100vw;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 0;
+    border: 0;
   }
 }
 
@@ -2572,8 +593,8 @@ body,html{margin:0;padding:0}
       };
       NO = () => false;
       extend = Object.assign;
-      remove = (arr, el) => {
-        const i2 = arr.indexOf(el);
+      remove = (arr, el2) => {
+        const i2 = arr.indexOf(el2);
         if (i2 > -1) {
           arr.splice(i2, 1);
         }
@@ -7689,7 +5710,7 @@ This will fail in production.`);
       \u4F4D\u7F6E: "string" == typeof l2.\u4F4D\u7F6E && l2.\u4F4D\u7F6E && "\u50A8\u7269\u888B" !== l2.\u4F4D\u7F6E ? l2.\u4F4D\u7F6E : void 0
     };
   }
-  var t, l, a, o, r, c, i, s, p, f, V, v, g, x, E, h2, B, C, S, w, M, D, L, U, T, X, A, P, F, j, O, I, W, q, R, Q, Z, H, K, Y, G, J, ee, ne, te, le, ae, oe, re, ce, ie, se, de, me, ue, pe, ye, fe, ke, Ve, ve, be, Ne, ge, xe, Ee, he, Be, _e, Ce, Se, we, We, Qe, Ze, He, Ke, Ye, Ge, Je, en, nn, tn, ln, an, on, rn, cn, sn, dn, mn, un, pn, yn, fn, kn, Vn, vn, bn, Nn, gn, xn, En, hn, Bn, _n, Cn, Sn, wn, Mn, Dn, zn, Ln, xyToggle, FavorLevels, favorLevelOf, $n, Un, Tn, Xn, An, Pn, Fn, jn, On, In, Wn, qn, Rn, Qn, Zn, Hn, Kn, Yn, Gn, Jn, et, nt, tt2, lt, at, ot, rt, ct, it, st, xyBgKey, xyBgDarkKey, xyBgMap, xyBgDark, xyBgGet, xyBgLuma, XYBgPick, XYBgClear, dt, mt, ut, pt, yt, ft, kt, Vt, vt, bt, Nt, gt, xt, Et, Bt, _t, Ct, St, wt, Mt, Dt, zt, Lt, $t, Ut, Tt, Nl, gl, xl, El, hl, Bl, _l, Cl, Sl, wl, Ml, Dl, zl, Ll, $l, Ul, Tl, Xl, Al, Pl, Fl, jl, Ol, Il, Wl, ql, Rl, Ql, Zl, Hl, Kl, Yl, Gl, Jl, ea, na, ta, la, aa, oa, ra, ca, ia, sa, da, ma, ua, pa, ya, fa, ka, Va, va, ba, Na, ga, xa, Ea, ha, Ba, _a, Ca, Sa, wa, Ma, Da, za, La, $a, Ua, Ta, Xa, Aa, Pa, Fa, ja, Oa, Ia, Wa, qa, Ra, Qa, Za, Ha, Ka, Ya, Ga, Ja, eo, no, to, lo, ao, oo, ro, co, io, so, mo, uo, po, yo, fo, ko, Vo, vo, bo, No, go, xo, Eo, ho, Bo, _o, Co, So, wo, Mo, Do, zo, Lo, $o, Uo, To, Xo, Ao, Po, Fo, jo, Oo, Io, Wo, qo, Ro, Qo, Zo, Ho, Jo, er, nr, tr, lr, ar, or, rr, cr, ir, sr, dr, mr, ur, pr, yr, fr, kr, Vr, vr, br, gr, xr, Er, hr, Br, _r, Cr, Sr, wr, Mr, Dr, zr, Lr, $r, Ur, Tr, Xr, Ar, Pr, Fr, jr, Or, Ir, Wr, qr, Rr, Qr, Zr, Hr, Kr, Yr, Gr, Jr, ec, nc, tc, lc, ac, oc, rc, cc, ic, sc, dc, mc, uc, pc, yc, fc, kc, Vc, vc, bc, Nc, gc, xc, Ec, hc, Bc, _c, Cc, Sc, wc, Mc, Dc, zc, Lc, $c, Uc, Tc, Xc, Ac, Pc, Fc, jc, Oc, Ic, Wc, qc, Rc, Qc, Zc, Hc, Kc, Yc, Gc, Jc, ei, ni, ti, li, ai, oi, ri, ci, ii, si, di, mi, ui, pi, yi, fi, ki, Vi, vi, bi, Ni, gi, xi, Ei, hi, Bi, _i, Ci, Si, wi, Mi, Di, zi, Li, $i, Ui, Ti, Xi, Ai, Pi, Fi, ji, Oi, Ii, Wi, qi, Ri, Qi, Zi, Hi, Ki, Yi, Gi, Ji, es, ns, ts, ls, as, os, rs, cs, is, ss, ds, ms, us, ps, ys, fs, ks, Vs, vs, bs, Ns, gs, hs, Bs, _s, Cs, Ss, ws, Ms, Ds, zs, Ls, $s, Us, Ts, Xs, As, Ps, Fs, js, Os, Is, Ws, qs, Rs, Qs, Zs, Hs, Ks, Ys, Gs, Js, ed, nd, td, ld, ad, od, rd, cd, id, sd, dd, md, ud, pd, yd, fd, kd, Vd, vd, bd, Nd, gd, xd, Ed, hd, _d, Cd, Sd, wd, Md, Dd, zd, Ld, $d, Ud, Td, Xd, Ad, Pd, Fd, jd, Od, Id, Wd, qd, Rd, Qd, Zd, Hd, Kd, Yd, Gd, Jd, em, nm, tm, lm, am, om, rm, cm, im, sm, dm, mm, um, pm, ym, fm, km, Vm, vm, bm, Nm, gm, xm, Em, hm, Bm, _m, Cm, Sm, wm, Mm, Dm, zm, Lm, $m, Um, Tm, Xm, Am, Pm, Fm, jm, Om, Im, Wm, qm, Rm, Qm, Zm, Hm, Km, Ym, Gm, Jm, eu, nu, tu, lu, au, ou, ru, cu, iu, su, du, mu, uu, pu, yu, fu, ku, Vu, vu, bu, Nu, gu, xu, Eu, hu, Bu, _u, Cu, Su, wu, Mu, Du, zu, Lu, $u, Uu, Tu, Xu, Au, Pu, Fu, ju, Ou, Iu, Wu, qu, Ru, Qu, Zu, Hu, Ku, Yu, Gu, Ju, ep, np, tp, lp, ap, op, rp, cp, ip, sp, dp, mp, up, pp, yp, fp, kp, Vp, vp, bp, Np, gp, xp, Ep, hp, Bp, _p, Cp, Sp, wp, Mp, Dp, zp, Lp, $p, Up, Tp, Xp, Ap, Pp, Fp, jp, Op, Ip, Wp, qp, Rp, Qp, Zp, Hp, Kp, Yp, Gp, ty, ly, ay, oy, ry, iy, sy, dy, my, uy, py, yy;
+  var t, l, a, o, r, c, i, s, p, f, V, v, g, x, E, h2, B, C, S, w, M, D, L, U, T, X, A, P, F, j, O, I, W, q, R, Q, Z, H, K, Y, G, J, ee, ne, te, le, ae, oe, re, ce, ie, se, de, me, ue, pe, ye, fe, ke, Ve, ve, be, Ne, ge, xe, Ee, he, Be, _e, Ce, Se, we, We, Qe, Ze, He, Ke, Ye, Ge, Je, en, nn, tn, ln, an, on, rn, cn, sn, dn, mn, un, pn, yn, fn, kn, Vn, vn, bn, Nn, gn, xn, En, hn, Bn, _n, Cn, Sn, wn, Mn, Dn, zn, Ln, xyToggle, FavorLevels, favorLevelOf, $n, Un, Tn, Xn, An, Pn, Fn, jn, On, In, Wn, qn, Rn, Qn, Zn, Hn, Kn, Yn, Gn, Jn, et, nt, tt2, lt, at, ot, rt, ct, it, st, xyBgKey, xyBgDarkKey, xyBgMap, xyBgDark, xyBgGet, xyBgLuma, XYBgPick, XYBgClear, dt, mt, ut, pt, yt, ft, kt, Vt, vt, bt, Nt, gt, xt, Et, Bt, _t, Ct, St, wt, Mt, Dt, zt, Lt, $t, Ut, Tt, Xt, At, Pt, jt, Ot, It, Wt, qt, Rt, Qt, Zt, Ht, Kt, Yt, Gt, Jt, el, nl, tl, ll, al, ol, rl, cl, il, sl, dl, ml, ul, pl, yl, fl, kl, Vl, vl, bl, Nl, gl, xl, El, hl, Bl, _l, Cl, Sl, wl, Ml, Dl, zl, Ll, $l, Ul, Tl, Xl, Al, Pl, Fl, jl, Ol, Il, Wl, ql, Rl, Ql, Zl, Hl, Kl, Yl, Gl, Jl, ea, na, ta, la, aa, oa, ra, ca, ia, sa, da, ma, ua, pa, ya, fa, ka, Va, va, ba, Na, ga, xa, Ea, ha, Ba, _a, Ca, Sa, wa, Ma, Da, za, La, $a, Ua, Ta, Xa, Aa, Pa, Fa, ja, Oa, Ia, Wa, qa, Ra, Qa, Za, Ha, Ka, Ya, Ga, Ja, eo, no, to, lo, ao, oo, ro, co, io, so, mo, uo, po, yo, fo, ko, Vo, vo, bo, No, go, xo, Eo, ho, Bo, _o, Co, So, wo, Mo, Do, zo, Lo, $o, Uo, To, Xo, Ao, Po, Fo, jo, Oo, Io, Wo, qo, Ro, Qo, Zo, Ho, Jo, er, nr, tr, lr, ar, or, rr, cr, ir, sr, dr, mr, ur, pr, yr, fr, kr, Vr, vr, br, gr, xr, Er, hr, Br, _r, Cr, Sr, wr, Mr, Dr, zr, Lr, $r, Ur, Tr, Xr, Ar, Pr, Fr, jr, Or, Ir, Wr, qr, Rr, Qr, Zr, Hr, Kr, Yr, Gr, Jr, ec, nc, tc, lc, ac, oc, rc, cc, ic, sc, dc, mc, uc, pc, yc, fc, kc, Vc, vc, bc, Nc, gc, xc, Ec, hc, Bc, _c, Cc, Sc, wc, Mc, Dc, zc, Lc, $c, Uc, Tc, Xc, Ac, Pc, Fc, jc, Oc, Ic, Wc, qc, Rc, Qc, Zc, Hc, Kc, Yc, Gc, Jc, ei, ni, ti, li, ai, oi, ri, ci, ii, si, di, mi, ui, pi, yi, fi, ki, Vi, vi, bi, Ni, gi, xi, Ei, hi, Bi, _i, Ci, Si, wi, Mi, Di, zi, Li, $i, Ui, Ti, Xi, Ai, Pi, Fi, ji, Oi, Ii, Wi, qi, Ri, Qi, Zi, Hi, Ki, Yi, Gi, Ji, es, ns, ts, ls, as, os, rs, cs, is, ss, ds, ms, us, ps, ys, fs, ks, Vs, vs, bs, Ns, gs, hs, Bs, _s, Cs, Ss, ws, Ms, Ds, zs, Ls, $s, Us, Ts, Xs, As, Ps, Fs, js, Os, Is, Ws, qs, Rs, Qs, Zs, Hs, Ks, Ys, Gs, Js, ed, nd, td, ld, ad, od, rd, cd, id, sd, dd, md, ud, pd, yd, fd, kd, Vd, vd, bd, Nd, gd, xd, Ed, hd, _d, Cd, Sd, wd, Md, Dd, zd, Ld, $d, Ud, Td, Xd, Ad, Pd, Fd, jd, Od, Id, Wd, qd, Rd, Qd, Zd, Hd, Kd, Yd, Gd, Jd, em, nm, tm, lm, am, om, rm, cm, im, sm, dm, mm, um, pm, ym, fm, km, Vm, vm, bm, Nm, gm, xm, Em, hm, Bm, _m, Cm, Sm, wm, Mm, Dm, zm, Lm, $m, Um, Tm, Xm, Am, Pm, Fm, jm, Om, Im, Wm, qm, Rm, Qm, Zm, Hm, Km, Ym, Gm, Jm, eu, nu, tu, lu, au, ou, ru, cu, iu, su, du, mu, uu, pu, yu, fu, ku, Vu, vu, bu, Nu, gu, xu, Eu, hu, Bu, _u, Cu, Su, wu, Mu, Du, zu, Lu, $u, Uu, Tu, Xu, Au, Pu, Fu, ju, Ou, Iu, Wu, qu, Ru, Qu, Zu, Hu, Ku, Yu, Gu, Ju, ep, np, tp, lp, ap, op, rp, cp, ip, sp, dp, mp, up, pp, yp, fp, kp, Vp, vp, bp, Np, gp, xp, Ep, hp, Bp, _p, Cp, Sp, wp, Mp, Dp, zp, Lp, $p, Up, Tp, Xp, Ap, Pp, Fp, jp, Op, Ip, Wp, qp, Rp, Qp, Zp, Hp, Kp, Yp, Gp, ty, ly, ay, oy, ry, cy, iy, sy, dy, my, uy, py, yy;
   var init_panel_module = __esm({
     "\u4FEE\u4ED9\u72B6\u6001\u680F/_panel-module.js"() {
       init_pinia();
@@ -10582,6 +8603,42 @@ This will fail in production.`);
           ]));
         }
       });
+      Xt = { class: "xy-page xy-page-assets" };
+      At = { key: 0, class: "xy-asset-toolbar" };
+      Pt = { key: 1, class: "xy-empty" };
+      jt = ["data-seal"];
+      Ot = ["onClick"];
+      It = ["aria-expanded", "onClick"];
+      Wt = { class: "xy-asset-heading" };
+      qt = { class: "xy-asset-title-line" };
+      Rt = { class: "xy-asset-name" };
+      Qt = ["onUpdate:modelValue"];
+      Zt = ["value"];
+      Ht = { key: 1, class: "xy-asset-type" };
+      Kt = { key: 0, class: "xy-asset-summary" };
+      Yt = { class: "xy-asset-scale" };
+      Gt = { class: "xy-collapsible-hint", "aria-hidden": "true" };
+      Jt = { class: "xy-collapsible-body" };
+      el = { class: "xy-asset-location" };
+      nl = ["onUpdate:modelValue"];
+      tl = ["value"];
+      ll = { key: 1 };
+      al = { class: "xy-asset-status" };
+      ol = { key: 0, class: "xy-asset-empty" };
+      rl = ["onClick"];
+      cl = { class: "xy-facility-head" };
+      il = { class: "xy-facility-yield" };
+      sl = { key: 1, class: "xy-facility-effect" };
+      dl = { class: "xy-facility-date" };
+      ml = { key: 0 };
+      ul = { key: 1, class: "xy-asset-date-fields" };
+      pl = ["onUpdate:modelValue"];
+      yl = ["value"];
+      fl = ["onClick"];
+      kl = ["onClick"];
+      Vl = ["onClick"];
+      vl = { class: "xy-asset-people" };
+      bl = { key: 0, class: "xy-asset-empty" };
       Nl = (0, a.defineComponent)({
         __name: "PageAssets",
         setup(e) {
@@ -10604,153 +8661,461 @@ This will fail in production.`);
             const e2 = i2(t2.value, "\u65B0\u8D44\u4EA7");
             t2.value[e2] = { \u7C7B\u578B: "\u6D1E\u5E9C", \u4EBA\u5458\u89C4\u6A21: 0, \u6240\u5728\u5730: { ...n.data.\u5730\u70B9 }, \u73B0\u72B6: "\u6B63\u5E38", \u8BBE\u65BD: {}, \u5206\u914D\u4EBA\u7269: [] };
           }
-          return (e2, d3) => {
-            const h3 = a.h;
-            const assets = (0, a.unref)(n).data.\u56FA\u5B9A\u8D44\u4EA7 || {};
-            const edit = (0, a.unref)(We).editMode;
-            const REGIONS = ["\u4E2D\u539F", "\u5357\u7586", "\u5317\u5883", "\u897F\u57DF", "\u4E1C\u571F"];
-            const caret = (op2) => h3("span", { class: "xy-collapse-caret" }, op2 ? "\u25BE" : "\u25B8");
-            const byKey = {};
-            for (const [name, asst] of Object.entries(assets)) {
-              const loc = (asst == null ? void 0 : asst.\u6240\u5728\u5730) || {};
-              const w2 = loc.\u4E16\u754C || "\u51E1\u754C";
-              const reg = loc.\u5730\u57DF || "";
-              const key = w2 === "\u51E1\u754C" ? REGIONS.includes(reg) ? "\u51E1\u754C\xB7" + reg : "\u51E1\u754C\xB7\u5176\u4ED6" : w2;
-              (byKey[key] = byKey[key] || []).push([name, asst]);
+          const xyAssetKey = (e2) => {
+            const l3 = (e2 == null ? void 0 : e2.\u6240\u5728\u5730) || {};
+            const w2 = l3.\u4E16\u754C || "\u51E1\u754C";
+            const r2 = String(l3.\u5730\u57DF || "").trim();
+            return "\u51E1\u754C" === w2 ? r2 || "\u5176\u4ED6" : w2;
+          };
+          const XY_ASSET_VIS = (0, a.computed)(() => {
+            const f2 = We.assetRegionFilter || "all";
+            const all = t2.value || {};
+            return "all" === f2 ? Object.entries(all) : Object.entries(all).filter(([, e2]) => xyAssetKey(e2) === f2);
+          });
+          const XY_ASSET_COUNT = (0, a.computed)(() => {
+            const all = t2.value || {};
+            const counts = {};
+            for (const [, e2] of Object.entries(all)) {
+              const k2 = xyAssetKey(e2);
+              counts[k2] = (counts[k2] || 0) + 1;
             }
-            const order = ["\u51E1\u754C\xB7\u4E2D\u539F", "\u51E1\u754C\xB7\u5357\u7586", "\u51E1\u754C\xB7\u5317\u5883", "\u51E1\u754C\xB7\u897F\u57DF", "\u51E1\u754C\xB7\u4E1C\u571F", "\u51E1\u754C\xB7\u5176\u4ED6", "\u7075\u754C", "\u4ED9\u754C"];
-            const groups = [];
-            for (const k2 of order) if (byKey[k2]) groups.push({ key: k2, items: byKey[k2] });
-            for (const k2 of Object.keys(byKey)) if (!order.includes(k2)) groups.push({ key: k2, items: byKey[k2] });
-            const regionFilter = (0, a.unref)(We).assetRegionFilter;
-            const REGION_CHIPS = ["all"].concat(["\u4E2D\u539F", "\u5357\u7586", "\u5317\u5883", "\u897F\u57DF", "\u4E1C\u571F", "\u7075\u754C", "\u4ED9\u754C", "\u5176\u4ED6"].filter((k2) => groups.some((g2) => g2.key.endsWith(k2) || g2.key === k2)));
-            const visible = regionFilter === "all" ? groups : groups.filter((g2) => g2.key.endsWith(regionFilter) || g2.key === regionFilter);
-            const chips = h3(
+            return counts;
+          });
+          const XY_ASSET_CHIP_ORDER = ["\u4E2D\u539F", "\u5357\u7586", "\u5317\u5883", "\u897F\u57DF", "\u4E1C\u571F", "\u7075\u754C", "\u4ED9\u754C", "\u5176\u4ED6"];
+          const XYAssetChips = () => {
+            const counts = (0, a.unref)(XY_ASSET_COUNT);
+            const allCount = Object.keys(t2.value || {}).length;
+            const cur = We.assetRegionFilter || "all";
+            const keys = ["all"].concat(
+              Object.keys(counts).sort((x2, y2) => {
+                const xi2 = XY_ASSET_CHIP_ORDER.indexOf(x2);
+                const yi2 = XY_ASSET_CHIP_ORDER.indexOf(y2);
+                return (xi2 < 0 ? 99 : xi2) - (yi2 < 0 ? 99 : yi2);
+              })
+            );
+            return a.h(
               "div",
-              { class: "xy-rel-chips xy-asset-chips" },
-              REGION_CHIPS.map(
-                (key) => h3(
+              { class: "xy-asset-chips xy-rumor-filter" },
+              keys.map(
+                (k2) => a.h(
                   "button",
-                  { key, type: "button", class: ["xy-chip", { active: regionFilter === key }], onClick: () => (0, a.unref)(We).assetRegionFilter = key },
-                  [" " + (0, a.toDisplayString)("all" === key ? "\u5168\u90E8" : key) + " ", h3("em", null, (0, a.toDisplayString)("all" === key ? Object.keys(assets).length : groups.filter((g2) => g2.key.endsWith(key) || g2.key === key).reduce((s3, g2) => s3 + g2.items.length, 0)))]
+                  {
+                    key: k2,
+                    type: "button",
+                    class: ["xy-chip", { active: cur === k2 }],
+                    onClick: () => {
+                      We.assetRegionFilter = k2;
+                    }
+                  },
+                  [
+                    a.createTextVNode(" " + a.toDisplayString("all" === k2 ? "\u5168\u90E8" : k2) + " "),
+                    a.h("em", null, a.toDisplayString("all" === k2 ? allCount : counts[k2]))
+                  ]
                 )
               )
             );
-            const facilityRow = (name, asst, fname, f2) => {
-              const fOpen = !!(0, a.unref)(We).facilityOpen[name + "::" + fname] || edit;
-              return h3("div", { key: fname, class: ["xy-facility-row", { open: fOpen }] }, [
-                h3(
-                  "button",
-                  {
-                    type: "button",
-                    class: "xy-facility-row-toggle",
-                    title: fOpen ? "\u6536\u8D77\u8BBE\u65BD" : "\u5C55\u5F00\u8BBE\u65BD",
-                    onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("facilityOpen", name + "::" + fname), ["stop"])
-                  },
-                  [
-                    h3("span", { class: "xy-facility-name" }, [h3(wt, { "model-value": String(fname), label: "\u8BBE\u65BD\u540D", "onUpdate:modelValue": (v2) => s2(asst.\u8BBE\u65BD, String(fname), String(v2), "\u8BBE\u65BD") })]),
-                    (f2 == null ? void 0 : f2.\u6BCF\u6708\u4EA7\u51FA) ? h3("span", { class: "xy-facility-yield" }, (0, a.toDisplayString)(f2.\u6BCF\u6708\u4EA7\u51FA)) : null,
-                    caret(fOpen)
-                  ]
-                ),
-                fOpen ? h3("div", { class: "xy-facility-row-body" }, [
-                  !(0, a.unref)(r()).isEmpty(f2 == null ? void 0 : f2.\u6548\u679C) || edit ? h3("div", { class: "xy-facility-effect" }, [h3(zt, { modelValue: f2.\u6548\u679C, "onUpdate:modelValue": (v2) => f2.\u6548\u679C = v2 })]) : null,
-                  h3("div", { class: "xy-facility-date" }, [
-                    h3("span", { class: "xy-facility-date-label" }, "\u4E0A\u6B21\u6536\u53D6\uFF1A"),
-                    (f2 == null ? void 0 : f2.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F) ? h3("span", { class: "xy-facility-date-value" }, "\u4FEE\u4ED9\u5386" + (0, a.toDisplayString)(f2.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u5E74) + "\u5E74" + (0, a.toDisplayString)(f2.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u6708) + "\u6708" + (0, a.toDisplayString)(f2.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65E5) + "\u65E5 \xB7 " + (0, a.toDisplayString)(f2.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65F6\u8FB0)) : h3("span", { class: "xy-facility-date-value" }, "\u4ECE\u672A\u6536\u53D6")
-                  ])
-                ]) : null
-              ]);
-            };
-            const facilityFold = (name, asst) => {
-              const fListOpen = !!(0, a.unref)(We).assetOpen[name + "::\u8BBE\u65BD\u5217\u8868"] || edit;
-              return h3("div", { class: "xy-effect-fold xy-facility-fold" }, [
-                h3(
-                  "button",
-                  {
-                    type: "button",
-                    class: ["xy-collapse-head xy-collapse-sub", { open: fListOpen }],
-                    onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("assetOpen", String(name) + "::\u8BBE\u65BD\u5217\u8868"), ["stop"])
-                  },
-                  [h3("span", { class: "xy-collapse-title" }, "\u8BBE\u65BD"), h3("span", { class: "xy-collapse-count" }, (0, a.toDisplayString)(Object.keys((asst == null ? void 0 : asst.\u8BBE\u65BD) || {}).length)), caret(fListOpen)]
-                ),
-                (0, a.withDirectives)(
-                  h3("div", { class: "xy-facility-list" }, [
-                    (0, a.unref)(r()).isEmpty(asst == null ? void 0 : asst.\u8BBE\u65BD) && !edit ? h3("div", { class: "xy-asset-empty" }, "\u6682\u65E0\u8BBE\u65BD") : Object.entries((asst == null ? void 0 : asst.\u8BBE\u65BD) || {}).map(([fname, f2]) => facilityRow(name, asst, fname, f2)),
-                    edit ? h3("button", { type: "button", class: "xy-effect-add", onClick: () => {
-                      (asst.\u8BBE\u65BD || (asst.\u8BBE\u65BD = {}))[i2(asst.\u8BBE\u65BD, "\u65B0\u8BBE\u65BD")] = { \u6548\u679C: {}, \u6BCF\u6708\u4EA7\u51FA: "\u65E0", \u4E0A\u6B21\u6536\u53D6\u65E5\u671F: null };
-                    } }, " \uFF0B \u65B0\u589E\u8BBE\u65BD ") : null
-                  ]),
-                  [[a.vShow, fListOpen]]
-                )
-              ]);
-            };
-            const peopleFold = (name, asst) => {
-              const pOpen = !!(0, a.unref)(We).assetOpen[name + "::\u4EBA\u7269"];
-              const people = (asst == null ? void 0 : asst.\u5206\u914D\u4EBA\u7269) ?? (asst == null ? void 0 : asst.\u6240\u5C5E\u4EBA\u7269) ?? [];
-              return h3("div", { class: "xy-people-fold" }, [
-                h3(
-                  "button",
-                  {
-                    type: "button",
-                    class: ["xy-collapse-head xy-collapse-sub", { open: pOpen }],
-                    onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("assetOpen", String(name) + "::\u4EBA\u7269"), ["stop"])
-                  },
-                  [h3("span", { class: "xy-collapse-title" }, "\u5206\u914D\u4EBA\u7269"), h3("span", { class: "xy-collapse-count" }, (0, a.toDisplayString)(people.length)), caret(pOpen)]
-                ),
-                (0, a.withDirectives)(
-                  h3("div", { class: "xy-people-body" }, [
-                    edit ? h3(Tt, { modelValue: people, "onUpdate:modelValue": (v2) => asst.\u5206\u914D\u4EBA\u7269 = v2, label: "\u5206\u914D\u4EBA\u7269" }) : people.length ? h3("span", { class: "xy-idtags" }, people.map((nm2) => h3("span", { key: nm2, class: "xy-idtag" }, (0, a.toDisplayString)(nm2)))) : h3("span", { class: "xy-asset-empty" }, "\u6682\u65E0")
-                  ]),
-                  [[a.vShow, pOpen]]
-                )
-              ]);
-            };
-            const assetBlock = (name, asst) => {
-              const aOpen = !!(0, a.unref)(We).assetOpen[name] || edit;
-              const loc = (asst == null ? void 0 : asst.\u6240\u5728\u5730) || {};
-              const type = (asst == null ? void 0 : asst.\u7C7B\u578B) || "\u6D1E\u5E9C";
-              const typeChar = "\u5B97\u95E8" === type ? "\u5B97" : "\u5E97\u94FA" === type ? "\u94FA" : "\u6D1E";
-              return h3("article", { key: name, class: ["xy-asset-block", "xy-asset-" + type, { open: aOpen }], "data-seal": typeChar }, [
-                h3("button", { type: "button", class: "xy-trash", title: "\u5220\u9664\u6B64\u8D44\u4EA7", onClick: (0, a.withModifiers)(() => (0, a.unref)(dt)("asset", String(name), String(name)), ["stop"]) }, "\xD7"),
-                h3(
-                  "button",
-                  {
-                    type: "button",
-                    class: "xy-asset-block-toggle",
-                    title: aOpen ? "\u6536\u8D77\u8D44\u4EA7\u8BE6\u60C5" : "\u5C55\u5F00\u8D44\u4EA7\u8BE6\u60C5",
-                    onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("assetOpen", String(name)), ["stop"])
-                  },
-                  [
-                    h3("span", { class: "xy-asset-seal", "data-type": type }, (0, a.toDisplayString)(typeChar)),
-                    h3("span", { class: "xy-asset-block-name" }, (0, a.toDisplayString)(name)),
-                    h3("div", { class: "xy-asset-block-tags" }, [
-                      (asst == null ? void 0 : asst.\u4EBA\u5458\u89C4\u6A21) ? h3("span", { class: "xy-pill xy-pill-soft" }, (0, a.toDisplayString)(asst.\u4EBA\u5458\u89C4\u6A21) + "\u4EBA") : null,
-                      loc.\u4E16\u754C || loc.\u5730\u57DF ? h3("span", { class: "xy-pill xy-pill-soft xy-asset-loc" }, (0, a.toDisplayString)(loc.\u4E16\u754C || "") + (loc.\u5730\u57DF ? " \xB7 " + (0, a.toDisplayString)(loc.\u5730\u57DF) : "")) : null
-                    ]),
-                    caret(aOpen)
-                  ]
-                ),
-                aOpen ? h3("div", { class: "xy-asset-flat-body" }, [
-                  (asst == null ? void 0 : asst.\u73B0\u72B6) || edit ? h3("div", { class: "xy-asset-status" }, [h3("span", { class: "xy-asset-status-label" }, "\u73B0\u72B6\uFF1A"), h3(wt, { modelValue: asst.\u73B0\u72B6, "onUpdate:modelValue": (v2) => asst.\u73B0\u72B6 = v2, label: "\u73B0\u72B6", multiline: "", rows: 2 })]) : null,
-                  facilityFold(name, asst),
-                  peopleFold(name, asst)
-                ]) : null
-              ]);
-            };
-            return h3("section", { class: "xy-page xy-page-assets" }, [
-              edit ? h3("div", { class: "xy-asset-toolbar" }, [
-                h3("span", { class: "xy-asset-tip" }, "\u8D44\u4EA7\u540D\u4E0E\u8BBE\u65BD\u540D\u53EF\u76F4\u63A5\u91CD\u547D\u540D\uFF1B\u7A7A\u540D\u6216\u91CD\u540D\u4E0D\u4F1A\u8986\u76D6\u73B0\u6709\u6570\u636E\u3002"),
-                h3("button", { type: "button", class: "xy-effect-add", onClick: d3 }, "\uFF0B \u65B0\u589E\u8D44\u4EA7")
-              ]) : null,
-              (0, a.unref)(r()).isEmpty(assets) && !edit ? h3("div", { class: "xy-empty" }, [h3("div", { class: "xy-empty-mark" }, "\u65E0"), h3("p", null, "\u6682\u65E0\u56FA\u5B9A\u8D44\u4EA7")]) : h3("div", { class: "xy-asset-page" }, [
-                chips,
-                h3("div", { class: "xy-asset-scroll xy-scroll-area" }, [
-                  h3("div", { class: "xy-asset-block-grid" }, visible.flatMap(({ items }) => items.map(([nm2, asst]) => assetBlock(nm2, asst))))
-                ])
-              ])
-            ]);
           };
+          return (e2, m2) => ((0, a.openBlock)(), (0, a.createElementBlock)("section", Xt, [
+            (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)("div", At, [
+              m2[1] || (m2[1] = (0, a.createElementVNode)("span", null, "\u8D44\u4EA7\u540D\u4E0E\u8BBE\u65BD\u540D\u53EF\u76F4\u63A5\u91CD\u547D\u540D\uFF1B\u7A7A\u540D\u6216\u91CD\u540D\u4E0D\u4F1A\u8986\u76D6\u73B0\u6709\u6570\u636E\u3002", -1)),
+              (0, a.createElementVNode)("button", { type: "button", class: "xy-effect-add", onClick: d2 }, "\uFF0B \u65B0\u589E\u8D44\u4EA7")
+            ])) : (0, a.createCommentVNode)("v-if", true),
+            (0, a.unref)(r()).isEmpty(t2.value) && !(0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)("div", Pt, [
+              ...m2[2] || (m2[2] = [(0, a.createElementVNode)("div", { class: "xy-empty-mark" }, "\u65E0", -1), (0, a.createElementVNode)("p", null, "\u6682\u65E0\u56FA\u5B9A\u8D44\u4EA7", -1)])
+            ])) : ((0, a.openBlock)(), (0, a.createElementBlock)("div", { key: (0, a.unref)(We).assetRegionFilter || "all", class: "xy-assets-grid" }, [
+              XYAssetChips(),
+              ((0, a.openBlock)(true), (0, a.createElementBlock)(
+                a.Fragment,
+                null,
+                (0, a.renderList)((0, a.unref)(XY_ASSET_VIS), ([d3, e3]) => {
+                  return (0, a.openBlock)(), (0, a.createElementBlock)(
+                    "article",
+                    {
+                      key: d3,
+                      class: (0, a.normalizeClass)([
+                        "xy-asset-card",
+                        { "xy-collapsible-open": (0, a.unref)(We).editMode || (0, a.unref)(qe)("asset", String(d3)) }
+                      ]),
+                      "data-seal": (u2 = e3.\u7C7B\u578B, "\u5B97\u95E8" === u2 ? "\u5B97" : "\u5E97\u94FA" === u2 ? "\u94FA" : "\u6D1E")
+                    },
+                    [
+                      (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)(
+                        "button",
+                        {
+                          key: 0,
+                          type: "button",
+                          class: "xy-trash",
+                          title: "\u5220\u9664\u6B64\u8D44\u4EA7",
+                          onClick: (0, a.withModifiers)((e4) => (0, a.unref)(dt)("asset", String(d3), String(d3)), ["stop"])
+                        },
+                        " \xD7 ",
+                        8,
+                        Ot
+                      )) : (0, a.createCommentVNode)("v-if", true),
+                      (0, a.createElementVNode)(
+                        "div",
+                        {
+                          class: "xy-asset-head xy-collapsible-head",
+                          "aria-expanded": (0, a.unref)(We).editMode || (0, a.unref)(qe)("asset", String(d3)),
+                          onClick: (e4) => (0, a.unref)(Re)("asset", String(d3))
+                        },
+                        [
+                          (0, a.createElementVNode)("span", Wt, [
+                            (0, a.createElementVNode)("span", qt, [
+                              (0, a.createElementVNode)("span", Rt, [
+                                (0, a.createVNode)(
+                                  wt,
+                                  { "model-value": String(d3), label: "\u8D44\u4EA7\u540D", "onUpdate:modelValue": (e4) => s2(t2.value, String(d3), String(e4), "\u8D44\u4EA7") },
+                                  null,
+                                  8,
+                                  ["model-value", "onUpdate:modelValue"]
+                                )
+                              ]),
+                              (0, a.unref)(We).editMode ? (0, a.withDirectives)(
+                                ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                  "select",
+                                  {
+                                    key: 0,
+                                    "onUpdate:modelValue": (n2) => e3.\u7C7B\u578B = n2,
+                                    class: "xy-asset-select",
+                                    title: "\u8D44\u4EA7\u7C7B\u578B",
+                                    onClick: m2[0] || (m2[0] = (0, a.withModifiers)(() => {
+                                    }, ["stop"]))
+                                  },
+                                  [
+                                    ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                      a.Fragment,
+                                      null,
+                                      (0, a.renderList)(
+                                        l2,
+                                        (e4) => (0, a.createElementVNode)("option", { key: e4, value: e4 }, (0, a.toDisplayString)(e4), 9, Zt)
+                                      ),
+                                      64
+                                    ))
+                                  ],
+                                  8,
+                                  Qt
+                                )),
+                                [[a.vModelSelect, e3.\u7C7B\u578B]]
+                              ) : ((0, a.openBlock)(), (0, a.createElementBlock)("span", Ht, (0, a.toDisplayString)(e3.\u7C7B\u578B), 1))
+                            ]),
+                            (0, a.unref)(We).editMode || (0, a.unref)(qe)("asset", String(d3)) ? (0, a.createCommentVNode)("v-if", true) : ((0, a.openBlock)(), (0, a.createElementBlock)("span", Kt, [
+                              (0, a.createElementVNode)(
+                                "span",
+                                null,
+                                (0, a.toDisplayString)(e3.\u6240\u5728\u5730.\u4E16\u754C) + " \xB7 " + (0, a.toDisplayString)(e3.\u6240\u5728\u5730.\u5730\u57DF),
+                                1
+                              ),
+                              (0, a.createElementVNode)("span", null, (0, a.toDisplayString)(Object.keys(e3.\u8BBE\u65BD || {}).length) + " \u5904\u8BBE\u65BD", 1)
+                            ]))
+                          ]),
+                          (0, a.createElementVNode)("span", Yt, [
+                            m2[3] || (m2[3] = (0, a.createTextVNode)(" \u89C4\u6A21\uFF1A", -1)),
+                            (0, a.createVNode)(
+                              wt,
+                              {
+                                "model-value": e3.\u4EBA\u5458\u89C4\u6A21,
+                                type: "number",
+                                label: "\u4EBA\u5458\u89C4\u6A21",
+                                min: 0,
+                                step: 1,
+                                "onUpdate:modelValue": (n2) => {
+                                  return e3.\u4EBA\u5458\u89C4\u6A21 = (t3 = n2, Math.max(0, Math.trunc(Number(t3) || 0)));
+                                  var t3;
+                                }
+                              },
+                              null,
+                              8,
+                              ["model-value", "onUpdate:modelValue"]
+                            ),
+                            m2[4] || (m2[4] = (0, a.createTextVNode)("\u4EBA ", -1))
+                          ]),
+                          (0, a.createElementVNode)(
+                            "span",
+                            Gt,
+                            (0, a.toDisplayString)((0, a.unref)(We).editMode ? "\u7F16\u8F91" : (0, a.unref)(qe)("asset", String(d3)) ? "\u6536\u8D77" : "\u8BE6\u60C5"),
+                            1
+                          )
+                        ],
+                        8,
+                        It
+                      ),
+                      (0, a.withDirectives)(
+                        (0, a.createElementVNode)(
+                          "div",
+                          Jt,
+                          [
+                            (0, a.createElementVNode)("div", el, [
+                              (0, a.unref)(We).editMode ? (0, a.withDirectives)(
+                                ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                  "select",
+                                  {
+                                    key: 0,
+                                    "onUpdate:modelValue": (n2) => e3.\u6240\u5728\u5730.\u4E16\u754C = n2,
+                                    class: "xy-asset-select xy-asset-select-world",
+                                    title: "\u6240\u5728\u4E16\u754C"
+                                  },
+                                  [
+                                    ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                      a.Fragment,
+                                      null,
+                                      (0, a.renderList)(
+                                        o2,
+                                        (e4) => (0, a.createElementVNode)("option", { key: e4, value: e4 }, (0, a.toDisplayString)(e4), 9, tl)
+                                      ),
+                                      64
+                                    ))
+                                  ],
+                                  8,
+                                  nl
+                                )),
+                                [[a.vModelSelect, e3.\u6240\u5728\u5730.\u4E16\u754C]]
+                              ) : ((0, a.openBlock)(), (0, a.createElementBlock)("span", ll, (0, a.toDisplayString)(e3.\u6240\u5728\u5730.\u4E16\u754C), 1)),
+                              m2[5] || (m2[5] = (0, a.createElementVNode)("i", null, "\xB7", -1)),
+                              (0, a.createVNode)(
+                                wt,
+                                { modelValue: e3.\u6240\u5728\u5730.\u5730\u57DF, "onUpdate:modelValue": (n2) => e3.\u6240\u5728\u5730.\u5730\u57DF = n2, label: "\u5730\u57DF" },
+                                null,
+                                8,
+                                ["modelValue", "onUpdate:modelValue"]
+                              ),
+                              m2[6] || (m2[6] = (0, a.createElementVNode)("i", null, "\xB7", -1)),
+                              (0, a.createVNode)(
+                                wt,
+                                { modelValue: e3.\u6240\u5728\u5730.\u5177\u4F53\u5730\u70B9, "onUpdate:modelValue": (n2) => e3.\u6240\u5728\u5730.\u5177\u4F53\u5730\u70B9 = n2, label: "\u5177\u4F53\u5730\u70B9" },
+                                null,
+                                8,
+                                ["modelValue", "onUpdate:modelValue"]
+                              )
+                            ]),
+                            (0, a.createElementVNode)("div", al, [
+                              (0, a.createVNode)(
+                                wt,
+                                { modelValue: e3.\u73B0\u72B6, "onUpdate:modelValue": (n2) => e3.\u73B0\u72B6 = n2, label: "\u73B0\u72B6", multiline: "", rows: 2 },
+                                null,
+                                8,
+                                ["modelValue", "onUpdate:modelValue"]
+                              )
+                            ]),
+                            m2[13] || (m2[13] = (0, a.createElementVNode)("div", { class: "xy-asset-section-title" }, "\u8BBE\u65BD", -1)),
+                            (0, a.unref)(r()).isEmpty(e3.\u8BBE\u65BD) && !(0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)("div", ol, "\u6682\u65E0\u8BBE\u65BD")) : (0, a.createCommentVNode)("v-if", true),
+                            ((0, a.openBlock)(true), (0, a.createElementBlock)(
+                              a.Fragment,
+                              null,
+                              (0, a.renderList)(e3.\u8BBE\u65BD, (t3, l3) => {
+                                return (0, a.openBlock)(), (0, a.createElementBlock)("div", { key: l3, class: "xy-facility" }, [
+                                  (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                    "button",
+                                    {
+                                      key: 0,
+                                      type: "button",
+                                      class: "xy-trash",
+                                      title: "\u5220\u9664\u6B64\u8BBE\u65BD",
+                                      onClick: (0, a.withModifiers)(
+                                        (n2) => {
+                                          return t4 = e3.\u8BBE\u65BD, a2 = String(l3), void delete t4[a2];
+                                          var t4, a2;
+                                        },
+                                        ["stop"]
+                                      )
+                                    },
+                                    " \xD7 ",
+                                    8,
+                                    rl
+                                  )) : (0, a.createCommentVNode)("v-if", true),
+                                  (0, a.createElementVNode)("div", cl, [
+                                    (0, a.createElementVNode)("strong", null, [
+                                      (0, a.createVNode)(
+                                        wt,
+                                        {
+                                          "model-value": String(l3),
+                                          label: "\u8BBE\u65BD\u540D",
+                                          "onUpdate:modelValue": (n2) => s2(e3.\u8BBE\u65BD, String(l3), String(n2), "\u8BBE\u65BD")
+                                        },
+                                        null,
+                                        8,
+                                        ["model-value", "onUpdate:modelValue"]
+                                      )
+                                    ]),
+                                    (0, a.createElementVNode)("span", il, [
+                                      m2[7] || (m2[7] = (0, a.createTextVNode)(" \u6BCF\u6708\u4EA7\u51FA\uFF1A", -1)),
+                                      (0, a.createVNode)(
+                                        wt,
+                                        { modelValue: t3.\u6BCF\u6708\u4EA7\u51FA, "onUpdate:modelValue": (e4) => t3.\u6BCF\u6708\u4EA7\u51FA = e4, label: "\u6BCF\u6708\u4EA7\u51FA" },
+                                        null,
+                                        8,
+                                        ["modelValue", "onUpdate:modelValue"]
+                                      )
+                                    ])
+                                  ]),
+                                  !(0, a.unref)(r()).isEmpty(t3.\u6548\u679C) || (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)("div", sl, [
+                                    (0, a.createVNode)(zt, { modelValue: t3.\u6548\u679C, "onUpdate:modelValue": (e4) => t3.\u6548\u679C = e4 }, null, 8, [
+                                      "modelValue",
+                                      "onUpdate:modelValue"
+                                    ])
+                                  ])) : (0, a.createCommentVNode)("v-if", true),
+                                  (0, a.createElementVNode)("div", dl, [
+                                    m2[12] || (m2[12] = (0, a.createElementVNode)("span", null, "\u4E0A\u6B21\u6536\u53D6\uFF1A", -1)),
+                                    t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F ? ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                      a.Fragment,
+                                      { key: 0 },
+                                      [
+                                        (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)("span", ul, [
+                                          (0, a.createVNode)(
+                                            wt,
+                                            {
+                                              modelValue: t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u5E74,
+                                              "onUpdate:modelValue": (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u5E74 = e4,
+                                              modelModifiers: { number: true },
+                                              type: "number",
+                                              label: "\u5E74",
+                                              min: 1
+                                            },
+                                            null,
+                                            8,
+                                            ["modelValue", "onUpdate:modelValue"]
+                                          ),
+                                          m2[8] || (m2[8] = (0, a.createTextVNode)("\u5E74 ", -1)),
+                                          (0, a.createVNode)(
+                                            wt,
+                                            {
+                                              modelValue: t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u6708,
+                                              "onUpdate:modelValue": (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u6708 = e4,
+                                              modelModifiers: { number: true },
+                                              type: "number",
+                                              label: "\u6708",
+                                              min: 1,
+                                              max: 12
+                                            },
+                                            null,
+                                            8,
+                                            ["modelValue", "onUpdate:modelValue"]
+                                          ),
+                                          m2[9] || (m2[9] = (0, a.createTextVNode)("\u6708 ", -1)),
+                                          (0, a.createVNode)(
+                                            wt,
+                                            {
+                                              modelValue: t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65E5,
+                                              "onUpdate:modelValue": (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65E5 = e4,
+                                              modelModifiers: { number: true },
+                                              type: "number",
+                                              label: "\u65E5",
+                                              min: 1,
+                                              max: 30
+                                            },
+                                            null,
+                                            8,
+                                            ["modelValue", "onUpdate:modelValue"]
+                                          ),
+                                          m2[10] || (m2[10] = (0, a.createTextVNode)("\u65E5 ", -1)),
+                                          (0, a.withDirectives)(
+                                            (0, a.createElementVNode)(
+                                              "select",
+                                              {
+                                                "onUpdate:modelValue": (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65F6\u8FB0 = e4,
+                                                class: "xy-asset-select xy-asset-select-time"
+                                              },
+                                              [
+                                                ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                                  a.Fragment,
+                                                  null,
+                                                  (0, a.renderList)(
+                                                    c2,
+                                                    (e4) => (0, a.createElementVNode)("option", { key: e4, value: e4 }, (0, a.toDisplayString)(e4), 9, yl)
+                                                  ),
+                                                  64
+                                                ))
+                                              ],
+                                              8,
+                                              pl
+                                            ),
+                                            [[a.vModelSelect, t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F.\u65F6\u8FB0]]
+                                          ),
+                                          (0, a.createElementVNode)(
+                                            "button",
+                                            { type: "button", class: "xy-asset-date-clear", onClick: (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F = null },
+                                            " \u8BBE\u4E3A\u4ECE\u672A\u6536\u53D6 ",
+                                            8,
+                                            fl
+                                          )
+                                        ])) : ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                          "span",
+                                          ml,
+                                          (0, a.toDisplayString)((o3 = t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F, `\u4FEE\u4ED9\u5386${o3.\u5E74}\u5E74${o3.\u6708}\u6708${o3.\u65E5}\u65E5 \xB7 ${o3.\u65F6\u8FB0}`)),
+                                          1
+                                        ))
+                                      ],
+                                      64
+                                    )) : ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                      a.Fragment,
+                                      { key: 1 },
+                                      [
+                                        m2[11] || (m2[11] = (0, a.createElementVNode)("span", null, "\u4ECE\u672A\u6536\u53D6", -1)),
+                                        (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)(
+                                          "button",
+                                          {
+                                            key: 0,
+                                            type: "button",
+                                            class: "xy-asset-date-clear",
+                                            onClick: (e4) => t3.\u4E0A\u6B21\u6536\u53D6\u65E5\u671F = function() {
+                                              const e5 = n.data.\u65F6\u95F4;
+                                              return { \u5E74: e5.\u5E74, \u6708: e5.\u6708, \u65E5: e5.\u65E5, \u65F6\u8FB0: e5.\u65F6\u8FB0 };
+                                            }()
+                                          },
+                                          " \u586B\u5199\u65E5\u671F ",
+                                          8,
+                                          kl
+                                        )) : (0, a.createCommentVNode)("v-if", true)
+                                      ],
+                                      64
+                                    ))
+                                  ])
+                                ]);
+                                var o3;
+                              }),
+                              128
+                            )),
+                            (0, a.unref)(We).editMode ? ((0, a.openBlock)(), (0, a.createElementBlock)(
+                              "button",
+                              {
+                                key: 1,
+                                type: "button",
+                                class: "xy-effect-add",
+                                onClick: (n2) => {
+                                  var t3;
+                                  (t3 = e3.\u8BBE\u65BD)[i2(t3, "\u65B0\u8BBE\u65BD")] = { \u6548\u679C: {}, \u6BCF\u6708\u4EA7\u51FA: "\u65E0", \u4E0A\u6B21\u6536\u53D6\u65E5\u671F: null };
+                                }
+                              },
+                              " \uFF0B \u65B0\u589E\u8BBE\u65BD ",
+                              8,
+                              Vl
+                            )) : (0, a.createCommentVNode)("v-if", true),
+                            m2[14] || (m2[14] = (0, a.createElementVNode)("div", { class: "xy-asset-section-title" }, "\u5206\u914D\u4EBA\u7269", -1)),
+                            (0, a.createElementVNode)("div", vl, [
+                              (0, a.createVNode)(
+                                Tt,
+                                { modelValue: e3.\u5206\u914D\u4EBA\u7269, "onUpdate:modelValue": (n2) => e3.\u5206\u914D\u4EBA\u7269 = n2, label: "\u5206\u914D\u4EBA\u7269" },
+                                null,
+                                8,
+                                ["modelValue", "onUpdate:modelValue"]
+                              ),
+                              (0, a.unref)(We).editMode || 0 !== e3.\u5206\u914D\u4EBA\u7269.length ? (0, a.createCommentVNode)("v-if", true) : ((0, a.openBlock)(), (0, a.createElementBlock)("span", bl, "\u6682\u65E0"))
+                            ])
+                          ],
+                          512
+                        ),
+                        [[a.vShow, (0, a.unref)(We).editMode || (0, a.unref)(qe)("asset", String(d3))]]
+                      )
+                    ],
+                    10,
+                    jt
+                  );
+                  var u2;
+                }),
+                128
+              ))
+            ]))
+          ]));
         }
       });
       gl = ["title", "aria-label"];
@@ -17588,6 +15953,7 @@ ${Y2()}`,
       ay = { key: 0, class: "xy-pill xy-pill-soft" };
       oy = { key: 0, class: "xy-item-tags" };
       ry = { key: 1, class: "xy-item-desc" };
+      cy = { key: 2, class: "xy-effect-list" };
       iy = ["src"];
       sy = { class: "xy-confirm-msg" };
       dy = { class: "xy-confirm-actions" };
@@ -18748,7 +17114,7 @@ ${Y2()}`,
                                                       class: (0, a.normalizeClass)([
                                                         "xy-skill",
                                                         {
-                                                          open: (0, a.unref)(We).skillRecipeOpen[String(l3)],
+                                                          open: (0, a.unref)(We).skillRecipeOpen[String(l3)] && (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length,
                                                           "has-recipes": (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length
                                                         }
                                                       ])
@@ -18759,9 +17125,10 @@ ${Y2()}`,
                                                         {
                                                           type: "button",
                                                           class: "xy-skill-toggle",
-                                                          title: (0, a.unref)(We).skillRecipeOpen[String(l3)] ? "\u70B9\u51FB\u6536\u8D77 " + l3 : "\u70B9\u51FB\u5C55\u5F00 " + l3,
-                                                          "aria-expanded": Boolean((0, a.unref)(We).skillRecipeOpen[String(l3)]),
-                                                          onClick: (e4) => (0, a.unref)(Ln)(String(l3))
+                                                          title: (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length ? "\u70B9\u51FB\u5C55\u5F00 " + l3 + " \u914D\u65B9" : l3 + " \u6682\u65E0\u914D\u65B9",
+                                                          "aria-expanded": (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length ? Boolean((0, a.unref)(We).skillRecipeOpen[String(l3)]) : void 0,
+                                                          "aria-disabled": !(0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length,
+                                                          onClick: (e4) => (0, a.unref)(zn)((0, a.unref)(n).data.\u7269\u54C1, String(l3)).length && (0, a.unref)(Ln)(String(l3))
                                                         },
                                                         [
                                                           (0, a.createElementVNode)(
@@ -18794,7 +17161,7 @@ ${Y2()}`,
                                                         8,
                                                         Zp
                                                       ),
-                                                      (0, a.unref)(We).skillRecipeOpen[String(l3)] ? (0, a.createElementVNode)("span", Yp, [
+                                                      (0, a.createElementVNode)("span", Yp, [
                                                         (0, a.createVNode)(
                                                           wt,
                                                           {
@@ -18811,7 +17178,7 @@ ${Y2()}`,
                                                           8,
                                                           ["model-value", "label", "format", "onUpdate:modelValue"]
                                                         )
-                                                      ]) : (0, a.createCommentVNode)("v-if", true)
+                                                      ])
                                                     ],
                                                     2
                                                   ),
@@ -18902,23 +17269,11 @@ ${Y2()}`,
                                                                 ))
                                                               ])) : (0, a.createCommentVNode)("v-if", true),
                                                               e4.it.\u63CF\u8FF0 ? ((0, a.openBlock)(), (0, a.createElementBlock)("div", ry, (0, a.toDisplayString)(e4.it.\u63CF\u8FF0), 1)) : (0, a.createCommentVNode)("v-if", true),
-                                                              (0, a.unref)(r()).isEmpty(e4.it.\u6548\u679C) ? (0, a.createCommentVNode)("v-if", true) : a.h("div", { class: "xy-effect-fold" }, [
-                                                                a.h("button", { type: "button", class: ["xy-collapse-head xy-collapse-sub", { open: !!(0, a.unref)(We).recipeOpen[e4.name + "::\u6548\u679C"] }], onClick: (0, a.withModifiers)(() => (0, a.unref)(xyToggle)("recipeOpen", String(e4.name) + "::\u6548\u679C"), ["stop"]) }, [
-                                                                  a.h("span", { class: "xy-collapse-title" }, "\u6548\u679C"),
-                                                                  a.h("span", { class: "xy-collapse-count" }, (0, a.toDisplayString)(Object.keys(e4.it.\u6548\u679C || {}).length)),
-                                                                  a.h("span", { class: "xy-collapse-caret" }, (0, a.unref)(We).recipeOpen[e4.name + "::\u6548\u679C"] ? "\u25BE" : "\u25B8")
-                                                                ]),
-                                                                (0, a.withDirectives)(
-                                                                  a.h("div", { class: "xy-effect-rows" }, Object.entries(e4.it.\u6548\u679C || {}).map(
-                                                                    ([en2, ed2]) => a.h("div", { key: en2, class: "xy-effect-row xy-effect-row-flat" }, [
-                                                                      a.h("span", { class: "xy-effect-row-name" }, (0, a.toDisplayString)(en2)),
-                                                                      a.h("span", { class: "xy-effect-row-desc" }, (0, a.toDisplayString)(ed2))
-                                                                    ])
-                                                                  )),
-                                                                  [[a.vShow, !!(0, a.unref)(We).recipeOpen[e4.name + "::\u6548\u679C"]]]
-                                                                )
-                                                              ]),
-                                                              ,
+                                                              (0, a.unref)(r()).isEmpty(e4.it.\u6548\u679C) ? (0, a.createCommentVNode)("v-if", true) : ((0, a.openBlock)(), (0, a.createElementBlock)("div", cy, [
+                                                                (0, a.createVNode)(zt, { "model-value": e4.it.\u6548\u679C }, null, 8, [
+                                                                  "model-value"
+                                                                ])
+                                                              ]))
                                                             ]) : (0, a.createCommentVNode)("v-if", true)
                                                           ],
                                                           2
@@ -19171,9 +17526,9 @@ ${Y2()}`,
           return window.innerHeight >= window.innerWidth;
         }
         function xyMapApply() {
-          var el = document.querySelector(".xy-lightbox-map");
-          if (!el) return;
-          el.classList.toggle("xy-map-phone", window.innerWidth <= 700 && xyMapIsPortrait());
+          var el2 = document.querySelector(".xy-lightbox-map");
+          if (!el2) return;
+          el2.classList.toggle("xy-map-phone", window.innerWidth <= 700 && xyMapIsPortrait());
         }
         window.addEventListener("orientationchange", xyMapApply);
         window.addEventListener("resize", xyMapApply);
@@ -19181,17 +17536,44 @@ ${Y2()}`,
       })();
       (function() {
         if ("undefined" == typeof document || !document.addEventListener) return;
-        var SEL = ".xy-tabs, .xy-storage-tabs, .xy-rumor-filter, .xy-rel-chips, .xy-asset-chips, .xy-filter-drill";
-        document.addEventListener("wheel", function(ev) {
-          var t2 = ev.target;
-          if (!t2 || !t2.closest) return;
-          var el = t2.closest(SEL);
-          if (!el || el.scrollWidth <= el.clientWidth) return;
-          var dy2 = ev.deltaY;
-          if (!isFinite(dy2) || Math.abs(dy2) < 1) return;
+        var SEL = ".xy-tabs, .xy-storage-tabs, .xy-rumor-filter, .xy-rel-chips, .xy-asset-chips, .xy-filter-drill, .xy-art-grid, .xy-item-grid, .xy-unit-grid, .xy-recipe-list, .xy-assets-grid, .xy-skill-grid, .xy-npc-stage-grid, .xy-rumor-list, .xy-map-stage, .xy-scroll-area, .xy-page-arts, .xy-page-skills, .xy-page-storage, .xy-page-relations, .xy-page-rumor, .xy-page-map";
+        function horiz(el2) {
+          return el2 && el2.scrollWidth > el2.clientWidth + 1;
+        }
+        document.addEventListener(
+          "wheel",
+          function(ev) {
+            var t2 = ev.target;
+            if (!t2 || !t2.closest) return;
+            var el2 = t2.closest(SEL);
+            if (!el2) return;
+            var dx = ev.deltaX, dy2 = ev.deltaY;
+            if (!isFinite(dx)) dx = 0;
+            if (!isFinite(dy2)) dy2 = 0;
+            if (!horiz(el2)) return;
+            var isRow = el2.classList && /(tabs|filter|chips|drill|stab)/.test(el2.className);
+            var canScrollY = el2.scrollHeight > el2.clientHeight + 1;
+            if (!isRow && !ev.shiftKey && Math.abs(dy2) > Math.abs(dx) && canScrollY) return;
+            var amount = ev.shiftKey || Math.abs(dx) >= Math.abs(dy2) ? dx || dy2 : dy2;
+            if (!isFinite(amount) || Math.abs(amount) < 1) return;
+            ev.preventDefault();
+            el2.scrollLeft += amount;
+          },
+          { passive: false }
+        );
+      })();
+      (function() {
+        if ("undefined" == typeof document || !document.addEventListener) return;
+        document.addEventListener("click", function(ev) {
+          var head = ev.target && ev.target.closest ? ev.target.closest(".xy-facility-head") : null;
+          if (!head) return;
+          var fac = head.parentElement;
+          if (!fac || !fac.classList || !fac.classList.contains("xy-facility")) return;
+          if (ev.target.closest(".xy-editable, .xy-edit-pencil, input, textarea, button")) return;
           ev.preventDefault();
-          el.scrollLeft += dy2;
-        }, { passive: false });
+          ev.stopPropagation();
+          fac.classList.toggle("xy-facility-folded");
+        }, false);
       })();
     }
   });
@@ -19503,15 +17885,15 @@ ${Y2()}`,
             let curr = fieldErrors;
             let i2 = 0;
             while (i2 < issue.path.length) {
-              const el = issue.path[i2];
+              const el2 = issue.path[i2];
               const terminal = i2 === issue.path.length - 1;
               if (!terminal) {
-                curr[el] = curr[el] || { _errors: [] };
+                curr[el2] = curr[el2] || { _errors: [] };
               } else {
-                curr[el] = curr[el] || { _errors: [] };
-                curr[el]._errors.push(mapper(issue));
+                curr[el2] = curr[el2] || { _errors: [] };
+                curr[el2]._errors.push(mapper(issue));
               }
-              curr = curr[el];
+              curr = curr[el2];
               i2++;
             }
           }

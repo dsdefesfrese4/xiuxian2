@@ -236,8 +236,8 @@ body,html{margin:0;padding:0}
 .xy-npc-bg-head {
   display: none;
 }
-.xy-npc-head.xy-npc-bg-open,
-.xy-wild-head.xy-npc-bg-open {
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open,
+.xy-wild-unit.xy-npc-open .xy-wild-head.xy-npc-bg-open {
   position: relative;
   aspect-ratio: 1 / 1;
   min-height: 0;
@@ -245,8 +245,8 @@ body,html{margin:0;padding:0}
   padding: 0;
   gap: 0;
 }
-.xy-npc-head.xy-npc-bg-open .xy-npc-bg-head,
-.xy-wild-head.xy-npc-bg-open .xy-npc-bg-head {
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-npc-bg-head,
+.xy-wild-unit.xy-npc-open .xy-wild-head.xy-npc-bg-open .xy-npc-bg-head {
   display: block;
   position: absolute;
   inset: 0;
@@ -256,18 +256,18 @@ body,html{margin:0;padding:0}
   background: #000;
   z-index: 1;
 }
-.xy-npc-head.xy-npc-bg-open .xy-npc-info,
-.xy-npc-head.xy-npc-bg-open .xy-favor,
-.xy-npc-head.xy-npc-bg-open .xy-vis-eye,
-.xy-npc-head.xy-npc-bg-open .xy-character-refine,
-.xy-npc-head.xy-npc-bg-open .xy-trash,
-.xy-npc-head.xy-npc-bg-open .xy-npc-avatar-cam,
-.xy-wild-head.xy-npc-bg-open .xy-wild-meta,
-.xy-wild-head.xy-npc-bg-open .xy-wild-icon,
-.xy-wild-head.xy-npc-bg-open .xy-trash {
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-npc-info,
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-favor,
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-vis-eye,
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-character-refine,
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-trash,
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-npc-avatar-cam,
+.xy-wild-unit.xy-npc-open .xy-wild-head.xy-npc-bg-open .xy-wild-meta,
+.xy-wild-unit.xy-npc-open .xy-wild-head.xy-npc-bg-open .xy-wild-icon,
+.xy-wild-unit.xy-npc-open .xy-wild-head.xy-npc-bg-open .xy-trash {
   display: none !important;
 }
-.xy-npc-head.xy-npc-bg-open .xy-npc-avatar {
+.xy-npc.xy-npc-open .xy-npc-head.xy-npc-bg-open .xy-npc-avatar {
   position: absolute;
   top: 6px;
   left: 6px;
@@ -8671,75 +8671,126 @@ ${F2()}`, ordered_prompts: C2(`${A2}
             r2.el.style.display = show ? "" : "none";
           });
         }
+        var portraitOpen = {};
+        function readPortrait(name) {
+          try {
+            return localStorage.getItem("xy-npc-bg::" + name) || localStorage.getItem("xy-npc-lilihui::" + name) || localStorage.getItem("xy-lilihui:" + name) || "";
+          } catch (e) {
+            return "";
+          }
+        }
+        function writePortrait(name, dataUrl) {
+          try {
+            localStorage.setItem("xy-npc-bg::" + name, dataUrl);
+          } catch (e) {
+          }
+          try {
+            localStorage.setItem("xy-npc-lilihui::" + name, dataUrl);
+          } catch (e) {
+          }
+        }
+        function resizePortrait(file, cb) {
+          var reader = new FileReader();
+          reader.onload = function() {
+            var raw = String(reader.result);
+            var image = new Image();
+            image.onload = function() {
+              try {
+                var maxW = 1600;
+                var w2 = image.width;
+                var h3 = image.height;
+                if (w2 > maxW) {
+                  h3 = Math.round(h3 * maxW / w2);
+                  w2 = maxW;
+                }
+                var canvas = document.createElement("canvas");
+                canvas.width = w2;
+                canvas.height = h3;
+                canvas.getContext("2d").drawImage(image, 0, 0, w2, h3);
+                cb(canvas.toDataURL("image/jpeg", 0.9));
+              } catch (e) {
+                cb(raw);
+              }
+            };
+            image.onerror = function() {
+              cb(raw);
+            };
+            image.src = raw;
+          };
+          reader.readAsDataURL(file);
+        }
         function ensurePortraitToggle() {
           var page = $2(".xy-page-relations");
           if (!page) return;
-          var cards = $$(".xy-npc.xy-npc-open, .xy-wild-unit.xy-npc-open", page);
+          var cards = $$(".xy-npc, .xy-wild-unit", page);
           cards.forEach(function(card) {
             var head = $2(".xy-npc-head, .xy-wild-head", card);
+            if (!head) return;
+            if (!card.classList.contains("xy-npc-open")) {
+              head.classList.remove("xy-npc-bg-open");
+              return;
+            }
             var body = $2(".xy-npc-body, .xy-wild-body", card);
-            if (!head || !body) return;
+            if (!body) return;
             var nameEl = $2(".xy-npc-name, .xy-wild-name", card);
             var name = nameEl ? nameEl.textContent.trim() : "";
-            var key = "xy-npc-lilihui::" + name;
             var img = $2(".xy-npc-bg-head", head);
             if (!img) {
               img = document.createElement("img");
               img.className = "xy-npc-bg-head";
-              img.alt = "";
+              img.alt = "\u7ACB\u7ED8";
               img.draggable = false;
               head.insertBefore(img, head.firstChild);
             }
-            var stored = "";
-            try {
-              stored = localStorage.getItem(key) || localStorage.getItem("xy-lilihui:" + name) || "";
-            } catch (e) {
-            }
+            var stored = readPortrait(name);
             if (stored && img.getAttribute("src") !== stored) img.setAttribute("src", stored);
-            if (card.querySelector(".xy-lilihui")) return;
-            var bar = document.createElement("div");
-            bar.className = "xy-lilihui";
-            var toggle = document.createElement("button");
-            toggle.type = "button";
-            toggle.className = "xy-lilihui-toggle";
-            toggle.textContent = "\u5C55\u5F00\u7ACB\u7ED8";
-            var upload = document.createElement("button");
-            upload.type = "button";
-            upload.className = "xy-lilihui-upload";
-            upload.textContent = "\u4E0A\u4F20\u7ACB\u7ED8";
-            var file = document.createElement("input");
-            file.type = "file";
-            file.accept = "image/*";
-            file.style.display = "none";
-            bar.appendChild(toggle);
-            bar.appendChild(upload);
-            bar.appendChild(file);
-            body.insertBefore(bar, body.firstChild);
-            toggle.addEventListener("click", function(ev) {
-              ev.stopPropagation();
-              var open2 = head.classList.toggle("xy-npc-bg-open");
-              toggle.textContent = open2 ? "\u6536\u8D77\u7ACB\u7ED8" : "\u5C55\u5F00\u7ACB\u7ED8";
-            });
-            upload.addEventListener("click", function(ev) {
-              ev.stopPropagation();
-              file.click();
-            });
-            file.addEventListener("change", function() {
-              var f2 = file.files && file.files[0];
-              if (!f2) return;
-              var reader = new FileReader();
-              reader.onload = function() {
-                var dataUrl = String(reader.result);
-                try {
-                  localStorage.setItem(key, dataUrl);
-                } catch (e) {
-                }
-                img.setAttribute("src", dataUrl);
-                head.classList.add("xy-npc-bg-open");
-                toggle.textContent = "\u6536\u8D77\u7ACB\u7ED8";
-              };
-              reader.readAsDataURL(f2);
-            });
+            if (portraitOpen[name]) head.classList.add("xy-npc-bg-open");
+            else head.classList.remove("xy-npc-bg-open");
+            var bar = $2(".xy-lilihui", body);
+            if (!bar) {
+              bar = document.createElement("div");
+              bar.className = "xy-lilihui";
+              var toggle = document.createElement("button");
+              toggle.type = "button";
+              toggle.className = "xy-lilihui-toggle";
+              toggle.textContent = "\u5C55\u5F00\u7ACB\u7ED8";
+              var upload = document.createElement("button");
+              upload.type = "button";
+              upload.className = "xy-lilihui-upload";
+              upload.textContent = "\u4E0A\u4F20\u7ACB\u7ED8";
+              var file = document.createElement("input");
+              file.type = "file";
+              file.accept = "image/*";
+              file.style.display = "none";
+              bar.appendChild(toggle);
+              bar.appendChild(upload);
+              bar.appendChild(file);
+              body.insertBefore(bar, body.firstChild);
+              toggle.addEventListener("click", function(ev) {
+                ev.stopPropagation();
+                portraitOpen[name] = !portraitOpen[name];
+                var open2 = portraitOpen[name];
+                head.classList.toggle("xy-npc-bg-open", open2);
+                toggle.textContent = open2 ? "\u6536\u8D77\u7ACB\u7ED8" : "\u5C55\u5F00\u7ACB\u7ED8";
+              });
+              upload.addEventListener("click", function(ev) {
+                ev.stopPropagation();
+                file.click();
+              });
+              file.addEventListener("change", function() {
+                var f2 = file.files && file.files[0];
+                if (!f2) return;
+                resizePortrait(f2, function(dataUrl) {
+                  writePortrait(name, dataUrl);
+                  img.setAttribute("src", dataUrl);
+                  portraitOpen[name] = true;
+                  head.classList.add("xy-npc-bg-open");
+                  toggle.textContent = "\u6536\u8D77\u7ACB\u7ED8";
+                });
+              });
+            }
+            var tb = $2(".xy-lilihui-toggle", bar);
+            if (tb) tb.textContent = head.classList.contains("xy-npc-bg-open") ? "\u6536\u8D77\u7ACB\u7ED8" : "\u5C55\u5F00\u7ACB\u7ED8";
           });
         }
         function ensureRecipeFold() {

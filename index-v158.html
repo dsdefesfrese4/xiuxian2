@@ -8394,17 +8394,63 @@ ${F2()}`, ordered_prompts: C2(`${A2}
           },
           { passive: false }
         );
+        var ASSET_WORLDS = ["\u51E1\u754C", "\u7075\u754C", "\u51A5\u754C", "\u4ED9\u754C"];
         function assetKeyOf(card) {
-          var span = $2(".xy-asset-summary span", card);
-          var text = span ? span.textContent.trim() : "";
-          var parts = text.split("\xB7").map(function(s2) {
-            return s2.trim();
-          });
-          var world = parts[0] || "\u51E1\u754C";
-          var region = parts[1] || "";
-          return world === "\u51E1\u754C" ? region || "\u5176\u4ED6" : world;
+          var world = "";
+          var region = "";
+          var loc = $2(".xy-asset-location", card);
+          if (loc) {
+            var spans = $$("span", loc).map(function(s2) {
+              return s2.textContent.trim();
+            }).filter(Boolean);
+            if (spans.length >= 2) {
+              world = spans[0];
+              region = spans[1];
+            } else {
+              var lp = (loc.textContent || "").split("\xB7").map(function(s2) {
+                return s2.trim();
+              }).filter(Boolean);
+              world = lp[0] || "";
+              region = lp[1] || "";
+            }
+          }
+          if (!world) {
+            var sum = $2(".xy-asset-summary span", card);
+            var parts = (sum ? sum.textContent.trim() : "").split("\xB7").map(function(s2) {
+              return s2.trim();
+            }).filter(Boolean);
+            world = parts[0] || "";
+            region = parts[1] || "";
+          }
+          world = String(world || "").split("\xB7")[0].trim();
+          region = String(region || "").split("\xB7")[0].trim();
+          if (ASSET_WORLDS.indexOf(world) < 0 && ASSET_WORLDS.indexOf(region) >= 0) {
+            world = region;
+            region = "";
+          }
+          if (!world) return "\u5176\u4ED6";
+          if (world === "\u51E1\u754C") return region || "\u5176\u4ED6";
+          if (world === "\u7075\u754C") return region || "\u7075\u754C";
+          return world;
         }
-        var assetOrder = ["\u4E2D\u539F", "\u5357\u7586", "\u5317\u5883", "\u897F\u57DF", "\u4E1C\u571F", "\u7075\u754C", "\u4ED9\u754C", "\u5176\u4ED6"];
+        var assetOrder = [
+          "\u4E2D\u539F",
+          "\u4E1C\u571F",
+          "\u897F\u57DF",
+          "\u5317\u5883",
+          "\u5357\u7586",
+          "\u6CA7\u6E9F\u5927\u9646",
+          "\u5723\u94F6\u5927\u9646",
+          "\u661F\u5760\u5927\u9646",
+          "\u7075\u5883\u5927\u9646",
+          "\u592A\u521D\u5927\u9646",
+          "\u4E07\u517D\u5927\u9646",
+          "\u6B92\u843D\u5927\u9646",
+          "\u7075\u754C",
+          "\u51A5\u754C",
+          "\u4ED9\u754C",
+          "\u5176\u4ED6"
+        ];
         function ensureAssetChips() {
           var page = $2(".xy-page-assets");
           if (!page) return;
